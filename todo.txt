@@ -1,0 +1,17 @@
+
+
+* what bus to use?  VME or CompactPCI?
+* CompactPCI connectors are kind of expensive and hard to get.  DIN 41612 are easier to get, but still pricey outside of 96-pins
+* you could ues full CompactPCI, or CompactPCI on a DIN41612, or VME full cards (no), or VME on a 128 or 160-pin DIN41612, or VME but multiplexed on 96-pin
+
+* especially if you're using a custom pinout bus, it would be nice to have a serial protocol on there, like SMBus(I2C), or JTAG
+
+* you need transceivers anyways so multiplexing actually isn't that difficult.  It's mainly the issue with custom signaling, but you plan to use a CPLD
+
+* there is some question of the I/O space, which will be different anyways, so the drivers will have to use different addresses.  It would be nice if the RAM could more easily be
+  variable in size.  This would be ok if you reserved all of 0x00800000 to 0x00FFFFFF for onboard SRAM, and the lower area for I/O and flash, with everything above 0x01000000
+  being on the bus
+* where should the memory and I/O be mapped?  What if you had a bus that only used A24 space like VME allows? (ie. Z280 or something)
+* I could add headers for a 41612 connector along side the pin headers, with the idea of maybe using this card in a backplane for a single CPU/multi card computer
+  and the bus arbitration stuff can be on the backplane.  The big question is at what point would I need drivers on the bus lines
+
