@@ -1,0 +1,70 @@
+
+
+Logic for Bus Arbitrator
+------------------------
+
+if br[x] is active
+    if bbusy is not active
+        bg[x] and bbusy go active
+    else if bg[y > x] is active
+        bclr goes active
+        if br[y > x] is not active
+            bg[y > x] goes not active
+            bg[x] and bbusy go active
+    // else wait until the bus is not busy with a higher priority request
+
+
+Logic for Interrupt Controller
+------------------------------
+
+
+
+
+Logic for a Bus Controller
+--------------------------
+
+if cpu's AS is active and the address decodes to an external bus address
+    - (process) go through bus arbitration if necessary
+    if external bus is clear
+        // how do you determine what type of cycle to use? SIZ[1:0] is available
+        - assert bus AS, DS[1:0], LWORD, A[1:0] according to modified type
+        - put address modifier on the bus
+        - configure the address and data transceivers accordingly
+        wait until bus dtack is asserted
+            - assert local dsack[1:0] accordingly
+            wait until local AS is inactive
+                - deassert local dsack
+                - deassert bus AS, etc
+
+
+CPU_ADDR_EXTERNAL <- true if the address requires the external bus
+
+if CPU_AS && CPU_ADDR_EXTERNAL && !BG {
+    BR = ACTIVE;
+}
+
+if CPU_AS && CPU_ADDR_EXTERNAL && BG {
+    VME_AS = ACTIVE;
+
+}
+
+
+Controller Buffer Truth Table
+-----------------------------
+
+CB_DH_OE
+CB_DH_DIR
+CB_DL_OE
+CB_DL_DIR
+CB_AH_OE
+CB_AH_DIR
+CB_AL_OE
+CB_AL_DIR
+
+DH_X_DL_OE
+DH_X_DL_DIR
+DH_X_AL_OE
+DH_X_AL_DIR
+AH_X_DL_OE
+AH_X_DL_DIR
+

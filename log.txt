@@ -64,15 +64,104 @@
     - Tinkers
     - GloOS (glo-worm)
     - PotatOS (Mr Potato Head)
-    - Gloworm <---
+    - Gloworm <--- chosen
 - What should I name the multiboard computer:
+    Thinking about "Industrial Computer", "VME", "VersaModule Eurocard", "Laboratory Computer", "Modular Computer",
+    "Modular Test Bench", "Laboratory Test Equipment", "Industrial Automation", "Retro Industrial", "Hobbyist"
+
     - Indie
+    - Indiverse
+    - VooMiE
+    - Vroomie
+    - Ivie
+    - Ivy
     - Vindie (VME)
+    - Versie
+    - Versus
+    - Inverse
+    - Vertibie (vertebrete)
+    - Vervie
     - Labbie (labratory computer)
-    - ComputiePCI/computie-pci, ComputieVME/computie-vme,
+    - Modulo
+    - ComputieVME/computie-vme
     - Industrie (because it's an industrial computer)
     - Industro
     - Controllie, Compo...
     - Laboratory, Laboratorie
+
+   Not going with PCI
+    - ComputiePCI/computie-pci
     - Pieces (PCI), Pooki (PCI)
+
+  - Parts:
+    IVA for bus arbitrator/interrupt controller
+    IVB for backplane
+    IVC for CPU
+    IVD for device (or IVP for peripheral)
+
+2023-08-09:
+- I got the connectors I ordered
+- boy are those 5 row DIN 41612s chonky boys
+- the press fit pins on the TE/Amp sockets look the same as the ones on the Hirose, which only said through-hole and not solder or
+  press fit.  Either way, they look like they could be soldered
+- the 4-row TE/Amp socket one that was specifically for soldering have very shaped pins that would give a much stronger connection
+  I'd think but they're $31 (the Hirose was $29, but the pressfit TE was only $16 each)
+- the TE/Amp 4-row headers look nicer, with a plastic protective shield around the pins, and cost $22 instead of $25 for the Hirose
+
+- the 4-row headers can connect to the 3 row sockets without an issue, but not the other way around, unless you cut the plastic
+  shroud, so a fancier card could plug into a slower 3-row socket, but a slow 3-row card would need a dedicated 3-row socket to
+  work
+- the VME64x connectors can fit 3-row and 5-row but cost $52 and $39 for the connectors
+- it might be easy to make the backplane fit 3-row, 4-row, or 5-row sockets, in which case the 4-row socket would plug into the
+  right most 4 rows of holes, and the 3-row would plug into the middle 3 rows of holes.  I could maybe make that clearish on the
+  silkscreen
+
+2023-08-12:
+- So I'm pretty sure Mouser's website has the wrong information on the TE connectors.  It says that 216415 has solder termination,
+  but it looks like what press fit should be.  The drawings show that the holes should be 1.15mm which the largest part of the pin-
+  is about 1.20mm, so it would be a rather tight fit.  Infuriatingly, the TE website doesn't actually say if those connectors are
+  press-fit or solderable!!!  It's missing so much information
+- looking up the same part number of digikey lists it as being press-fit, and the other one, 254977-E is listed as solderable.  It's
+  the one with thin flat pins.  So they're backwards between digikey and mouser, and I think digikey is correct.  They're also
+  cheaper at digikey
+
+2023-08-20:
+- I need to figure out how the bytes are transferred on the bus relative to what the 68030 expects (and other CPUs), to see if you'll
+  need to move bytes around using transceivers =/  That might be needed for 16-bit and 8-bit data reads, because the 68030 expects
+  them to use the upper part of the data bus, but the VME specs seems to say they'll be on the lower 16-bits (makes sense)
+- but yeah, I might need some complex transceiver stuff, hopefully not too much or that there's something that will do it in one
+  package.  I can't bring all the I/O pins in and out of a CPLD
+
+2023-08-24:
+- I'm trying to think through the various transactions.  Firstly, it's important to remind myself that when the cpu receives a DSACK
+  that signals it's a 32-bit port, it will always read the data bus as if it was 32-bits wide, which means not as much moving around
+  is needed.
+- the possible transactions are:
+    D08(Odd)
+    D08(Even)
+    D16
+    D32
+    MD32 (multiplexed on 3U/P1)
+    MBLT (64-bit multiplexed on address lines)
+    (also unaligned reads)
+
+- D32 cycles are handled correctly with direct bus connections
+- D16 cycles are fine for byte 2 and 3, but reading/writing bytes 0 and 1 won't work without transfering them to the upper bus, either
+  to make them be on the upper bus where they're expected for a 32-bit memory port access, or to put on the upper bus and return as
+  if a 16-bit port access
+- D08 O/E will also be correct as the D16 cycle, so they need that extra cross-bus transceiver
+
+- MD32 requires a transceiver between the upper CPU data bus to the lower BUS address lines, and the upper CPU address bus to the
+  lower BUS data lines
+- MBLT is not really supported for 32-bit CPUs so I don't need to cover it
+
+- I think I'll need the usual 4x16 transceivers for the address and data buses, plus 1x16 transceiver to support D16/D08E/D08O, and a
+  final 2x16 to support MD32 accesses for a total of 7
+
+2023-08-27:
+- I was looking at https://www.retrobrewcomputers.org/doku.php?id=boards:sbc:mpu302 and just happened to look up DS12365, which is a
+  MicroManager Chip.  The datasheet says it halts and restarts an out of control cpu, and resets the cpu during power transients.  That
+  particular chip probably wouldn't do much useful for this project, but it got me thinking about a monitor circuit, possibly even an
+  optional microcontroller that can operate across a wide range of voltages that could monitor and reset the CPU, and if it halts, then
+  reset it.  This would be useful for things like the 68k test runner where a successful tests results in a reset.
 

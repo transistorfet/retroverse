@@ -1,17 +1,40 @@
 
+* in order to prevent transceivers from driving the same outputs, you'd need a dual 2-4 decoder, some invertors, and maybe an or/and gate for taking into account direction
 
-* what bus to use?  VME or CompactPCI?
-* CompactPCI connectors are kind of expensive and hard to get.  DIN 41612 are easier to get, but still pricey outside of 96-pins
-* you could ues full CompactPCI, or CompactPCI on a DIN41612, or VME full cards (no), or VME on a 128 or 160-pin DIN41612, or VME but multiplexed on 96-pin
+* make a mode that you can at least manually select, where an external device can write data to the local bus with the cpu suspended, either using the A24/D16 cycle or the A32/D32
+  cycle.  The A40/MD32 cycle is not possible without additional latches for the address, unless... you can use a transparent bidirectional latch, there is 74ABT16646 but it's in a
+  56-pin package, and requires a clock, which makes it less of a drop in replacement
 
-* especially if you're using a custom pinout bus, it would be nice to have a serial protocol on there, like SMBus(I2C), or JTAG
+* do you have to transfer data between parts of the data bus to interface the 68030 with the VME bus, in light of the fact that the upper most 8 bits is used to transfer 8 bit data?
 
-* you need transceivers anyways so multiplexing actually isn't that difficult.  It's mainly the issue with custom signaling, but you plan to use a CPLD
+* I need to figure out all the logic for the bus artibtrator, and for the CPU card.  I should have it mostly done early on so I know what signals will be needed
+
+* should you use active or passive terminating resistors?  I saw somewhere that a backplane with passives draws 1.5A which is a lot, even though this will have its own power supply
+* make an 8 socket backplane to start, 123mm by 178mm or something, which is not too expensive or big
+* for the daisy chain lines, it would be nice to have a switch to bypass a socket, but there are 5 signals.  You can put a hex non-inverting 3 state buffers across each socket and
+  have a single switch for each socket, preferrably a rocking dip switch that can be set with a screwdriver or pencil by reaching in the back.  That would add $1 a socket for the
+  hex invertor, and >$2 for the a dual rocker-type dip switch (singles are $10 at digikey).  Single slide switches are $0.50 or so
+* the nice thing is that you can put it on the board design, but not populate them, and it'll still work.  You just won't be able to skip slots.
+* need to sort out power connector for the backplane, and power requirements
+* you also need a bus arbitrator and interrupt controller, which I think I could make as a separate card that fits into a normal slot (but always slot 0).  It definitely shouldn't
+  go on the CPU card.  I might need an ATF1508 or something to act as interrupt controller, so maybe I should make it a separate card so I can upgrade it.  It only needs a 3-row connector.
+* make the footprints for the DIN sockets on the backplane have 5 rows, such that the middle 3 rows would be populated for standard 3U operation, the right most 4 rows would be
+  for my extended version, where the signals from the P2 socket are on the right most row, or you could use all 5-rows with the VM64x connectors, where the reserved right most
+  row would still be my extended non-standard version, but the right row of ground signals could be added, and the sockets could take either a 3 row or VME64x card instead of
+  requiring a different physical socket the way the 4-row connectors need =/
+
+* make sure to use hardcoded logic to prevent transceivers from writing into eachother because that can easily fry bits
+
+
+* VME bus
+* serial bus would be useful
 
 * there is some question of the I/O space, which will be different anyways, so the drivers will have to use different addresses.  It would be nice if the RAM could more easily be
   variable in size.  This would be ok if you reserved all of 0x00800000 to 0x00FFFFFF for onboard SRAM, and the lower area for I/O and flash, with everything above 0x01000000
-  being on the bus
+  being on the bus.  (actually I think the upper part of memory is the A16 and A24 address spaces, as part of the VME standard)
 * where should the memory and I/O be mapped?  What if you had a bus that only used A24 space like VME allows? (ie. Z280 or something)
-* I could add headers for a 41612 connector along side the pin headers, with the idea of maybe using this card in a backplane for a single CPU/multi card computer
-  and the bus arbitration stuff can be on the backplane.  The big question is at what point would I need drivers on the bus lines
+
+
+* could add a microcontroller that monitors power and halt and resets the CPU after a period if it's locked up, and possibly other functions.  It might not be easy to make it accessible
+  to the CPU on the controller card, but it could possibly be hooked up to the serial bus and communicate with other peripherals
 

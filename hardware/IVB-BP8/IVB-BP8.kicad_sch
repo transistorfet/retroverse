@@ -1,0 +1,53 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 67635a31-31cc-46a4-a28e-76873639003e)
+
+  (paper "A4")
+
+  (title_block
+    (title "IVB-BP8")
+    (rev "1")
+  )
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 242.57 43.18) (size 12.7 10.16) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 7d99e998-07c2-4d1f-988a-63c6f62ee200)
+    (property "Sheetname" "Termination" (at 242.57 42.4684 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "Termination.kicad_sch" (at 242.57 53.9246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "IVB-BP8"
+        (path "/67635a31-31cc-46a4-a28e-76873639003e" (page "3"))
+      )
+    )
+  )
+
+  (sheet (at 242.57 22.86) (size 12.7 10.16) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 9118d57a-346c-4478-aca3-a3e1186775e8)
+    (property "Sheetname" "Socket" (at 242.57 22.1484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "Socket.kicad_sch" (at 242.57 33.6046 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "IVB-BP8"
+        (path "/67635a31-31cc-46a4-a28e-76873639003e" (page "2"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
