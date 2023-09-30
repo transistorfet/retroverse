@@ -1,4 +1,6 @@
 
+* make a breakout board, which you can design now and use with the components on order, to connect a logic analyzer
+
 * in order to prevent transceivers from driving the same outputs, you'd need a dual 2-4 decoder, some invertors, and maybe an or/and gate for taking into account direction
 
 * make a mode that you can at least manually select, where an external device can write data to the local bus with the cpu suspended, either using the A24/D16 cycle or the A32/D32

@@ -3013,7 +3013,7 @@
   (symbol (lib_id "power:+5V") (at 134.62 24.13 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9c81)
-    (property "Reference" "#PWR021" (at 134.62 27.94 0)
+    (property "Reference" "#PWR023" (at 134.62 27.94 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 135.001 19.7358 0)
@@ -3029,7 +3029,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR021") (unit 1)
+          (reference "#PWR023") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3043,7 +3043,7 @@
   (symbol (lib_id "power:GND") (at 127 97.79 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9c87)
-    (property "Reference" "#PWR020" (at 127 104.14 0)
+    (property "Reference" "#PWR022" (at 127 104.14 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 127.127 102.1842 0)
@@ -3059,7 +3059,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR020") (unit 1)
+          (reference "#PWR022") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3104,7 +3104,7 @@
   (symbol (lib_id "Device:C_Small") (at 91.44 29.21 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9cc4)
-    (property "Reference" "C2" (at 91.44 23.3934 90)
+    (property "Reference" "C4" (at 91.44 23.3934 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "15pF" (at 91.44 25.7048 90)
@@ -3121,7 +3121,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "C2") (unit 1)
+          (reference "C4") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3135,7 +3135,7 @@
   (symbol (lib_id "Device:C_Small") (at 91.44 36.83 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9cca)
-    (property "Reference" "C3" (at 91.44 31.0134 90)
+    (property "Reference" "C5" (at 91.44 31.0134 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "5pF" (at 91.44 33.3248 90)
@@ -3152,7 +3152,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "C3") (unit 1)
+          (reference "C5") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3166,7 +3166,7 @@
   (symbol (lib_id "power:GND") (at 86.36 33.02 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9cd0)
-    (property "Reference" "#PWR016" (at 80.01 33.02 0)
+    (property "Reference" "#PWR018" (at 80.01 33.02 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 81.9658 33.147 0)
@@ -3182,7 +3182,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR016") (unit 1)
+          (reference "#PWR018") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3196,7 +3196,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Male") (at 229.87 31.75 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9ce3)
-    (property "Reference" "J2" (at 230.5812 32.4104 0)
+    (property "Reference" "J3" (at 230.5812 32.4104 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "Serial1" (at 230.5812 34.7218 0)
@@ -3217,7 +3217,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "J2") (unit 1)
+          (reference "J3") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3231,7 +3231,7 @@
   (symbol (lib_id "power:GND") (at 222.25 67.31 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9ce9)
-    (property "Reference" "#PWR031" (at 222.25 73.66 0)
+    (property "Reference" "#PWR033" (at 222.25 73.66 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 222.377 71.7042 0)
@@ -3247,7 +3247,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR031") (unit 1)
+          (reference "#PWR033") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3261,7 +3261,7 @@
   (symbol (lib_id "power:GND") (at 222.25 39.37 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9cef)
-    (property "Reference" "#PWR030" (at 222.25 45.72 0)
+    (property "Reference" "#PWR032" (at 222.25 45.72 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 222.377 43.7642 0)
@@ -3277,7 +3277,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR030") (unit 1)
+          (reference "#PWR032") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3291,7 +3291,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Female") (at 229.87 59.69 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9cf8)
-    (property "Reference" "J3" (at 230.5812 60.2996 0)
+    (property "Reference" "J4" (at 230.5812 60.2996 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "Serial2" (at 230.5812 62.611 0)
@@ -3312,7 +3312,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "J3") (unit 1)
+          (reference "J4") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3326,7 +3326,7 @@
   (symbol (lib_id "Device:R_Small") (at 176.53 59.69 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d0a)
-    (property "Reference" "R7" (at 176.53 57.15 90)
+    (property "Reference" "R6" (at 176.53 57.15 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1k" (at 176.53 59.69 90)
@@ -3343,7 +3343,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "R7") (unit 1)
+          (reference "R6") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3357,7 +3357,7 @@
   (symbol (lib_id "Device:R_Small") (at 176.53 64.77 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d10)
-    (property "Reference" "R8" (at 176.53 62.23 90)
+    (property "Reference" "R7" (at 176.53 62.23 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1k" (at 176.53 64.77 90)
@@ -3374,7 +3374,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "R8") (unit 1)
+          (reference "R7") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3388,7 +3388,7 @@
   (symbol (lib_id "Device:R_Small") (at 182.88 57.15 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d16)
-    (property "Reference" "R10" (at 182.88 54.61 90)
+    (property "Reference" "R9" (at 182.88 54.61 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1k" (at 182.88 57.15 90)
@@ -3405,7 +3405,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "R10") (unit 1)
+          (reference "R9") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3419,7 +3419,7 @@
   (symbol (lib_id "Device:R_Small") (at 182.88 62.23 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d1c)
-    (property "Reference" "R11" (at 182.88 59.69 90)
+    (property "Reference" "R10" (at 182.88 59.69 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1k" (at 182.88 62.23 90)
@@ -3436,7 +3436,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "R11") (unit 1)
+          (reference "R10") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3450,7 +3450,7 @@
   (symbol (lib_id "power:+5V") (at 189.23 55.88 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d22)
-    (property "Reference" "#PWR026" (at 189.23 59.69 0)
+    (property "Reference" "#PWR028" (at 189.23 59.69 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 189.611 51.4858 0)
@@ -3466,7 +3466,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR026") (unit 1)
+          (reference "#PWR028") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3480,7 +3480,7 @@
   (symbol (lib_id "Switch:SW_Push") (at 189.23 85.09 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d43)
-    (property "Reference" "SW3" (at 189.23 80.1878 0)
+    (property "Reference" "SW2" (at 189.23 80.1878 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "IP2" (at 189.23 80.1624 0)
@@ -3497,7 +3497,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "SW3") (unit 1)
+          (reference "SW2") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3511,7 +3511,7 @@
   (symbol (lib_id "power:+5V") (at 198.12 83.82 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d49)
-    (property "Reference" "#PWR027" (at 198.12 87.63 0)
+    (property "Reference" "#PWR029" (at 198.12 87.63 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 198.501 79.4258 0)
@@ -3527,7 +3527,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR027") (unit 1)
+          (reference "#PWR029") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3541,7 +3541,7 @@
   (symbol (lib_id "Device:R_Small") (at 181.61 97.79 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d4f)
-    (property "Reference" "R9" (at 184.15 97.79 90)
+    (property "Reference" "R8" (at 184.15 97.79 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10k" (at 179.07 97.79 90)
@@ -3558,7 +3558,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "R9") (unit 1)
+          (reference "R8") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3572,7 +3572,7 @@
   (symbol (lib_id "Device:R_Small") (at 173.99 97.79 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d55)
-    (property "Reference" "R6" (at 176.53 97.79 90)
+    (property "Reference" "R5" (at 176.53 97.79 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10k" (at 171.45 97.79 90)
@@ -3589,7 +3589,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "R6") (unit 1)
+          (reference "R5") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3603,7 +3603,7 @@
   (symbol (lib_id "power:GND") (at 177.8 101.6 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d5b)
-    (property "Reference" "#PWR025" (at 177.8 107.95 0)
+    (property "Reference" "#PWR027" (at 177.8 107.95 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 177.927 105.9942 0)
@@ -3619,7 +3619,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR025") (unit 1)
+          (reference "#PWR027") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3633,7 +3633,7 @@
   (symbol (lib_id "Switch:SW_Push") (at 189.23 92.71 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d6b)
-    (property "Reference" "SW4" (at 189.23 87.8078 0)
+    (property "Reference" "SW3" (at 189.23 87.8078 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "IP3" (at 189.23 87.7824 0)
@@ -3650,7 +3650,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "SW4") (unit 1)
+          (reference "SW3") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3664,7 +3664,7 @@
   (symbol (lib_id "Jumper:Jumper_2_Open") (at 214.63 22.86 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d78)
-    (property "Reference" "JP4" (at 214.63 16.1544 0)
+    (property "Reference" "JP3" (at 214.63 16.1544 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "POWER" (at 214.63 18.4658 0)
@@ -3681,7 +3681,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "JP4") (unit 1)
+          (reference "JP3") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3695,7 +3695,7 @@
   (symbol (lib_id "power:+5V") (at 207.01 21.59 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d7e)
-    (property "Reference" "#PWR028" (at 207.01 25.4 0)
+    (property "Reference" "#PWR030" (at 207.01 25.4 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 207.391 17.1958 0)
@@ -3711,7 +3711,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR028") (unit 1)
+          (reference "#PWR030") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3725,7 +3725,7 @@
   (symbol (lib_id "Jumper:Jumper_2_Open") (at 214.63 50.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d86)
-    (property "Reference" "JP5" (at 214.63 44.0944 0)
+    (property "Reference" "JP4" (at 214.63 44.0944 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "POWER" (at 214.63 46.4058 0)
@@ -3742,7 +3742,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "JP5") (unit 1)
+          (reference "JP4") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3756,7 +3756,7 @@
   (symbol (lib_id "power:+5V") (at 207.01 49.53 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9d8c)
-    (property "Reference" "#PWR029" (at 207.01 53.34 0)
+    (property "Reference" "#PWR031" (at 207.01 53.34 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 207.391 45.1358 0)
@@ -3772,7 +3772,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR029") (unit 1)
+          (reference "#PWR031") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3910,7 +3910,7 @@
   (symbol (lib_id "Computie_68k:MC68681-PLCC") (at 127 62.23 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9dae)
-    (property "Reference" "U13" (at 127 19.5326 0)
+    (property "Reference" "U9" (at 127 19.5326 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "MC68681" (at 127 21.844 0)
@@ -3965,7 +3965,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "U13") (unit 1)
+          (reference "U9") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -3979,7 +3979,7 @@
   (symbol (lib_id "Jumper:Jumper_2_Open") (at 58.42 90.17 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9ddb)
-    (property "Reference" "JP3" (at 58.42 83.4644 0)
+    (property "Reference" "JP2" (at 58.42 83.4644 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "~{IACK}" (at 58.42 85.7758 0)
@@ -3996,7 +3996,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "JP3") (unit 1)
+          (reference "JP2") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4010,7 +4010,7 @@
   (symbol (lib_id "Jumper:Jumper_2_Open") (at 58.42 80.01 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000613d9de1)
-    (property "Reference" "JP2" (at 58.42 73.3044 0)
+    (property "Reference" "JP1" (at 58.42 73.3044 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "IRQ" (at 58.42 75.6158 0)
@@ -4027,7 +4027,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "JP2") (unit 1)
+          (reference "JP1") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4041,7 +4041,7 @@
   (symbol (lib_id "power:+5V") (at 115.57 156.21 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000614faf89)
-    (property "Reference" "#PWR019" (at 115.57 160.02 0)
+    (property "Reference" "#PWR021" (at 115.57 160.02 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 115.951 151.8158 0)
@@ -4057,7 +4057,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR019") (unit 1)
+          (reference "#PWR021") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4071,7 +4071,7 @@
   (symbol (lib_id "power:GND") (at 110.49 162.56 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000614faf8f)
-    (property "Reference" "#PWR018" (at 110.49 168.91 0)
+    (property "Reference" "#PWR020" (at 110.49 168.91 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 110.617 166.9542 0)
@@ -4087,7 +4087,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR018") (unit 1)
+          (reference "#PWR020") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4101,7 +4101,7 @@
   (symbol (lib_id "Connector_Generic:Conn_02x25_Top_Bottom") (at 125.73 156.21 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000614fafb4)
-    (property "Reference" "J1" (at 127 120.2182 0)
+    (property "Reference" "J2" (at 127 120.2182 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "CompactFlash" (at 127 122.5296 0)
@@ -4166,7 +4166,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "J1") (unit 1)
+          (reference "J2") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4180,7 +4180,7 @@
   (symbol (lib_id "power:+5V") (at 157.48 151.13 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000614fafde)
-    (property "Reference" "#PWR024" (at 157.48 154.94 0)
+    (property "Reference" "#PWR026" (at 157.48 154.94 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 157.861 146.7358 0)
@@ -4196,7 +4196,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR024") (unit 1)
+          (reference "#PWR026") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4210,7 +4210,7 @@
   (symbol (lib_id "power:GND") (at 109.22 119.38 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000614fafe5)
-    (property "Reference" "#PWR017" (at 109.22 125.73 0)
+    (property "Reference" "#PWR019" (at 109.22 125.73 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 109.347 123.7742 0)
@@ -4226,7 +4226,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR017") (unit 1)
+          (reference "#PWR019") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4240,7 +4240,7 @@
   (symbol (lib_id "power:GND") (at 152.4 158.75 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000614fafee)
-    (property "Reference" "#PWR022" (at 152.4 165.1 0)
+    (property "Reference" "#PWR025" (at 152.4 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 152.527 163.1442 0)
@@ -4256,7 +4256,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR022") (unit 1)
+          (reference "#PWR025") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4270,7 +4270,7 @@
   (symbol (lib_id "power:GND") (at 140.97 186.69 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000614fb011)
-    (property "Reference" "#PWR023" (at 140.97 193.04 0)
+    (property "Reference" "#PWR024" (at 140.97 193.04 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 141.097 191.0842 0)
@@ -4286,7 +4286,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "#PWR023") (unit 1)
+          (reference "#PWR024") (unit 1)
         )
       )
       (project "k30-SBC"
@@ -4360,7 +4360,7 @@
   (symbol (lib_id "74xx:74LS32") (at 63.5 139.7 0) (unit 3)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000625f92bb)
-    (property "Reference" "U7" (at 63.5 131.445 0)
+    (property "Reference" "U8" (at 63.5 131.445 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "74HC32" (at 63.5 133.7564 0)
@@ -4389,7 +4389,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "U7") (unit 3)
+          (reference "U8") (unit 3)
         )
       )
       (project "k30-SBC"
@@ -4403,7 +4403,7 @@
   (symbol (lib_id "74xx:74LS32") (at 63.5 153.67 0) (unit 4)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-000062603c2a)
-    (property "Reference" "U7" (at 63.5 145.415 0)
+    (property "Reference" "U8" (at 63.5 145.415 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "74HC32" (at 63.5 147.7264 0)
@@ -4432,7 +4432,7 @@
     (instances
       (project "IVC-k30"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/5c47093b-eb75-493e-afbc-7308277aad23"
-          (reference "U7") (unit 4)
+          (reference "U8") (unit 4)
         )
       )
       (project "k30-SBC"
