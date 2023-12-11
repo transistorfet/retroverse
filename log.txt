@@ -57,7 +57,7 @@
   ATF1508 CPLDs, or FPGAs, or ARM microcontrollers, and really simple peripherals would only be 16/24-bit
 
 2023-08-01:
-- What should I named the OS:
+- What should I name the OS:
     ComputOS, ComputieOS, ... ?
     - uwunix
     - Hobbes
@@ -159,9 +159,90 @@
   final 2x16 to support MD32 accesses for a total of 7
 
 2023-08-27:
-- I was looking at https://www.retrobrewcomputers.org/doku.php?id=boards:sbc:mpu302 and just happened to look up DS12365, which is a
-  MicroManager Chip.  The datasheet says it halts and restarts an out of control cpu, and resets the cpu during power transients.  That
-  particular chip probably wouldn't do much useful for this project, but it got me thinking about a monitor circuit, possibly even an
-  optional microcontroller that can operate across a wide range of voltages that could monitor and reset the CPU, and if it halts, then
-  reset it.  This would be useful for things like the 68k test runner where a successful tests results in a reset.
+- I was looking at https://www.retrobrewcomputers.org/doku.php?id=boards:sbc:mpu302 and just happened to look up DS12365, which is
+  a MicroManager Chip.  The datasheet says it halts and restarts an out of control cpu, and resets the cpu during power
+  transients.  That particular chip probably wouldn't do much useful for this project, but it got me thinking about a monitor
+  circuit, possibly even an optional microcontroller that can operate across a wide range of voltages that could monitor and reset
+  the CPU, and if it halts, then reset it.  This would be useful for things like the 68k test runner where a successful tests
+  results in a reset.
 
+2023-12-10:
+- It's been a while since I've updated.  Work has been stupid busy, and its been similar to this project, so I slowed down and
+  then stopped entirely.  Now it's almost my Christmas break and I decided to start a new avenue towards this project, by making a
+  ARM microcontroller-based board that can interface to VME.
+- before I stopped this project entirely in October/November (so in September and early Oct), I started a bunch of different
+  versions of cards: I started a sytem card to act as the bus arbitrator with mostly just a CPLD (very prelim), a backplane, a
+  breakout card that just has signals that can be hooked up to a logic analyzer
+- and then I also started a 68k card with the idea of making it use only DIP chips, but I had trouble fitting them all in a single
+  3U card, which is a bit of a problem.  I'd either need to cut features, reduce the logic a lot by using PALs (which kind of
+  defeats the accessibility of the project, or use the PLCC versions of some chips for space reasons, which is probably the lesser
+  compromise because the point is for others, who might not have all the tools I have, still build a working a card/system.
+  Only using through hole (not SMT) and not requiring a special programmer for PALs seem like the most important constraints, so
+  through hole PLCC sockets can still work, but if the CPU is not the big DIP, it's harder for people to find them.  It's already
+  become pretty difficult to find vintage 6502s now, and the 68000 and 608010 PLCCs are more rare than the DIP64s
+- that said I could also use a different CPU that's still available new, like a 6809 or something
+- a quick look shows that only Z80s are available from digikey new and in stock in through hole packages unfortunately.  There is
+  an 8088 from Renesas for $82 (yikes), and some 80C186/88s and some MC68302 coldfires from NXP, but only in SMT components
+
+
+- THAT BRINGS ME TO: the current subproject, IVC-STH7
+- fidget didn't work out as well as I had hoped.  I did get it sort of working eventually, but the transceivers got fried because they
+  wrote into each others because of a logic mistake I made early on.  The chips were scortching at one point, and then they seemed
+  stuck on certain values (or my bus interface logic was broken beyond what I've been able to fix).  I've taken some of the chips
+  off and was going to see if the data transceivers are also broken and need replacing, but I just haven't gotten to it, and am
+  tired of fighting verilog right now
+- so I thought I might as well try the idea of a microcontroller to interface to the bus like how the arduino used to, even if
+  it's only a stop gap card, and it would be great if I didn't need the transceivers, so is there a 5V chip available that can do
+  what I need:
+    - ATSAMC21N (100 pin)
+    - Renesas RA4M1 (used on Uno R4)
+    - NXP Kinetis E-Series, KE1xF
+    - NXP S32K-Series
+    - Toshiba has some newish Cortex M3s (despite being an old cord)
+    - PowerPC-based e200z7 cores from NXP and others have hundreds of I/Os that are supposedly 5V
+
+- it turns out, at work we used the ATSAMC21N for some early boards, and then switched to the S32K3 because it can more easily be
+  safety certified when that's needed.  I ported the atsamd rust crate to the ATSAMC21N at work, and then when the chip was
+  changed, I wrote a rust HAL for S32K3 from scratch, so I have some experience with those two chips.  I haven't yet done much
+  with the arudino R4 that I have, so I don't know much about the Renesas, but I hear odd mixed comments about Renesas products in
+  general, no idea if there's any truth to that.  I also don't know the KE1xF series, but from a cursory look, it's probably
+  similarish to the S32K which is also made by NXP
+
+- comments from my todo list app, after doing a second look:
+    For ARM based microcontrollers with high I/O counts, the S32K is the only real option.  Infineon has some that are much more
+    expensive (turns out they only have a small subset of pins that are 5V tolerant or something, so not an actual option).  Toshiba
+    has some old M3s that seem alright, but kind of an unknown.  Renesas doesn't have many options.  And the KE1xF from NXP maxes out
+    at 89 I/Os which matches the SAMC's 84 I/Os max.  If you need anything less than 84 I/Os, then there are options to choose from,
+    but above that, the S32K1 is the likely choice, despite it not having true open collector I/Os
+
+- so the S32K is really the only option, and it's not (yet) open sourced by the company I work for, and I'd rather not recreate
+  all that work, or to have to use C, and it's way too close to work stress, so bad news all around
+- the SAMC is nice, and the atsamd crate is nice, and we're not using it anymore at work, and it wasn't that hard to port, so I
+  could feasible recreate that porting work, and thus get 84 I/Os, which isn't bad... but I'd still need to multiplex the address
+  and data buses for the VME project, which requires 4 transceiver chips.  Is it really worth it
+
+- so this lead to looking into what's the chip with the most I/Os I can get?
+- there are some PowerPC chips, some H850s from Renesas (Hitachi), so various random chips, aaaand the the S32Ks *facepalm*
+  they have 208 I/Os for the BGA package, but the highest pin count they're available in is the 172-HDQFP (high density quad flat
+  pack) with 141 I/Os.  It's a weird package that still requires hot air to solder, it has PLCC like pins bent under the package,
+  and also normal QFP pins, alternating to crame more pins in.  I don't want to use the S32K...
+- the highest pin count part, *that is also a ARM-based chip, *that is is also in a hand solderable QFP package, is the STM32H7xx
+- it comes in a QFP-208 pin package, with 168 I/Os, and most of those I/Os are 5V tolerant
+- I'm still thinking of using transceivers for level shifting, even though I could maybe get away with directly using I/O pins to
+  the bus, just to be safe, and to drive the bus in the same way that other cards will do (allows me to test the transceivers
+  first)
+- It has ethernet, it's 480MHz, it comes in a single and dual core version (M7+M4 in dual core config), it has a Rust HAL already
+  available for it, (it comes in a Discovery kit from ST, with an LCD screen and all sorts of things, so I can start writing
+  software for it when that arrives in a couple days), it's perfect (I hope)
+- it also comes in BGA packages (although unfortunately none with more I/Os), but I could make a second version with the BGA to
+  learn to solder such a big BGA package, with the only change from the simpler to solder version being the one chip and no other
+  circuitry
+- and that brings me back to the current moment, when I'm working on the schematic for this board
+
+
+- so for the IVC-STH7 project:
+
+- after looking more closely at the schematic, which clearly labels which lines need to be length matched and differential,
+  particularly for the ethernet and USB signals, I'm thinking maybe I shoud only use the full speed simple USB interface instead
+  of the high speed phy chip since I know I can make FS work (ie. for the bootloader in Fidget), and the safety of USB working the
+  first time is more important.  The Ethernet will be the experiment with a high speed PHY interface and differential signals

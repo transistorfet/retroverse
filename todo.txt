@@ -1,4 +1,6 @@
 
+* for IVC-68k, use an io from the serial controller to swap ram and flash, so it can be used for ProcessorTests validation
+
 * make a breakout board, which you can design now and use with the components on order, to connect a logic analyzer
 
 * in order to prevent transceivers from driving the same outputs, you'd need a dual 2-4 decoder, some invertors, and maybe an or/and gate for taking into account direction
@@ -39,4 +41,41 @@
 
 * could add a microcontroller that monitors power and halt and resets the CPU after a period if it's locked up, and possibly other functions.  It might not be easy to make it accessible
   to the CPU on the controller card, but it could possibly be hooked up to the serial bus and communicate with other peripherals
+
+
+IVC-STH7:
+
+    * 25MHz osc (both ST reference boards use it)
+    * 32kHz crystal optional (with 1.5pF caps)
+
+    * ethernet
+    * some I2C and SPI
+    * a few UARTs
+    * USB (OTG?)
+    * maybe some headers for CAN, just because
+    * SD Card slot, or eMMC
+    * QSPI flash or SDRAM, like the discovery has?
+    * LCD connector if it's not too many I/Os (probably is though)
+
+    * after looking more closely at the schematic, which clearly labels which lines need to be length matched and differential, particularly for the ethernet and USB signals, I'm thinking
+      maybe I shoud only use the full speed simple USB interface instead of the high speed phy chip since I know I can make FS work (ie. for the bootloader in Fidget), and the safety
+      of USB working the first time is more important.  The Ethernet will be the experiment with a high speed PHY interface and differential signals
+
+
+
+    * IACKIN, IACKOUT, [BG0IN - BG3IN], [BG0OUT - BG3OUT] signals can be driven directly and always have the same direction based on the pin function only
+    * BBSY, BERR, DTACK are open collector and change direction based on whether this card is a controller or device at that moment. BBSY is from controller, DTACK and BERR are from the device
+
+    * IACK, SYSRESET, [IRQ1 - IRQ7], and [BR0 - BR3] are all open collector, and effectively bidirectional, but all except SYSRESET are primarily outputs (for controller, don't cares for devices)
+
+    * BCLR, SYSCLK, SERCLK,
+
+
+    The VMEbus signal types are listed below:
+    Open collector signals which require Open Collector drivers and receivers:
+    ACFail, BBSY, BERR, DTACK, IACK, SERDAT, SYSFAIL, SYSRESET, [IRQ1 - IRQ7], and [BR0 - BR3].
+    Three-State signals which require 3-State drivers and receivers:
+    AS, DS0, DS1, DTACK, RETRY, IACK, LWORD, WRITE, [AM0 - AM5], [A01 - A31], and [D00 - D31].
+    Totem-Pole signals which require Totem-Pole drivers and receivers:
+    BCLR, SYSCLK, SERCLK, IACKIN, IACKOUT, [BG0IN - BG3IN], [BG0OUT - BG3OUT].
 
