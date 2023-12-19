@@ -43,6 +43,12 @@
   to the CPU on the controller card, but it could possibly be hooked up to the serial bus and communicate with other peripherals
 
 
+
+* !!! check on the VME board you have what the open collector outputs like IRQx and BRx are at, voltage-wise.  Since they're open collector, I would expect them to always float at
+  logic 1, but I don't think the data and other signals are floating at logic 1 due to the terminating resistors on the bus, so who's supposed to drive them high?
+* that might be what was meant about DTACK/RETRY/IACK being three stated *and also* open collector, ie. it only pulls up the signal to logic 1 when the current bus controller is
+  requesting a transaction
+
 IVC-STH7:
 
     * 25MHz osc (both ST reference boards use it)
@@ -54,13 +60,18 @@ IVC-STH7:
     * USB (OTG?)
     * maybe some headers for CAN, just because
     * SD Card slot, or eMMC
-    * QSPI flash or SDRAM, like the discovery has?
+    * QSPI flash or SDRAM, like the discovery has? (no, not needed and uses too many pins)
     * LCD connector if it's not too many I/Os (probably is though)
 
     * after looking more closely at the schematic, which clearly labels which lines need to be length matched and differential, particularly for the ethernet and USB signals, I'm thinking
       maybe I shoud only use the full speed simple USB interface instead of the high speed phy chip since I know I can make FS work (ie. for the bootloader in Fidget), and the safety
       of USB working the first time is more important.  The Ethernet will be the experiment with a high speed PHY interface and differential signals
 
+    * the ref schematic is using lots of 33 ohm resistors to suppress reflections on the what looks to be the transmission side of high speed traces, such as the ethernet MAC-to-PHY
+      maybe you should put those on the ethernet chip, at least, just in case
+
+    * should you replace the microUSB with USB-C?  I probably have a bunch of existing microUSB-B connectors, since I used that on fidget...
+    * add one of those clip on grounded loops, so the oscilloscope probe can be connected
 
 
     * IACKIN, IACKOUT, [BG0IN - BG3IN], [BG0OUT - BG3OUT] signals can be driven directly and always have the same direction based on the pin function only

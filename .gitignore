@@ -1,5 +1,6 @@
 # Editor Files
 .*.sw?
+*.lck
 .local.vimrc
 session.vim
 
@@ -23,6 +24,7 @@ session.vim
 *-bak
 *.bak
 *.bck
+*.dsn
 fp-info-cache
 hardware/**/*-backups
 

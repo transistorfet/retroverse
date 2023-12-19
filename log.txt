@@ -246,3 +246,18 @@
   particularly for the ethernet and USB signals, I'm thinking maybe I shoud only use the full speed simple USB interface instead
   of the high speed phy chip since I know I can make FS work (ie. for the bootloader in Fidget), and the safety of USB working the
   first time is more important.  The Ethernet will be the experiment with a high speed PHY interface and differential signals
+
+2023-12-13:
+- reading through the datasheet for the TXS0108 "8-bit bi-directional level shifter for open drain", it mentions tying the OE pin,
+  which is active high, to ground via a pull down resistor, so that during power up and power down, the output will be disabled!
+  I should have done that on Fidget to ensure the transceivers didn't write into each other, which damaged them, although in that
+  case they were both OE-active at the same time
+
+2023-12-14:
+- looking at the signals on the VME backplane that I bought, it looks like all the signals except the IN/OUT signals are held at
+  about 2.74V, including SERCLK, SERDAT, and SYSCLK, but with the exception of IACKIN which is Vcc on the second and last slots,
+  and on the first slot it's 2.74V
+- the STM32H7's 5V tolerant inputs should accept 2.3V+ as a logic 1, and being 5V tolerant, it should be fine to directly connect
+  the open collector inputs to I/Os on the chip, instead of going through a buffer.  I'll still go through a buffer for the
+  address and data lines to be safe.  Not yet sure about the rest
+
