@@ -5968,10 +5968,10 @@
     (property "Datasheet" "~" (at 43.18 171.45 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 031a125a-343d-4ac0-ad4b-771e65f3e34c))
-    (pin "4" (uuid b355f09b-78ee-4a16-a90f-be7b896e3672))
-    (pin "2" (uuid 55fd8b46-6117-4729-abba-66371a808072))
-    (pin "3" (uuid b1c2f44c-32df-47aa-8aab-535383ed1939))
+    (pin "1" (uuid 031a125a-343d-4ac0-ad4b-771e65f3e34d))
+    (pin "4" (uuid b355f09b-78ee-4a16-a90f-be7b896e3673))
+    (pin "2" (uuid 55fd8b46-6117-4729-abba-66371a808073))
+    (pin "3" (uuid b1c2f44c-32df-47aa-8aab-535383ed193a))
     (instances
       (project "IVC-STH7"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"

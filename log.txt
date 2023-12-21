@@ -261,3 +261,8 @@
   the open collector inputs to I/Os on the chip, instead of going through a buffer.  I'll still go through a buffer for the
   address and data lines to be safe.  Not yet sure about the rest
 
+2023-12-20:
+- I'm already feeling pretty fatigued by this project.  It just doesn't have much of a unifying concept, and it's too closely tied
+  to industrial electronics, which while kinda cool sometimes in a retro industrial sort of way, are still pretty boring and
+  stress-inducing to think about.  I'm not even sure about the name anymore.  I need to think about this a lot more
+

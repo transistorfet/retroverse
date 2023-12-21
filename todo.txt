@@ -49,26 +49,9 @@
 * that might be what was meant about DTACK/RETRY/IACK being three stated *and also* open collector, ie. it only pulls up the signal to logic 1 when the current bus controller is
   requesting a transaction
 
+* I need to reorganize all the files in this project
+
 IVC-STH7:
-
-    * 25MHz osc (both ST reference boards use it)
-    * 32kHz crystal optional (with 1.5pF caps)
-
-    * ethernet
-    * some I2C and SPI
-    * a few UARTs
-    * USB (OTG?)
-    * maybe some headers for CAN, just because
-    * SD Card slot, or eMMC
-    * QSPI flash or SDRAM, like the discovery has? (no, not needed and uses too many pins)
-    * LCD connector if it's not too many I/Os (probably is though)
-
-    * after looking more closely at the schematic, which clearly labels which lines need to be length matched and differential, particularly for the ethernet and USB signals, I'm thinking
-      maybe I shoud only use the full speed simple USB interface instead of the high speed phy chip since I know I can make FS work (ie. for the bootloader in Fidget), and the safety
-      of USB working the first time is more important.  The Ethernet will be the experiment with a high speed PHY interface and differential signals
-
-    * the ref schematic is using lots of 33 ohm resistors to suppress reflections on the what looks to be the transmission side of high speed traces, such as the ethernet MAC-to-PHY
-      maybe you should put those on the ethernet chip, at least, just in case
 
     * should you replace the microUSB with USB-C?  I probably have a bunch of existing microUSB-B connectors, since I used that on fidget...
     * add one of those clip on grounded loops, so the oscilloscope probe can be connected
