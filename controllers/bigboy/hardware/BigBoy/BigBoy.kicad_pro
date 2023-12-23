@@ -405,7 +405,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "IVC-STH7.kicad_pro",
+    "filename": "BigBoy.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -497,7 +497,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "IVC-STH7.net",
+      "netlist": "BigBoy.net",
       "specctra_dsn": "",
       "step": "",
       "vrml": ""

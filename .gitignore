@@ -1,6 +1,7 @@
 # Editor Files
 .*.sw?
 *.lck
+.~lock*
 .local.vimrc
 session.vim
 
@@ -16,6 +17,8 @@ session.vim
 *.sym
 *.load
 *.send
+target/
+Cargo.lock
 
 # EDA Output Files
 *.gbr
@@ -25,8 +28,9 @@ session.vim
 *.bak
 *.bck
 *.dsn
+*.log
 fp-info-cache
-hardware/**/*-backups
+**/hardware/*/*-backups
 
 # Binary files
 *.img

@@ -5,7 +5,7 @@
   (paper "A4")
 
   (title_block
-    (title "IVC-STH7")
+    (title "BigBoy")
     (rev "1")
   )
 
@@ -2890,7 +2890,7 @@
     )
     (pin "1" (uuid 6ef3f184-5a8a-4e6b-9a10-af3af07edeb5))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR032") (unit 1)
         )
@@ -2928,7 +2928,7 @@
           (reference "#PWR019") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR03") (unit 1)
         )
@@ -2956,7 +2956,7 @@
     )
     (pin "1" (uuid 3084d45b-667b-49ef-8246-59cc00ae328b))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR032") (unit 1)
         )
@@ -2989,7 +2989,7 @@
     )
     (pin "1" (uuid 66a14dc7-18c9-437e-a9a9-b506afb9d41e))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR032") (unit 1)
         )
@@ -3022,7 +3022,7 @@
     )
     (pin "1" (uuid e3b3edc2-e74a-4db5-9970-d20d49e20ef4))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR032") (unit 1)
         )
@@ -3060,7 +3060,7 @@
           (reference "#PWR019") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR03") (unit 1)
         )
@@ -3215,7 +3215,7 @@
     (pin "c1" (uuid 898b34e9-dbc8-43c8-b422-b4e2c9f331cc))
     (pin "b32" (uuid 38e0330d-ec55-4c7d-b41e-8bf7b928448d))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
           (reference "U10") (unit 4)
         )
@@ -3245,7 +3245,7 @@
           (reference "#PWR019") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR03") (unit 1)
         )
@@ -3400,7 +3400,7 @@
     (pin "c1" (uuid 898b34e9-dbc8-43c8-b422-b4e2c9f331cd))
     (pin "b32" (uuid 38e0330d-ec55-4c7d-b41e-8bf7b928448e))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
           (reference "U10") (unit 1)
         )
@@ -3425,7 +3425,7 @@
     )
     (pin "1" (uuid 02fdb72f-a80c-44c9-b377-e46d3a811dc9))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR032") (unit 1)
         )
@@ -3463,7 +3463,7 @@
           (reference "#PWR019") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR03") (unit 1)
         )
@@ -3491,7 +3491,7 @@
     )
     (pin "1" (uuid 3b046c75-7029-44f7-ab2d-574e86ee7cc8))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR032") (unit 1)
         )
@@ -3529,7 +3529,7 @@
           (reference "#PWR019") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR03") (unit 1)
         )
@@ -3562,7 +3562,7 @@
           (reference "#PWR019") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR03") (unit 1)
         )
@@ -3590,7 +3590,7 @@
     )
     (pin "1" (uuid 9f11bd6d-f717-4c63-aa40-f7f5d39c13f5))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR032") (unit 1)
         )
@@ -3623,7 +3623,7 @@
     )
     (pin "1" (uuid 53c850fb-7916-411a-904d-c88321213c03))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR032") (unit 1)
         )
@@ -3783,7 +3783,7 @@
     (pin "c1" (uuid 898b34e9-dbc8-43c8-b422-b4e2c9f331ce))
     (pin "b32" (uuid 38e0330d-ec55-4c7d-b41e-8bf7b928448f))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
           (reference "U10") (unit 3)
         )
@@ -3935,7 +3935,7 @@
     (pin "c1" (uuid 898b34e9-dbc8-43c8-b422-b4e2c9f331cf))
     (pin "b32" (uuid 38e0330d-ec55-4c7d-b41e-8bf7b9284490))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
           (reference "U10") (unit 2)
         )

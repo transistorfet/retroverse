@@ -5,6 +5,10 @@
   )
 
   (paper "A4")
+  (title_block
+    (title "BigBoy")
+  )
+
   (layers
     (0 "F.Cu" signal)
     (1 "In1.Cu" signal)

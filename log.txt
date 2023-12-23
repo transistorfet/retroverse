@@ -25,7 +25,7 @@
   requirements, possibly even without the need for a CPLD, which would be ideal
 - the main issues is the connectors to use, or whether to multipex the bus
 - If I choose to multiplex, I might as well redesign it and make it "inspired by VME" instead of VME specifically.  If I keep it
-  otherwise the same and match the spec except for the connector, I can still call it VME
+  otherwise the same and match the spec except for the connector, I can still call it VME [and use the spec as source of truth]
 
 - PCI not only takes a lot more hardware, but it's supposed to be fixed to 33MHz or 66MHz, neither of which I can adhere to without
   wait states.  It doesn't seem to allow wait states
@@ -45,6 +45,7 @@
 
 - but actually that "transceivers required for microcontrollers" one is not the best, but I guess there's no way around that, with the
   exception of a secondardy bus...  VMX and VSB were mentioned, as was VMS the serial protocol for the backplace
+  [Ed: it seems the STM32 has 5V tolerant pins
 - a secondary bus is overkill.  It doesn't seem to be mentioned on modern VME equipment
 
 - I keep glossing over this every time I come across it, and it's so poorly documented, so I'm raising attention here

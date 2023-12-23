@@ -5,7 +5,7 @@
   (paper "A4")
 
   (title_block
-    (title "IVC-k30")
+    (title "BigBoy")
     (rev "1")
   )
 
@@ -3185,7 +3185,7 @@
           (reference "C8") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "C8") (unit 1)
         )
@@ -3218,7 +3218,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -3252,7 +3252,7 @@
           (reference "R4") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "R5") (unit 1)
         )
@@ -3285,7 +3285,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -3324,7 +3324,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R16") (unit 1)
         )
@@ -3366,7 +3366,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R33") (unit 1)
         )
@@ -3397,7 +3397,7 @@
           (reference "R4") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "R5") (unit 1)
         )
@@ -3440,7 +3440,7 @@
           (reference "J6") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "J11") (unit 1)
         )
@@ -3489,7 +3489,7 @@
     (pin "8" (uuid 227254df-f713-4ff1-a77b-972dbb38f377))
     (pin "9" (uuid bb40a5f5-17ae-4cf0-8ecb-c5426cbfacdd))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "U4") (unit 1)
         )
@@ -3524,7 +3524,7 @@
           (reference "#PWR052") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR058") (unit 1)
         )
@@ -3562,7 +3562,7 @@
           (reference "J7") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "J12") (unit 1)
         )
@@ -3592,7 +3592,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -3631,7 +3631,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R34") (unit 1)
         )
@@ -3645,7 +3645,7 @@
     (property "Reference" "JP6" (at 224.79 125.73 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "USART2" (at 224.79 128.27 0)
+    (property "Value" "USART2 POWER" (at 224.79 128.27 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 224.79 132.08 0)
@@ -3668,7 +3668,7 @@
           (reference "JP6") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "JP5") (unit 1)
         )
@@ -3704,7 +3704,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R32") (unit 1)
         )
@@ -3735,7 +3735,7 @@
           (reference "C8") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "C8") (unit 1)
         )
@@ -3769,7 +3769,7 @@
           (reference "R6") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "R7") (unit 1)
         )
@@ -3812,7 +3812,7 @@
           (reference "J8") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "J13") (unit 1)
         )
@@ -3848,7 +3848,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R19") (unit 1)
         )
@@ -3890,7 +3890,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R28") (unit 1)
         )
@@ -3920,7 +3920,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -3958,7 +3958,7 @@
           (reference "#PWR061") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR063") (unit 1)
         )
@@ -3972,7 +3972,7 @@
     (property "Reference" "JP4" (at 224.79 88.9 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "USART1" (at 224.79 91.44 0)
+    (property "Value" "USART1 POWER" (at 224.79 91.44 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 224.79 95.25 0)
@@ -3995,7 +3995,7 @@
           (reference "JP4") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "JP3") (unit 1)
         )
@@ -4030,7 +4030,7 @@
           (reference "#PWR055") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR060") (unit 1)
         )
@@ -4060,7 +4060,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -4093,7 +4093,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -4132,7 +4132,7 @@
           (reference "R14") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R36") (unit 1)
         )
@@ -4168,7 +4168,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R17") (unit 1)
         )
@@ -4209,7 +4209,7 @@
           (reference "#PWR051") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR057") (unit 1)
         )
@@ -4239,7 +4239,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -4277,7 +4277,7 @@
           (reference "#PWR065") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR066") (unit 1)
         )
@@ -4312,7 +4312,7 @@
           (reference "#PWR067") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR067") (unit 1)
         )
@@ -4346,7 +4346,7 @@
     (pin "8" (uuid f501464e-d1b3-4863-b62c-f96896917559))
     (pin "9" (uuid c0d4041c-2e1e-4239-af5d-89941828c686))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "J7") (unit 1)
         )
@@ -4360,7 +4360,7 @@
     (property "Reference" "JP7" (at 251.46 55.88 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "I^{2}C1" (at 251.46 58.42 0)
+    (property "Value" "I^{2}C1 POWER" (at 251.46 58.42 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 251.46 62.23 0)
@@ -4383,7 +4383,7 @@
           (reference "JP7") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "JP6") (unit 1)
         )
@@ -4419,7 +4419,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R20") (unit 1)
         )
@@ -4455,7 +4455,7 @@
           (reference "#PWR027") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR014") (unit 1)
         )
@@ -4493,7 +4493,7 @@
           (reference "#PWR062") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR064") (unit 1)
         )
@@ -4504,10 +4504,10 @@
   (symbol (lib_id "Connector_Generic:Conn_01x06") (at 251.46 43.18 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 96a0b9fa-58a0-46d1-b7fa-7813a5979f1c)
-    (property "Reference" "J5" (at 254 43.1799 0)
+    (property "Reference" "J5" (at 254 43.18 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "SPI2" (at 254 45.7199 0)
+    (property "Value" "SPI1" (at 254 45.72 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" (at 251.46 43.18 0)
@@ -4533,7 +4533,7 @@
           (reference "J5") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "J10") (unit 1)
         )
@@ -4568,7 +4568,7 @@
           (reference "#PWR057") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR061") (unit 1)
         )
@@ -4598,7 +4598,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -4637,7 +4637,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R25") (unit 1)
         )
@@ -4667,7 +4667,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -4706,7 +4706,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R26") (unit 1)
         )
@@ -4737,7 +4737,7 @@
           (reference "C8") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "C8") (unit 1)
         )
@@ -4775,7 +4775,7 @@
           (reference "#PWR058") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR062") (unit 1)
         )
@@ -4789,7 +4789,7 @@
     (property "Reference" "JP5" (at 242.57 25.4 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "SPI1" (at 242.57 27.94 0)
+    (property "Value" "SPI1 POWER" (at 242.57 27.94 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (at 242.57 31.75 0)
@@ -4812,7 +4812,7 @@
           (reference "JP5") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "JP4") (unit 1)
         )
@@ -4847,7 +4847,7 @@
           (reference "#PWR053") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR059") (unit 1)
         )
@@ -4877,7 +4877,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -4910,7 +4910,7 @@
           (reference "#PWR027") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR014") (unit 1)
         )
@@ -4944,7 +4944,7 @@
           (reference "C8") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "C8") (unit 1)
         )
@@ -4984,7 +4984,7 @@
     (pin "5" (uuid 0a2cd659-d72e-4158-a9cc-550e882d0431))
     (pin "4" (uuid d6d03a6d-05bb-442c-87bd-c1b40ac66afa))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "J9") (unit 1)
         )
@@ -5020,7 +5020,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R21") (unit 1)
         )
@@ -5062,7 +5062,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R18") (unit 1)
         )
@@ -5104,7 +5104,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R35") (unit 1)
         )
@@ -5140,7 +5140,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R15") (unit 1)
         )
@@ -5182,7 +5182,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R27") (unit 1)
         )
@@ -5212,7 +5212,7 @@
           (reference "#PWR027") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR014") (unit 1)
         )
@@ -5250,7 +5250,7 @@
           (reference "#PWR068") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR068") (unit 1)
         )
@@ -5281,7 +5281,7 @@
           (reference "R5") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "R6") (unit 1)
         )
@@ -5320,7 +5320,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R23") (unit 1)
         )
@@ -5356,7 +5356,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -5389,7 +5389,7 @@
           (reference "#PWR017") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR020") (unit 1)
         )
@@ -5427,7 +5427,7 @@
           (reference "#PWR066") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "#PWR065") (unit 1)
         )
@@ -5453,7 +5453,7 @@
     (pin "1" (uuid db40635a-c408-450b-8410-93f93402ce1f))
     (pin "2" (uuid 65c2abe0-37d1-4368-afcb-ae91295fff22))
     (instances
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "L2") (unit 1)
         )
@@ -5489,7 +5489,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R22") (unit 1)
         )
@@ -5526,7 +5526,7 @@
           (reference "C8") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "C8") (unit 1)
         )
@@ -5565,7 +5565,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
           (reference "R31") (unit 1)
         )
@@ -5595,7 +5595,7 @@
           (reference "#PWR027") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR014") (unit 1)
         )
@@ -5628,7 +5628,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -5661,7 +5661,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
@@ -5699,7 +5699,7 @@
           (reference "J2") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "J1") (unit 1)
         )
@@ -5733,7 +5733,7 @@
           (reference "C8") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "C8") (unit 1)
         )
@@ -5767,7 +5767,7 @@
           (reference "JP2") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "JP1") (unit 1)
         )
@@ -5800,7 +5800,7 @@
           (reference "#PWR018") (unit 1)
         )
       )
-      (project "IVC-STH7"
+      (project "BigBoy"
         (path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
           (reference "#PWR021") (unit 1)
         )
