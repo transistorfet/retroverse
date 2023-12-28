@@ -4326,7 +4326,7 @@
     (property "Reference" "J7" (at 60.325 142.24 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "Hirose DM3D-S" (at 60.325 144.78 0)
+    (property "Value" "Hirose DM3D-SF" (at 60.325 144.78 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Connector_Card:microSD_HC_Hirose_DM3D-SF" (at 111.76 146.05 0)

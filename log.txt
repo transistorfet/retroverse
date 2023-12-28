@@ -267,3 +267,12 @@
   to industrial electronics, which while kinda cool sometimes in a retro industrial sort of way, are still pretty boring and
   stress-inducing to think about.  I'm not even sure about the name anymore.  I need to think about this a lot more
 
+2023-12-23:
+- I still have some fatigue, but reorganizing and rethinking a bit has helped somewhat.  It still doesn't have enough purpose,
+  which I still need to think about.
+- the board design for BigBoy is a slog so far.  I partly intetionally didn't try to carefully select I/Os, so that instead they
+  matched the dev kit for things shared between them, and used logic port pins for the address and data lines, but that has meant
+  there needs to be wires all over the place, and reshuffling themselves with vias for things like the VME bus connector, which
+  has established pinouts.  I'm not sure if there's an easier way, but if the transceivers aren't needed, that would go a long way
+  towards simplying the board
+

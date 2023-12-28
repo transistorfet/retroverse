@@ -49,9 +49,7 @@
 * that might be what was meant about DTACK/RETRY/IACK being three stated *and also* open collector, ie. it only pulls up the signal to logic 1 when the current bus controller is
   requesting a transaction
 
-* I need to reorganize all the files in this project
-
-IVC-STH7:
+BigBoy:
 
     * should you replace the microUSB with USB-C?  I probably have a bunch of existing microUSB-B connectors, since I used that on fidget...
     * add one of those clip on grounded loops, so the oscilloscope probe can be connected

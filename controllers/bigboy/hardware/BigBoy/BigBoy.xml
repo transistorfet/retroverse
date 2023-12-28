@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/media/work/ivy/controllers/bigboy/hardware/BigBoy/BigBoy.kicad_sch</source>
-    <date>Fri 22 Dec 2023 04:18:01 PM</date>
+    <date>Sat 23 Dec 2023 09:08:16 PM</date>
     <tool>Eeschema 7.0.9+dfsg-1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -661,7 +661,7 @@
     </comp>
     <comp ref="U2">
       <value>STM32H743BITx</value>
-      <footprint>Package_QFP:LQFP-208_28x28mm_P0.5mm</footprint>
+      <footprint>Computie_SMT:LQFP-208_28x28mm_P0.5mm</footprint>
       <datasheet>https://www.st.com/resource/en/datasheet/stm32h743bi.pdf</datasheet>
       <libsource lib="Computie_Microcontrollers" part="STM32H743BITx" description="STMicroelectronics Arm Cortex-M7 MCU, 2048KB flash, 1024KB RAM, 480 MHz, 1.62-3.6V, 168 GPIO, LQFP208"/>
       <property name="Sheetname" value=""/>
@@ -838,7 +838,7 @@
       <tstamps>a8b95de7-bb6a-4059-b9c4-d3da2a5c3cf5</tstamps>
     </comp>
     <comp ref="J7">
-      <value>Hirose DM3D-S</value>
+      <value>Hirose DM3D-SF</value>
       <footprint>Connector_Card:microSD_HC_Hirose_DM3D-SF</footprint>
       <datasheet>https://datasheet.lcsc.com/lcsc/2110151630_XKB-Connectivity-XKTF-015-N_C381082.pdf</datasheet>
       <libsource lib="Connector" part="Micro_SD_Card_Det1" description="Micro SD Card Socket with one card detection pin"/>
@@ -873,7 +873,7 @@
       <tstamps>bdf868ee-16c6-4df7-ba06-1ca3ebddd01e</tstamps>
     </comp>
     <comp ref="J10">
-      <value>SPI2</value>
+      <value>SPI1</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical</footprint>
       <libsource lib="Connector_Generic" part="Conn_01x06" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value="IO"/>
@@ -928,7 +928,7 @@
       <tstamps>fca0bfd8-cb1c-4a10-8d2b-fdeba7cacab7</tstamps>
     </comp>
     <comp ref="JP3">
-      <value>USART1</value>
+      <value>USART1 POWER</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
       <libsource lib="Jumper" part="Jumper_3_Bridged12" description="Jumper, 3-pole, pins 1+2 closed/bridged"/>
       <property name="Sheetname" value="IO"/>
@@ -939,7 +939,7 @@
       <tstamps>5dabe4f6-2dfb-4fd7-8ac4-0a237b02fa41</tstamps>
     </comp>
     <comp ref="JP4">
-      <value>SPI1</value>
+      <value>SPI1 POWER</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
       <libsource lib="Jumper" part="Jumper_3_Bridged12" description="Jumper, 3-pole, pins 1+2 closed/bridged"/>
       <property name="Sheetname" value="IO"/>
@@ -950,7 +950,7 @@
       <tstamps>ad5b2e04-b995-4270-9e0c-2e1588ae5a19</tstamps>
     </comp>
     <comp ref="JP5">
-      <value>USART2</value>
+      <value>USART2 POWER</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
       <libsource lib="Jumper" part="Jumper_3_Bridged12" description="Jumper, 3-pole, pins 1+2 closed/bridged"/>
       <property name="Sheetname" value="IO"/>
@@ -961,7 +961,7 @@
       <tstamps>3324a7c3-0534-4beb-98d3-43a40a3d1213</tstamps>
     </comp>
     <comp ref="JP6">
-      <value>I^{2}C1</value>
+      <value>I^{2}C1 POWER</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
       <libsource lib="Jumper" part="Jumper_3_Bridged12" description="Jumper, 3-pole, pins 1+2 closed/bridged"/>
       <property name="Sheetname" value="IO"/>
@@ -2285,13 +2285,13 @@
   </libparts>
   <libraries>
     <library logical="Computie_Connectors">
-      <uri>/media/work/ivy/controllers/bigboy/hardware/BigBoy/../kicad-libraries/computie-kicad-library/symbols/Computie_Connectors.kicad_sym</uri>
+      <uri>/media/work/ivy/controllers/bigboy/hardware/BigBoy/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Connectors.kicad_sym</uri>
     </library>
     <library logical="Computie_Microcontrollers">
-      <uri>/media/work/ivy/hardware/kicad-libraries/computie-kicad-library/symbols/Computie_Microcontrollers.kicad_sym</uri>
+      <uri>/media/work/ivy/controllers/bigboy/hardware/BigBoy/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Microcontrollers.kicad_sym</uri>
     </library>
     <library logical="Computie_Transceivers">
-      <uri>/media/work/ivy/controllers/bigboy/hardware/BigBoy/../kicad-libraries/computie-kicad-library/symbols/Computie_Transceivers.kicad_sym</uri>
+      <uri>/media/work/ivy/controllers/bigboy/hardware/BigBoy/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Transceivers.kicad_sym</uri>
     </library>
     <library logical="Connector">
       <uri>/usr/share/kicad/symbols//Connector.kicad_sym</uri>
