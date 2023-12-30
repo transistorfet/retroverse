@@ -186,7 +186,7 @@
   an 8088 from Renesas for $82 (yikes), and some 80C186/88s and some MC68302 coldfires from NXP, but only in SMT components
 
 
-- THAT BRINGS ME TO: the current subproject, IVC-STH7
+- THAT BRINGS ME TO: the current subproject, IVC-STH7 (renamed BigBoy)
 - fidget didn't work out as well as I had hoped.  I did get it sort of working eventually, but the transceivers got fried because they
   wrote into each others because of a logic mistake I made early on.  The chips were scortching at one point, and then they seemed
   stuck on certain values (or my bus interface logic was broken beyond what I've been able to fix).  I've taken some of the chips
