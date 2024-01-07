@@ -1,3 +1,59 @@
+//#![deny(warnings)]
+#![no_main]
+#![no_std]
+
+use panic_rtt_target as _;
+use rtt_target::{rtt_init_print, rprintln};
+
+use hal::prelude::*;
+use hal::pac;
+use stm32h7xx_hal as hal;
+
+#[cortex_m_rt::entry]
+fn main() -> ! {
+    rtt_init_print!();
+    rprintln!("booting");
+
+    rprintln!("starting power");
+    let mut cp = pac::CorePeripherals::take().unwrap();
+    let dp = pac::Peripherals::take().unwrap();
+
+    rprintln!("starting power");
+    let pwr = dp.PWR.constrain();
+    rprintln!("freezing power");
+    let pwrcfg = pwr.freeze();
+
+    let rcc = dp.RCC.constrain();
+    let ccdr = rcc.sys_ck(100.MHz()).freeze(pwrcfg, &dp.SYSCFG);
+
+    rprintln!("configuring I/O");
+    let gpioa = dp.GPIOA.split(ccdr.peripheral.GPIOA);
+    let gpioc = dp.GPIOC.split(ccdr.peripheral.GPIOC);
+
+    //let mut led1 = gpioc.pc1.into_push_pull_output();
+    //let mut led2 = gpioa.pa3.into_push_pull_output();
+    //let mut led3 = gpioa.pa4.into_push_pull_output();
+    let mut led4 = gpioc.pc13.into_push_pull_output();
+
+    let mut delay = cp.SYST.delay(ccdr.clocks);
+
+    //led1.set_high();
+    //led2.set_high();
+    //led3.set_high();
+    led4.set_low();
+
+    rprintln!("main loop");
+    loop {
+        //led.toggle();
+        delay.delay_ms(1000_u16);
+
+        //rprintln!("Led toggled");
+    }
+}
+
+
+
+/*
 //! Demo for STM32H747I-DISCO eval board using the Real Time for the Masses
 //! (RTIC) framework.
 //!
@@ -253,6 +309,7 @@ mod app {
         TIME.fetch_add(1, Ordering::Relaxed);
     }
 }
+*/
 
 /*
 use cortex_m_rt::{entry, exception};
