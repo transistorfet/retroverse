@@ -276,3 +276,189 @@
   has established pinouts.  I'm not sure if there's an easier way, but if the transceivers aren't needed, that would go a long way
   towards simplying the board
 
+2024-01-07:
+- the boards arrived two days ago, and yesterday I built up the board enough to try programming the chip.  At first, it worked but
+  didn't run as expected, and there were some weird things going on, but I had forgotten to put the boot jumper in place, so it
+  was booting into the bootloader sometimes (input was floating).  Now it seems to program just fine, and I can get debug logs,
+  but the LEDs don't seem to be changing as expected
+- [Ed] I had soldered the rest of the board up, including the ethernet chip, and it worked pretty much first try with a ping
+  responder firmware.  I used hot air, but a lot of the pins stubs on the sides didn't seem to be connected.  I went over them with
+  my soldering iron afterwards, on the edges, and they now seem fully connected on the sides, so that might be why it worked more
+  than the hot air work.  I'm going to need a lot of practice still to get it right, and a thermocouple!   I saw a video by
+  Shawn Hymel in which he used a thermocouple positioned over the chip to know how long to preheat the board for, and how long to
+  hold it on the chip so that the solder will likely be melted.  My multimeter has a connector for one, so I should get one
+
+2024-01-13:
+- I've verified that basic I/O is working on the connector, and the transceviers are outputting, but I did accidentally swap the
+  AL/AH transceiver control signals with the data DL/DH ones on the schematic, so the address and data buses can't be split
+  correctly (as 16/16 for data and 24/8 for address). They are outputting logic 5V with quite a high spike, but I think that's
+  because it's unloaded.  When I hooked it up to the VME standard backplane that I have, both the transceivers and the I/Os
+  in push pull or drain mode can drive the signals in a way that's seen by the other slots, so that's no problem from the looks
+  of it.
+- that said, it is drawing a fair amount of current.  It's taking 12mA in some cases, 8mA in others to drive the bus, and while
+  that's within spec for individual pins, there are also limits on the max current per port/device for both.  The transceiver
+  pins can source/sink 50mA per I/O (I think), but 100mA max per Vcc line, and there's one per Vcc per 8 pins.  The microcontroller
+  maxes out at 25mA per pin, and I don't know what the port-total is
+
+2024-01-14:
+- the 74LS645-1 transceivers come up a lot when talking about VME and high current supply.  They are often cited as needed instead
+  of '245s because the 245s can't sink or source enough power.  The 645-1* specifically is required and only those have 48mA outputs
+  (with a total 70mA supply when all outputs are HIGH).  The regular 645s only have 24mA output.  I've been worried about needing 64mA
+  for all I/O signals at once, according to a forum post, but looking at the spec, it's only required for the some signals: BBSY and
+  SYSCLK, AS, DS0, DS1, and DTACK.  The rest require 48mA with the exception of the push-pull IN/OUT signals, which only require 8mA.
+- it's only sinking current too; sourcing current only needs to be 3mA, because the rest of the power would likely come from the
+  backplace?
+- one thing I need to find out is if there's an issue with driving the signals high, or if that burns more current than is
+  necessary, and all I/O should be open collector and rely on the pull up resistors/active termination of the backplane
+
+- also active termination seems easy if you only need 2 - 4 opamps.  I saw mention of 4, but then the examples show one on each end
+  of a large set of signals, so I'm not sure if they need to be in two banks of signals or what
+
+- there are also specialized chips like SN74VMEH22501
+
+2024-02-04:
+- I plugged the card into the backplace I have, as well as the counter card that I bought, and measure the various loads to roughly
+  approximate how much power it's drawing per pin due to the pull up resistors on the backplane.
+    backplane only: 1210mA
+    big boy only: 170mA
+    big boy + backplane: 1530mA
+    big boy extra current: 150mA more when card is seated vs only power supplied
+    timer card only: 1040mA
+    timer + backplane: 2250mA
+    all three: ~2600mA which is only slightly higher than 2570mA calculated from the other numbers, but it was also slowly coming down
+- big boy didn't seem to draw much more current with the timer card in, but they also weren't talking to each other.  Big boy was
+  putting data on the address and data lines, but all the control lines were high.  I guess I should try that next
+
+2024-02-04:
+- measuring the current per pin, I'm getting around 25mA draw per pin when it's outputting a 0, and about 18mA when it's outputting
+  a 1.  According to some rough calculations, I should be seeing as much as 30mA when a pin is pulled low, so I think the measured
+  value is about right.  This is taken from the transceiver outputs.  It's about the same for direct pin outputs too, so I think
+  that's what the bus current should be for the given terminating resistors.  The 30mA comes from an effective 165 ohm resistance
+  pulling up to 5V, with a 50 ohm bus impedence and 330 ohm pull up resistor.  With a thevanin equivalent of 194 ohms, it comes to
+  25.8 mA, which is almost exactly what I measured.  Perhaps I could double the terminating resistor values, and effectively halve
+  the amount of current draw per pin, which would likely be good enough to protect the direct inline outputs.
+- what if I used sockets for the 200 ohm terminating resistors in an active terminated configuration, such that I could swap them
+  out for 400 or even 600 ohm per-signal resistors, which should knock the current draw down [Ed: not needed because 330/470
+  dividers or 200 ohms when the divider is connected as two resistors in parallel]
+
+- I still don't understand why the required pull down current is 48 mA - 64 mA when a system with one card is only going to pull
+  26 mA from the bus.  Is it assuming that other cards might be outputting high signals that each card needs to be able to overcome?
+- it looks like the schroff backplane is using an L272M opamp for active termination, which can output 1A
+
+2024-07-01:
+- this project needs a new name, one that emphasizes that it's a modular computer, and that is its primary purpose
+
+    - modgie
+    - modjie
+    - modge
+    - vero
+    - veuro
+    - modulator
+    - modularator
+    - modulo
+    - modjupter
+    - modjupiter
+    - modbox
+    - modeuro
+    - mauve
+    - maudulator
+    - maudie
+    - maudgee
+    - modblox
+    - eurowack
+    - versahack
+    - versaknack
+    - versapack
+    - versarack
+    - versawack
+    - modverse
+    - moduverse
+    - hackiverse
+    - hackyverse
+    - juxtaverse
+    - wackyverse
+    - rackyverse
+    - compuverse
+    - computieverse
+    - compieverse
+
+
+- you could make it interoperable with eurorack modules, or at least it should be possible to put eurorack modules into a 3U desktop case, but you
+  might not be able to put 160mm cards into a normalish eurorack case because they're too deep, but you should be able to manage
+  100mm, which is a standard eurocard width, even though it's not really used for VME.
+- You can make 100mm cards with a 60mm adapter board that just extends the bus wires
+- also they'd both be cheaper to print, even though the connectors are more expensive than it's worth probably ($3-$10 a connector x
+  2 additional connectors)
+
+2024-07-14:
+- sooo much going on and all over the place.  I'm trying to sort out active termination, and also automatic daisy chaining, so that
+  I can make a backplane board, and I'm also trying to get the software for bigboy working
+- for active termination, I've searched everywhere for a schematic I once saw that had an opamp buffer (1:1 amplification) with the
+  standard 330/470 resistor network feeding the + terminal as a voltage reference, and the output going through 200 ohm resistors
+  to each of the backplane signals, with a mirror version on the other end of the bus wires.  So one opamp on each side of the board
+  driving all the bus signals (or a subset of 32 or so signals), with a 200 ohm resistor on each end for each signal (64 resistors
+  for 32 signals).  The thevenin equivalent is a 194 ohm resistor through a 2.94V source, which is what it's trying to match.
+- I can't for the life of me find the source schematic where I saw that, so I don't know if I'm remembering it correctly!
+
+- Tom Story's backplane has the same circuit.  At first I didn't realize how it's working because it's using split 330/470 ohm
+  resistor networks for passive and active termination, but (now it seems obvious), if you connect the 330 ohm and 470 ohm resistors
+  in parallel, you get 194 ohms!  So when selecting active termination through the jumpers, the resistor networks are wired together
+  differently to either use the resistors as voltage dividers or in parellel as a single resistor.
+- it turns out the resistor networks for 8 signals of 330/470 dividers is a bit cheaper than 8 signals of 200 ohm bussed resistors,
+  so I might as well do the same, making it selectable, and populatable either way.  That settles the resistor network circuit
+
+- the next thing is the opamp vs a voltage regulator.  Most of the docs for active termination, like
+  https://web.archive.org/web/20210310063304/http://www.interfacebus.com/Design_Connector_VME.html#e
+  show a voltage regulator instead of an opamp, as does this backplane: Kaparel 3700x Backplane User Manual
+  https://pixustechnologies.com/assets/Datasheets/VME64x9U-User-Manual.pdf
+- the types mentioned there, and in a backplane manual, and are as follows
+- UC564: VME bias regulator, 500-600mA output for 32 signals lines
+- ML6554: Bus Termination regulator, 3A output, doesn't say how many signals because it's not for a particular standard
+- the opamp on Tom's board is TCA0372 or L272M, which are 1A power opamps and are used for all signals it looks like (one on each
+  end of the backplane, with two spare unused opamps)
+- the standard 3U backplane has 72 signals.  The 6U or 3U-extended backplane has 96 signals.  If the UC564 official regulator has
+  500mA for 32 outputs, adjusted for 72 signals it would need 1.125A and for 96 would need 1.5A, which is close to the outputs of
+  the opamps listed, although I think if I went with power opamps, I'd want to find one with a bit higher current output
+- I found a regulator that can do 3A variable voltage output, 2MHz response, TPS628303BDRLR, $2.50 at digikey
+- the TCA0372 is about the same price
+- bigger opamps are much more expensive from the looks of it, so using more of the same would be better
+
+- the other issue is automatic daisy chaining.  The backplane manual above has the circuit used, but I'm not sure how it works yet
+  there is something related to slot 0 and the system controller, but ignoring that for now...
+- the OUT from the previous slot goes into the IN of the current slot, as well as an OR gate input. The OUT from the current slot
+  goes into the other OR gate input, with an 82kohm resistor pulling it to ground.  The output of the OR gate then goes to the IN
+  of the next slot
+- since it's active low, the OR gate is acting like an AND gate in inverse logic.  If no card is present in the slot, one input
+  will always be low because of the pulldown resistor, and the other input is whatever the previous slot's output was, which will
+  then pass through to the output of the OR gate unchanged.
+- if the card is present, and it *disallows* the signal to go through, it will be outputting a high, so the output of the OR gate
+  will always be high, which prevents any downstream cards from responding (high means no-grant or no-iack).  If the card outputs
+  a low on its OUT, then it's a bit interesting... if the previous card is outputting high and the current card is outputting low
+  then the next card will still see high (disallow) instead of low (allow), so that must be why there's a 0 ohm resistor on the
+  schematic connecting the OUT directly to the output of the OR gate, bypassing it entirely.
+- first slot's IN is always tied low, then it will always grant-allow and it will work as normal, but if you want to daisy chain
+  backplanes, then you'd have an OR gate on slot 0 as well, and you'd need a jumper (or 0 ohm) that bypasses it for slot 0
+
+- IACK works a bit different though, doesn't it? so you might want to think about that
+
+
+- the MVME167 board that I have has M27C4002 rom chips
+- signs of capacitor leakage, but there's only 4 electrolytics, and the corrosion is minimal
+
+2024-07-22:
+- I'm starting in on the board design for the SystemBoard, and have part of the backplane schematic done
+
+2024-08-04:
+- I almost finished the SystemBoard PCB a few days ago, and have been putting the final touches on recently.  I'm not sure whether
+  I'll get the board made with 4 layers or 2 layers, but I've managed to get all the power connected with just 2 layers, so at least
+  others could get it printed like that if that was a concern.  JLC offers 100mm x 100mm boards in 4 layer for like $6 or something,
+  so I might as well get 4 layers.  I mainly just want to test the ATF1508 to make sure it will work as I expect, and that I can
+  program it in circuit.
+- I'm still debating whether to rush to finish the backplane, or order Tom Storey's backplane design.  I think I should order one of
+  them since I'll be paying the import duty either way, and getting Tom's printed would be another point of reference for his
+  design, but if I make my own, I can get a revision in the works, and I'll at least have the option of using the 4 row connector.
+  I'm also going to add automatic daisy chaining to my design, and I'll have a chance to change the footprint of the op amp or
+  regulator, which is proving to be harder to find that I was hoping.  I might have to either get old new stock TCA0372s in 8-DIP or
+  L272M is the same footprint to make Tom's work, assuming I can't find a generic 8-DIP that matches the pinout and has the same
+  specs.  There is a TCA0372 at digikey, but it's 16-SOIC I think
+

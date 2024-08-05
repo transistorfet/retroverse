@@ -1,0 +1,29 @@
+
+Revision 1 Errata and Notes
+===========================
+
+- the text on the chip is aligned so that pin 1 is in the lower left corner, but that is the top of
+  the chip on the board, so the text is upside down but it's a minor issue
+
+- the UART headers are oriented the wrong way, such that the extension boards I have face inward
+  towards the main chip.  I have other header cables, but it should be fixed on the next revision 
+
+- the transceiver OE and DIR inputs for the address and data bus are swapped between address and
+  data, so AL_OE and AL_DIR control the lower data bus signals, and the DL_OE and DL_DIR signals
+  control the lower address bus signals.  In this case, it really only affects the labels since
+  each of those transceiver control signals are driven directly by I/Os.  It's a good thing in
+  hindsight that I didn't try to combine them using function-specific assumptions that would have
+  required a more substantial workaround, but it came at the expense of more I/Os 
+
+- a minor improvement would have been to route all the 5V from the bus through a jumper so, which
+  would have allowed current measurements of what's being drawn from the bus.  Same for the 3.3V
+  regulator, to know what the load on the LDO is at any given time.
+
+- it would have helped to have an I/O connected to 5V through a resistor, so it could use it as an
+  analog input and assert the SYSRESET signal in software until the voltage is above the minimum
+  of 4.85V
+
+- the microSD card slot is backwards, so the card has be inserted from the board-side, instead of
+  the being accessible through the slot opening. It's still possible to get the card in, but hard
+  to get it out.  I haven't tried accessing it though, so I don't know if it works electrically
+

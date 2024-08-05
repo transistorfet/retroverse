@@ -30,7 +30,7 @@ Cargo.lock
 *.dsn
 *.log
 fp-info-cache
-**/hardware/*/*-backups
+**/*-backups
 
 # Binary files
 *.img
