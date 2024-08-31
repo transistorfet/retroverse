@@ -433,7 +433,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "k30p-VME16.kicad_pro",
+    "filename": "k30p-VME.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -460,7 +460,18 @@
       "version": 3
     },
     "net_colors": null,
-    "netclass_assignments": null,
+    "netclass_assignments": {
+      "USB1_DN": "USB",
+      "USB1_DP": "USB",
+      "USB2_DN": "USB",
+      "USB2_DP": "USB",
+      "USB_D+": "USB",
+      "USB_D-": "USB",
+      "USB_DN": "USB",
+      "USB_DP": "USB",
+      "unconnected-(R11-Pad2)": "USB",
+      "unconnected-(R17-Pad2)": "USB"
+    },
     "netclass_patterns": []
   },
   "pcbnew": {

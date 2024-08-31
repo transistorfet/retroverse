@@ -473,3 +473,20 @@
   size case, and $240 or $305 for the 3U/64HP case, only 50% more to get the larger one, but who knows if I'll use it, and the
   smaller case is what I really wanted because of the cute factor
 
+2023-08-30:
+- still need to order parts and the SystemBoard, after redesigning it for the TQFP, which is much smaller.  That will help with the
+  k30-VME16, which is space constrained.  I'm trying to tie up some loose ends with the k30 schematic design.  I need to figure out
+  what signals the CPLD will need, and how to connect the serial interrupt and interrupt acknowledge, in a way that also works with
+  the bus.
+- as far as I can tell, the MD32 cycle can only be initiated with an A40 cycle.  An A40 cycle can be a byte or word access using the
+  normal databus-only transaction, but if you try to do a 32-bit/4 byte transaction with an A40 address, it will always be an MD32
+  cycle using the address bus.  If it's an A32 access using both P1 and P2 (the full 32-bit address bus), and it's a 32-bit size,
+  then it will be a D32 cycle.  So there's no other special signal to know to do an MD32
+- the names VME16 and VME32 aren't the best if you could also make a 32-bit 3U 3Row card.  It could be a 16-bit 3U 3R, 32-bit 3U 3R,
+  or 32-bit 3U 4R (or 32-bit 6U, or 64-bit 6U)
+    - 16bit 3U 3R - 3 tranceivers (4 if you want A40 16-bit transfers)
+    - 32-bit 3U 3R - 6 transceivers
+    - 32-bit 3U 4R or 32-bit 6U - 5 transceivers excluding A40/MD32, 7 transceivers with A40/MD32
+
+- so basically, if you want to stick to 3R standard size, it's 3 for 16-bit and 6 for 32-bit
+

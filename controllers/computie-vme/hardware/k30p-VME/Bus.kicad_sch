@@ -393,7 +393,7 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
+			(property "Reference" "P"
 				(at 0 40.64 0)
 				(effects
 					(font
@@ -3929,6 +3929,16 @@
 	)
 	(wire
 		(pts
+			(xy 140.97 85.09) (xy 153.67 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07661bfd-9647-4cd8-b8fb-f99db071fa03")
+	)
+	(wire
+		(pts
 			(xy 68.58 44.45) (xy 68.58 49.53)
 		)
 		(stroke
@@ -3936,6 +3946,16 @@
 			(type default)
 		)
 		(uuid "0abf49ae-e900-4216-a37d-24707afd82af")
+	)
+	(wire
+		(pts
+			(xy 140.97 90.17) (xy 153.67 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c9c49c4-80de-4e5c-9e6c-508c69f76ca5")
 	)
 	(wire
 		(pts
@@ -4159,6 +4179,16 @@
 	)
 	(wire
 		(pts
+			(xy 140.97 97.79) (xy 153.67 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "296b9aa1-ba14-4dae-966e-57f8e1d45a95")
+	)
+	(wire
+		(pts
 			(xy 245.11 102.87) (xy 246.38 102.87)
 		)
 		(stroke
@@ -4367,6 +4397,16 @@
 		)
 		(uuid "5022a7d0-6fb0-423b-81ac-031175467a09")
 	)
+	(wire
+		(pts
+			(xy 140.97 92.71) (xy 153.67 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "503c5760-9bd9-40b6-8571-c861d715427e")
+	)
 	(bus
 		(pts
 			(xy 43.18 90.17) (xy 43.18 87.63)
@@ -4407,6 +4447,16 @@
 		)
 		(uuid "56ef66c7-9443-4003-8d3b-1dc095606ff0")
 	)
+	(wire
+		(pts
+			(xy 140.97 82.55) (xy 153.67 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57da162d-1168-405b-bd71-f29594614113")
+	)
 	(bus
 		(pts
 			(xy 222.25 72.39) (xy 222.25 74.93)
@@ -4426,6 +4476,16 @@
 			(type default)
 		)
 		(uuid "5bdec23f-41cc-45c3-9f6b-7af98725ce4b")
+	)
+	(wire
+		(pts
+			(xy 140.97 95.25) (xy 153.67 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d298657-8df1-4f17-8d1b-37d076bf908c")
 	)
 	(wire
 		(pts
@@ -4686,6 +4746,16 @@
 			(type default)
 		)
 		(uuid "9701079e-1adc-4666-83d2-551ab92c511b")
+	)
+	(wire
+		(pts
+			(xy 140.97 87.63) (xy 153.67 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a6c61bb-7c32-4aa6-af3d-a3999fc6e456")
 	)
 	(bus
 		(pts
@@ -6205,6 +6275,12 @@
 					(unit 1)
 				)
 			)
+			(project ""
+				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
+					(reference "#PWR063")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -6216,7 +6292,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "14386fba-710f-4599-bac0-981d8f5e15c7")
-		(property "Reference" "#PWR057"
+		(property "Reference" "#PWR058"
 			(at 58.42 44.45 0)
 			(effects
 				(font
@@ -6266,7 +6342,7 @@
 		(instances
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "#PWR057")
+					(reference "#PWR058")
 					(unit 1)
 				)
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
@@ -6291,7 +6367,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1dfd8abd-d74f-4939-ae22-b1cc988bfb4f")
-		(property "Reference" "#PWR064"
+		(property "Reference" "#PWR061"
 			(at 146.05 80.01 0)
 			(effects
 				(font
@@ -6341,7 +6417,7 @@
 		(instances
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "#PWR064")
+					(reference "#PWR061")
 					(unit 1)
 				)
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
@@ -6359,7 +6435,7 @@
 	)
 	(symbol
 		(lib_id "74xx:74LS148")
-		(at 118.11 100.33 0)
+		(at 128.27 90.17 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6367,8 +6443,8 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "25ac250a-7b97-42e6-b223-632edc40b636")
-		(property "Reference" "U18"
-			(at 115.9159 82.55 0)
+		(property "Reference" "U16"
+			(at 126.0759 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6376,8 +6452,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "74LS148"
-			(at 115.9159 85.09 0)
+		(property "Value" "74HC148"
+			(at 126.0759 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6385,8 +6461,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 118.11 100.33 0)
+		(property "Footprint" "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
+			(at 128.27 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6395,7 +6471,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS148"
-			(at 118.11 100.33 0)
+			(at 128.27 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6404,7 +6480,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 118.11 100.33 0)
+			(at 128.27 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6463,7 +6539,7 @@
 		(instances
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "U18")
+					(reference "U16")
 					(unit 1)
 				)
 			)
@@ -6478,7 +6554,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5060784f-c172-4f08-ab55-4577855f4712")
-		(property "Reference" "#PWR050"
+		(property "Reference" "#PWR062"
 			(at 156.21 102.87 0)
 			(effects
 				(font
@@ -6528,7 +6604,7 @@
 		(instances
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "#PWR050")
+					(reference "#PWR062")
 					(unit 1)
 				)
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/dfc443dd-7c5d-4956-9c53-a8ea419d150b"
@@ -6553,7 +6629,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7472fb94-9192-45c6-85b1-c033431c4cdd")
-		(property "Reference" "#PWR051"
+		(property "Reference" "#PWR060"
 			(at 146.05 72.39 0)
 			(effects
 				(font
@@ -6603,7 +6679,7 @@
 		(instances
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "#PWR051")
+					(reference "#PWR060")
 					(unit 1)
 				)
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/69e17b68-518f-4a96-bc5f-1d2df7d01a56"
@@ -6628,7 +6704,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9b1eb2fd-6b0f-4d75-a0f6-a2852e0b6bc3")
-		(property "Reference" "#PWR048"
+		(property "Reference" "#PWR059"
 			(at 73.66 102.87 0)
 			(effects
 				(font
@@ -6678,7 +6754,7 @@
 		(instances
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "#PWR048")
+					(reference "#PWR059")
 					(unit 1)
 				)
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/dfc443dd-7c5d-4956-9c53-a8ea419d150b"
@@ -6722,7 +6798,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_DIN:DIN41612_C_3x32_Male_Horizontal_THT"
 			(at 158.75 21.59 0)
 			(effects
 				(font
@@ -7046,7 +7122,7 @@
 			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "U17")
+					(reference "P3")
 					(unit 2)
 				)
 			)
@@ -7080,7 +7156,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_DIN:DIN41612_C_3x32_Male_Horizontal_THT"
 			(at 251.46 21.59 0)
 			(effects
 				(font
@@ -7404,7 +7480,7 @@
 			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "U17")
+					(reference "P3")
 					(unit 3)
 				)
 			)
@@ -7438,7 +7514,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_DIN:DIN41612_C_3x32_Male_Horizontal_THT"
 			(at 76.2 21.59 0)
 			(effects
 				(font
@@ -7762,7 +7838,7 @@
 			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "U17")
+					(reference "P3")
 					(unit 1)
 				)
 			)
@@ -7828,6 +7904,12 @@
 			(project "Bus"
 				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
 					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
+					(reference "#PWR064")
 					(unit 1)
 				)
 			)

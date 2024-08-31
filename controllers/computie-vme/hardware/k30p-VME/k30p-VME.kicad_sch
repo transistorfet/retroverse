@@ -1173,7 +1173,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1367ac58-f746-4ed8-8f78-5e94c91f25a2")
-		(property "Reference" "TP9"
+		(property "Reference" "TP1"
 			(at 109.22 130.048 0)
 			(effects
 				(font
@@ -1224,7 +1224,7 @@
 		(instances
 			(project "k30p-VME16"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
-					(reference "TP9")
+					(reference "TP1")
 					(unit 1)
 				)
 			)
@@ -1240,7 +1240,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1957a689-2f73-4598-a5ec-6beb8ec22f8d")
-		(property "Reference" "D6"
+		(property "Reference" "D1"
 			(at 176.53 129.8574 90)
 			(effects
 				(font
@@ -1294,7 +1294,7 @@
 		(instances
 			(project "k30p-VME16"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
-					(reference "D6")
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -1309,7 +1309,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1a7947ea-3959-4781-999d-9d74d706d057")
-		(property "Reference" "J6"
+		(property "Reference" "J2"
 			(at 108.712 122.1232 0)
 			(effects
 				(font
@@ -1363,7 +1363,7 @@
 		(instances
 			(project "k30p-VME16"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
-					(reference "J6")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -1379,7 +1379,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2b940383-4572-46eb-aae9-47ce4a8f6402")
-		(property "Reference" "#PWR079"
+		(property "Reference" "#PWR04"
 			(at 172.72 142.24 0)
 			(effects
 				(font
@@ -1429,7 +1429,7 @@
 		(instances
 			(project "k30p-VME16"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
-					(reference "#PWR079")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -1508,7 +1508,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b843db30-0074-43f9-83f7-2d5d776a8731")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR01"
 			(at 93.98 121.92 0)
 			(effects
 				(font
@@ -1558,7 +1558,7 @@
 		(instances
 			(project "k30p-VME16"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
-					(reference "#PWR010")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -1573,7 +1573,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bdc743bb-80a7-4b66-9613-b1e60f8f3eae")
-		(property "Reference" "#PWR078"
+		(property "Reference" "#PWR03"
 			(at 106.68 140.97 0)
 			(effects
 				(font
@@ -1623,7 +1623,7 @@
 		(instances
 			(project "k30p-VME16"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
-					(reference "#PWR078")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -1638,7 +1638,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c0a211a8-3952-4067-b68f-b6e70ef8f04d")
-		(property "Reference" "R16"
+		(property "Reference" "R1"
 			(at 173.99 118.11 0)
 			(effects
 				(font
@@ -1656,7 +1656,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal"
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
 			(at 172.72 119.38 0)
 			(effects
 				(font
@@ -1692,7 +1692,7 @@
 		(instances
 			(project "k30p-VME16"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
-					(reference "R16")
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -1902,7 +1902,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e6537b3f-587a-4b92-84c4-c994da5f308a")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR02"
 			(at 93.98 135.89 0)
 			(effects
 				(font
@@ -1952,7 +1952,7 @@
 		(instances
 			(project "k30p-VME16"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba"
-					(reference "#PWR011")
+					(reference "#PWR02")
 					(unit 1)
 				)
 			)
