@@ -5,7 +5,7 @@
 	(uuid "b57c6bf4-c51b-43b2-93b1-4bdedc77cd2a")
 	(paper "A4")
 	(title_block
-		(title "k30-VME32")
+		(title "k30p-VME")
 		(rev "1")
 	)
 	(lib_symbols
@@ -1179,6 +1179,12 @@
 		(uuid "03f17f5c-1236-40e6-97b0-d142a017c720")
 	)
 	(junction
+		(at 39.37 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "083b25d3-f946-4f7e-abf9-d4234f5fdca1")
+	)
+	(junction
 		(at 39.37 121.92)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1243,12 +1249,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d84dce87-bd2e-4418-9631-f7d35831cbfc")
-	)
-	(junction
-		(at 40.64 43.18)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "fe353bc0-d552-41e1-9d30-678f60d63d70")
 	)
 	(junction
 		(at 101.6 43.18)
@@ -2858,6 +2858,16 @@
 	)
 	(wire
 		(pts
+			(xy 39.37 43.18) (xy 41.91 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0a278d63-4e1b-402f-a96a-24775d66ae19")
+	)
+	(wire
+		(pts
 			(xy 67.31 66.04) (xy 78.74 66.04)
 		)
 		(stroke
@@ -3638,13 +3648,13 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 43.18) (xy 40.64 43.18)
+			(xy 39.37 40.64) (xy 35.56 40.64)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "3b1af571-1053-4e78-942d-343585395ff8")
+		(uuid "3ab73a00-f0c0-4ed1-ba8b-b4cf4f2223e0")
 	)
 	(bus
 		(pts
@@ -4268,16 +4278,6 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 45.72) (xy 40.64 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7430e812-e17e-4d96-a714-4669dafb277e")
-	)
-	(wire
-		(pts
 			(xy 67.31 88.9) (xy 78.74 88.9)
 		)
 		(stroke
@@ -4435,6 +4435,16 @@
 			(type default)
 		)
 		(uuid "79ef2fa4-f455-4f03-9589-03d414dba3db")
+	)
+	(wire
+		(pts
+			(xy 39.37 45.72) (xy 39.37 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7bb0ca89-a18f-4fda-85b4-5d35878aec97")
 	)
 	(bus
 		(pts
@@ -4695,6 +4705,16 @@
 			(type default)
 		)
 		(uuid "8f98f118-7a25-4e68-afc9-04fbac8b2973")
+	)
+	(wire
+		(pts
+			(xy 39.37 43.18) (xy 39.37 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8fd3e18b-4888-49c3-98c6-638f037398a6")
 	)
 	(wire
 		(pts
@@ -5688,16 +5708,6 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 43.18) (xy 41.91 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d6b241f5-f5d5-4bac-9174-a81a129baee1")
-	)
-	(wire
-		(pts
 			(xy 41.91 144.78) (xy 30.48 144.78)
 		)
 		(stroke
@@ -5916,6 +5926,16 @@
 		)
 		(uuid "e56a24cc-6136-42f5-85b8-fdcb89674a03")
 	)
+	(wire
+		(pts
+			(xy 35.56 40.64) (xy 35.56 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e57fae89-fe5f-497f-a2de-f824eec02db2")
+	)
 	(bus
 		(pts
 			(xy 27.94 157.48) (xy 27.94 160.02)
@@ -5995,6 +6015,16 @@
 			(type default)
 		)
 		(uuid "e93cd962-9647-418a-a981-2a940db626a2")
+	)
+	(wire
+		(pts
+			(xy 41.91 45.72) (xy 39.37 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea0d9038-1d95-4af3-8e13-e079bb5d8044")
 	)
 	(wire
 		(pts
@@ -6345,16 +6375,6 @@
 			(type default)
 		)
 		(uuid "fbbee975-6363-4ed6-9a70-4bae9c67f20f")
-	)
-	(wire
-		(pts
-			(xy 40.64 45.72) (xy 40.64 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fc7f279a-7e3c-40c0-95ff-6db36ae7c3e0")
 	)
 	(wire
 		(pts
@@ -7363,10 +7383,10 @@
 			"AAC4AiMuAAAAAAAAAODK/weCs566z3IyTAAAAABJRU5ErkJggg=="
 		)
 	)
-	(text_box "DURING THE FOLLOWING TRANSACTIONS:\nA16, A24:		ADDRESS LOW & ADDRESS HIGH ARE ACTIVE\nA40:			ADDRESS LOW, ADDRESS HIGH, & A40 CROSS ARE ACTIVE\nD8E, D8O, D16:	D16 CROSS IS ACTIVE, DSACK1 = L, DSACK0 = H\nMD32:			DATA LOW & MD32 CROSS ARE ACTIVE, DSACK1 = L, DSACK0 = L\n\n"
+	(text_box "DURING THE FOLLOWING TRANSACTIONS:\nA16, A24:		ADDRESS LOW & ADDRESS HIGH ARE ACTIVE\nA40:			ADDRESS LOW, ADDRESS HIGH, & A40 CROSS ARE ACTIVE\nD8E, D8O, D16:	D16 CROSS IS ACTIVE, DSACK1 = L, DSACK0 = H\nMD32:			DATA LOW & MD32 CROSS ARE ACTIVE, DSACK1 = L, DSACK0 = L\n				(NOTE: D32 IS NOT SUPPORTED ON 3U 3R VME)\n\n"
 		(exclude_from_sim no)
 		(at 127 128.27 0)
-		(size 87.63 12.7)
+		(size 87.63 13.97)
 		(stroke
 			(width 0)
 			(type default)
@@ -9482,28 +9502,6 @@
 			)
 		)
 	)
-	(global_label "AL_DIR"
-		(shape input)
-		(at 38.1 43.18 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f27d87da-4e25-48d6-92aa-161892f2e21e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 28.8857 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "~{DL_OE}"
 		(shape input)
 		(at 194.31 43.18 0)
@@ -11175,6 +11173,71 @@
 			(project "k30-SBC"
 				(path "/fc911c32-ec9d-4dc3-a64d-23ac8e8e7030/00000000-0000-0000-0000-0000613dffc0"
 					(reference "#PWR032")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 35.56 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b7a72a85-85c4-4c6a-89d9-b28db06b93e5")
+		(property "Reference" "#PWR046"
+			(at 35.56 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 35.687 46.3042 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 35.56 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 35.56 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 35.56 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a1684cc8-5f01-47c4-ab40-d3699f8b9c8a")
+		)
+		(instances
+			(project "k30p-VME"
+				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/d84460b0-5709-47d7-8f66-71b9360a0384"
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)

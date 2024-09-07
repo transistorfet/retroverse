@@ -473,7 +473,7 @@
   size case, and $240 or $305 for the 3U/64HP case, only 50% more to get the larger one, but who knows if I'll use it, and the
   smaller case is what I really wanted because of the cute factor
 
-2023-08-30:
+2024-08-30:
 - still need to order parts and the SystemBoard, after redesigning it for the TQFP, which is much smaller.  That will help with the
   k30-VME16, which is space constrained.  I'm trying to tie up some loose ends with the k30 schematic design.  I need to figure out
   what signals the CPLD will need, and how to connect the serial interrupt and interrupt acknowledge, in a way that also works with
@@ -489,4 +489,51 @@
     - 32-bit 3U 4R or 32-bit 6U - 5 transceivers excluding A40/MD32, 7 transceivers with A40/MD32
 
 - so basically, if you want to stick to 3R standard size, it's 3 for 16-bit and 6 for 32-bit
+
+2024-09-02:
+
+- I've got the SystemBoard, and now SystemBoardSMT designed, and I'm waiting on parts to confirm the measurements for the 60mm
+  extender card before I'll be ready to order the boards.  I've already done a lot of work on the k30p-VME, but I realize I should
+  work on the logic design to ensure I have the right signals I'll need to make it work.
+- I found https://github.com/hoglet67/atf15xx_yosys and installed it with ease to compile a counting example, and loaded it onto the
+  devkit I have with the ATMISP7 programmer, using its software.  I had to run the programming software in virtualbox with the USB
+  extensions to make it work, but the yosys thing used wine and ProChips binaries to actually produce the .jed file I needed for the
+  programming.  I tried compiling a previous example in WinCUPL but I couldn't even get it to compile before making it work in
+  yosys, so that's almost the nail in the coffin for WinCUPL, but!
+- now I need to figure out if I can do open collector outputs/tristate using yosys.  If I can't make it work, and I can't make
+  anything else work that can make the bus output pins go high impedence, then I'll need to add buffer chips to *all* bus signals.
+  I have no buffers on the SystemBoard design, and I only have then on the data and address lines for the k30p, I'd need at least 2
+  more 16-bit buffers I think, to make it work, possible some extra independantly controlled buffers.  Given how little board space
+  I have, I think at that point I'd need to abandon the A40/MD32 cycles
+
+2024-09-05:
+
+- got the digikey order:
+- Vector CM10, $17 - adapters and handles kit without aluminum front panel
+    - I'm not sure how it goes together, but it requires a specific aluminum front panel
+    - would need to purchase it with parts that digikey doesn't seem to stock, so buy direct if possible
+    - it's the fancy ejector handle, but it's probably not worth $17 + probably $15 for the panel
+- Wakefield-Vette 3606330, $17 for 10 - plastic pcb-to-front panel bracket and screws
+    - it's not the best quality
+    - since it goes across the bottom edge, it interfers with the USB connector
+    - comes with screws though
+- Schroff 60807011, $4.12 - red plastic pcb-to-front panel bracket only (no screws or anything else)
+    - it's much better quality
+    - doesn't come with screws, which make it about the same price as the Wakefield ones
+    - despite going across the front, it doesn't interfer as much with the USB connector
+- Wakefield-Vette 3685198, $22.31 for 10, $4.46 per pair - metal PCB holder adapter
+    - bit bulky, need more clearance on the board around the mounting holes, but works fine
+    - no screws, so they're extra
+- Vector HD102, $6.80 - full kit with small plastic right angle adapters for pcb-to-front panel
+    - contains everything
+    - plastic, so not as good as the metal ones
+- Vector FP52B8HP-4, $28 - Front Panel Assembly, 3U 8HP
+    - total waste of money
+    - it's for a rear panel, so not a front panel
+    - it has a cutout in the lower corner, but it doesn't seem to be able to take the ejector handles
+    - it's basically just a cover plate, albeit a nicer one
+
+- the metal ones are probably the least inspiring but best ones to use, next to maybe 3D printing similar ones
+- the skookum kit with the ejector handles is really nice, but it's too expensive, so an alternative would be
+  necessary, and it doesn't have the front panel.
 

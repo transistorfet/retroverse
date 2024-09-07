@@ -13,7 +13,7 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
+			(property "Reference" "J"
 				(at 0 40.64 0)
 				(effects
 					(font
@@ -2899,9 +2899,9 @@
 		)
 		(symbol "power:+5V"
 			(power)
+			(pin_numbers hide)
 			(pin_names
-				(offset 0)
-			)
+				(offset 0) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -2949,7 +2949,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "power-flag"
+			(property "ki_keywords" "global power"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2999,8 +2999,8 @@
 			(symbol "+5V_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
-					(name "+5V"
+					(length 0)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3145,8 +3145,48 @@
 		(uuid "b8bac1c9-e8c9-48a4-a1b7-da50c6f8e20c")
 	)
 	(no_connect
+		(at 233.68 39.37)
+		(uuid "0356b6ef-42c1-497e-ba12-b0db382fc22d")
+	)
+	(no_connect
+		(at 233.68 34.29)
+		(uuid "31fcfed2-cfcd-40a5-b13e-c0c255558650")
+	)
+	(no_connect
+		(at 233.68 26.67)
+		(uuid "3fa6c3b9-4572-4d16-bf0f-817163a762ca")
+	)
+	(no_connect
+		(at 233.68 31.75)
+		(uuid "64e5c2cc-3f08-4c85-8fcc-552190028de3")
+	)
+	(no_connect
 		(at 69.85 102.87)
 		(uuid "7f40ab1a-ccee-4c67-8e99-f7c76bd21f56")
+	)
+	(no_connect
+		(at 233.68 36.83)
+		(uuid "84221fc4-23f3-4c99-9a70-5a84f0900998")
+	)
+	(no_connect
+		(at 146.05 80.01)
+		(uuid "9b80be7d-1dcf-43b0-adc9-218a71f11ca8")
+	)
+	(no_connect
+		(at 233.68 44.45)
+		(uuid "ba9de894-28e2-4d3d-a05f-fd72856963d5")
+	)
+	(no_connect
+		(at 146.05 77.47)
+		(uuid "c12cf287-464d-442b-be3c-51694cd7cd6f")
+	)
+	(no_connect
+		(at 233.68 29.21)
+		(uuid "cde7a5e8-196a-4dcf-b9d3-0e9ff8997cec")
+	)
+	(no_connect
+		(at 233.68 41.91)
+		(uuid "ce5ee11f-b4df-477a-9af1-b256f5cb9558")
 	)
 	(no_connect
 		(at 233.68 102.87)
@@ -6403,7 +6443,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 144.78 105.41 0)
 			(effects
 				(font
@@ -6533,7 +6573,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 232.41 105.41 0)
 			(effects
 				(font
@@ -6598,7 +6638,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 68.58 105.41 0)
 			(effects
 				(font

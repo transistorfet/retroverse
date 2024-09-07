@@ -258,6 +258,14 @@
 	(net 107 "unconnected-(U1-I{slash}O-Pad22)")
 	(net 108 "unconnected-(U1-I{slash}O-Pad52)")
 	(net 109 "unconnected-(U1-I{slash}OE2{slash}GCLK2-Pad90)")
+	(net 110 "unconnected-(U2-Pad8)")
+	(net 111 "unconnected-(U2-Pad9)")
+	(net 112 "unconnected-(U2-Pad1)")
+	(net 113 "unconnected-(U2-Pad10)")
+	(net 114 "unconnected-(U2-Pad13)")
+	(net 115 "unconnected-(U2-Pad12)")
+	(net 116 "unconnected-(U2-Pad2)")
+	(net 117 "unconnected-(U2-Pad11)")
 	(footprint "Connector_DIN:DIN41612_C_3x32_Male_Horizontal_THT"
 		(locked yes)
 		(layer "F.Cu")
@@ -326,7 +334,7 @@
 				)
 			)
 		)
-		(path "/949d2a63-0409-4f9d-9c7f-c22e1a992a15/fa49e5c5-4bd2-4c0c-ba26-cca544b046c0")
+		(path "/949d2a63-0409-4f9d-9c7f-c22e1a992a15/fb89f9df-4786-43ad-88d0-a9aecd25d556")
 		(sheetname "Bus")
 		(sheetfile "Bus.kicad_sch")
 		(attr through_hole)
@@ -1637,7 +1645,7 @@
 			(remove_unused_layers no)
 			(net 50 "unconnected-(U3B-SERCLK-Padb21)")
 			(pinfunction "SERCLK")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "6ee7a9ae-af99-45bb-9181-ac979172682f")
 		)
 		(pad "b22" thru_hole circle
@@ -1648,7 +1656,7 @@
 			(remove_unused_layers no)
 			(net 43 "unconnected-(U3B-SERDAT-Padb22)")
 			(pinfunction "SERDAT")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "0f5e47ba-3322-4247-b0d6-0963d4dcbb14")
 		)
 		(pad "b23" thru_hole circle
@@ -1769,7 +1777,7 @@
 			(remove_unused_layers no)
 			(net 47 "unconnected-(U3C-D08-Padc1)")
 			(pinfunction "D08")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "5678bb16-fba1-4e31-a8ef-9a8b32166bb7")
 		)
 		(pad "c2" thru_hole circle
@@ -1780,7 +1788,7 @@
 			(remove_unused_layers no)
 			(net 48 "unconnected-(U3C-D09-Padc2)")
 			(pinfunction "D09")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "58b9a863-af22-4772-99b9-b24d56777c02")
 		)
 		(pad "c3" thru_hole circle
@@ -1791,7 +1799,7 @@
 			(remove_unused_layers no)
 			(net 49 "unconnected-(U3C-D10-Padc3)")
 			(pinfunction "D10")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "5cb9d06a-3faa-44d7-b1a6-03ed591217f1")
 		)
 		(pad "c4" thru_hole circle
@@ -1802,7 +1810,7 @@
 			(remove_unused_layers no)
 			(net 54 "unconnected-(U3C-D11-Padc4)")
 			(pinfunction "D11")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "e490ed4f-8338-49b9-80f7-d17d92599896")
 		)
 		(pad "c5" thru_hole circle
@@ -1813,7 +1821,7 @@
 			(remove_unused_layers no)
 			(net 53 "unconnected-(U3C-D12-Padc5)")
 			(pinfunction "D12")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "ccc73f11-6d2d-45bc-aafe-7e430004f6bc")
 		)
 		(pad "c6" thru_hole circle
@@ -1824,7 +1832,7 @@
 			(remove_unused_layers no)
 			(net 56 "unconnected-(U3C-D13-Padc6)")
 			(pinfunction "D13")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "f34da45a-fd7e-4708-841d-7eddee1b96d3")
 		)
 		(pad "c7" thru_hole circle
@@ -1835,7 +1843,7 @@
 			(remove_unused_layers no)
 			(net 46 "unconnected-(U3C-D14-Padc7)")
 			(pinfunction "D14")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "4ffa2721-d328-4d6b-9e9f-05bcee8176cb")
 		)
 		(pad "c8" thru_hole circle
@@ -1846,7 +1854,7 @@
 			(remove_unused_layers no)
 			(net 42 "unconnected-(U3C-D15-Padc8)")
 			(pinfunction "D15")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "01a85d61-0e8a-45d7-9562-a2e9bbc33808")
 		)
 		(pad "c9" thru_hole circle
@@ -7881,7 +7889,7 @@
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor handsolder")
 		(property "Reference" "C7"
-			(at 0 -1.68 360)
+			(at 0 -1.68 0)
 			(layer "F.SilkS")
 			(uuid "8f72de9c-e415-4ff1-97d4-3a3e950c7dff")
 			(effects
@@ -7892,7 +7900,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 0 1.68 360)
+			(at 0 1.68 0)
 			(layer "F.Fab")
 			(uuid "3da0346d-1de7-425e-b613-72e482fc56f0")
 			(effects
@@ -8047,7 +8055,7 @@
 			(uuid "77d6f45b-b134-494c-b50a-c75231262705")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "5c67bcc4-36f9-4739-9711-08e1afa12b79")
 			(effects
@@ -9441,7 +9449,7 @@
 			(roundrect_rratio 0.25)
 			(net 106 "unconnected-(U1-I{slash}O-Pad21)")
 			(pinfunction "I/O")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "4d5bdb99-5967-47ea-9eff-f46793789cd0")
 		)
 		(pad "22" smd roundrect
@@ -9451,7 +9459,7 @@
 			(roundrect_rratio 0.25)
 			(net 107 "unconnected-(U1-I{slash}O-Pad22)")
 			(pinfunction "I/O")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "5a96f3d7-1e23-4c15-9abb-ca016c94f8e7")
 		)
 		(pad "23" smd roundrect
@@ -9751,7 +9759,7 @@
 			(roundrect_rratio 0.25)
 			(net 108 "unconnected-(U1-I{slash}O-Pad52)")
 			(pinfunction "I/O")
-			(pintype "bidirectional")
+			(pintype "bidirectional+no_connect")
 			(uuid "4dab42e5-b63a-43e1-8d6c-69f6d3255957")
 		)
 		(pad "53" smd roundrect
@@ -10111,7 +10119,7 @@
 			(roundrect_rratio 0.25)
 			(net 100 "unconnected-(U1-I{slash}OE1-Pad88)")
 			(pinfunction "I/OE1")
-			(pintype "input")
+			(pintype "input+no_connect")
 			(uuid "ab528402-0021-468a-89e4-6988cf897dda")
 		)
 		(pad "89" smd roundrect
@@ -10131,7 +10139,7 @@
 			(roundrect_rratio 0.25)
 			(net 109 "unconnected-(U1-I{slash}OE2{slash}GCLK2-Pad90)")
 			(pinfunction "I/OE2/GCLK2")
-			(pintype "input")
+			(pintype "input+no_connect")
 			(uuid "6b24f993-7df3-494b-9d45-2e4534c1ab34")
 		)
 		(pad "91" smd roundrect
@@ -10581,7 +10589,7 @@
 			)
 		)
 		(property ki_fp_filters "DIP*W7.62mm*")
-		(path "/50584476-92da-4273-a348-4d9950395e3e")
+		(path "/31f02d7e-973f-44d2-9458-76d0411d9535")
 		(sheetname "Root")
 		(sheetfile "SystemBoardSMT.kicad_sch")
 		(attr smd)
@@ -10743,6 +10751,8 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
 			(roundrect_rratio 0.25)
+			(net 112 "unconnected-(U2-Pad1)")
+			(pintype "input+no_connect")
 			(uuid "8deecbce-cbe5-49ed-af01-f23ff014360b")
 		)
 		(pad "2" smd roundrect
@@ -10750,6 +10760,8 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
 			(roundrect_rratio 0.25)
+			(net 116 "unconnected-(U2-Pad2)")
+			(pintype "output+no_connect")
 			(uuid "f32cd9d5-d247-40cd-ae36-5e2fdaddddd4")
 		)
 		(pad "3" smd roundrect
@@ -10803,6 +10815,8 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
 			(roundrect_rratio 0.25)
+			(net 110 "unconnected-(U2-Pad8)")
+			(pintype "output+no_connect")
 			(uuid "23cdb2ae-de9d-40ac-8e3b-920c39872c65")
 		)
 		(pad "9" smd roundrect
@@ -10810,6 +10824,8 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
 			(roundrect_rratio 0.25)
+			(net 111 "unconnected-(U2-Pad9)")
+			(pintype "input+no_connect")
 			(uuid "81c1b3a4-06b2-447e-8ac5-71479ad89172")
 		)
 		(pad "10" smd roundrect
@@ -10817,6 +10833,8 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
 			(roundrect_rratio 0.25)
+			(net 113 "unconnected-(U2-Pad10)")
+			(pintype "output+no_connect")
 			(uuid "9d3f3487-6789-47cb-8715-366169c27dce")
 		)
 		(pad "11" smd roundrect
@@ -10824,6 +10842,8 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
 			(roundrect_rratio 0.25)
+			(net 117 "unconnected-(U2-Pad11)")
+			(pintype "input+no_connect")
 			(uuid "fcda14c4-9aeb-4ed0-8abd-41fadb72d0dc")
 		)
 		(pad "12" smd roundrect
@@ -10831,6 +10851,8 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
 			(roundrect_rratio 0.25)
+			(net 115 "unconnected-(U2-Pad12)")
+			(pintype "output+no_connect")
 			(uuid "ed6cbbb0-dc83-4068-8a60-83d34a5aaa56")
 		)
 		(pad "13" smd roundrect
@@ -10838,6 +10860,8 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
 			(roundrect_rratio 0.25)
+			(net 114 "unconnected-(U2-Pad13)")
+			(pintype "input+no_connect")
 			(uuid "c3585794-2971-49b7-b658-57aea4f9b89c")
 		)
 		(pad "14" smd roundrect
