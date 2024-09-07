@@ -1,4 +1,19 @@
 
+k30p-VME
+========
+
+Status: In Design
+
+Latest: Unreleased
+
+### About
+
+A CPU card for a VME-based computer system using an MC68030 with some onboard RAM and Flash, and a
+onboard serial ports with integrated FTDI Serial-to-USB controllers, and a programmable ATF1508
+CPLD for glue logic.  The 'p' in the name stands for Programmable due to the CPLD.
+
+Currently it's in development and I'm making slow progress with the CPLD, but I don't want to jump
+further ahead until I'm sure I can make it work
 
 
 Parts
