@@ -32,6 +32,20 @@ Cargo.lock
 fp-info-cache
 **/*-backups
 
+# RTL Output Files
+*.blif
+*.asc
+*.json
+*.rpt
+*.sim
+*.vcd
+*.edif
+*.jed
+*.pla
+*.tt3
+*.fit
+*.io
+
 # Binary files
 *.img
 

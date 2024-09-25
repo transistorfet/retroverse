@@ -1,6 +1,4 @@
 
-* make a board for distributing power to eurorack modular synth modules with the 16-pin connector, so that synth modules and computer modules could be mixed in the same case
-
 * add ADC voltage monitor to big boy or a bus arbiter board to give a failure signal if the voltage is not within range
   I've had issues in testing where the voltage sagged due to the wire I was using, which could have been low enough to damage a sensitive board, so best if I had a signal for that
 * add detection for the extra bus pins on the 4th row.  If there's no power or something present, then assume it's not connected and the onboard logic can only do multiplexed operations

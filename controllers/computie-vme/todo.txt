@@ -1,0 +1,22 @@
+
+To Do for ComputieVME
+=====================
+
+
+- looking more into the other signals, DBEN doesn't look as valuable, because it mostly mirrors either AS or DS depending on a read or write
+  but ECS might be valuable because it goes low before AS does, which could be used to request the bus and put the address information on the
+  bus before the AS signal goes low (by one half clock)
+
+- do you use the AVEC pin or do you make the CPLD output a vector to the bus?  I don't have enough pins for 8 data bits
+- should you use the DBEN output or DS in the logic to control the data bus transceivers
+- If you add GPIOs from the serial port controller to the PL, it would give you some flags that could be set by the program, to change the selected bus access type
+  or just generally some kind of programmable hardware/register flag/switch, without needing the data bus on the PL
+
+- you're already using a logic chip to compress the interrupt signals onto fewer pins, and you could do the same for the upper address pins, eliminating 8 pins while
+  still making the top address space map to the A24 VME space in exchange for another logic chip
+
+
+
+- do you need a phase locked loop to go even higher, to 100MHz? to drive the logic fast enough, or is it ok to go at a minimum of 3 clock cycles per operation
+- You'll probably want a 50MHz clock, which you can convert either to a 25MHz clock, or just output it at 50MHz for the CPU, since the clock doesn't go directly to the CPU
+

@@ -6147,7 +6147,7 @@
 		)
 		(property "Value" "JTAG"
 			(at 1.27 12.49 90)
-			(layer "F.Fab")
+			(layer "F.SilkS")
 			(uuid "df18d788-2963-4df2-bcd6-e70095e10246")
 			(effects
 				(font
@@ -35347,7 +35347,7 @@
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor handsolder")
 		(property "Reference" "C31"
-			(at 0 -1.651 360)
+			(at 0 -1.651 0)
 			(layer "B.SilkS")
 			(uuid "2a9fab92-7497-4a0a-b801-4f3c604ffd86")
 			(effects
@@ -35359,7 +35359,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 0 -1.68 360)
+			(at 0 -1.68 0)
 			(layer "B.Fab")
 			(uuid "de86edf2-2221-47c1-9919-8a5f9afd9333")
 			(effects
@@ -35518,7 +35518,7 @@
 			(uuid "79c4cfcd-b5bf-4542-a63c-2f1f73830c04")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(uuid "5cf77f97-ec3e-4531-a8d6-e2ba35964e02")
 			(effects
@@ -36004,7 +36004,7 @@
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor handsolder")
 		(property "Reference" "C33"
-			(at 0 -1.651 360)
+			(at 0 -1.651 0)
 			(layer "B.SilkS")
 			(uuid "731992ee-bb8e-4029-b760-8106a9071a76")
 			(effects
@@ -36016,7 +36016,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 0 -1.68 360)
+			(at 0 -1.68 0)
 			(layer "B.Fab")
 			(uuid "dc377cba-e53e-4f9c-80eb-de1bdd85c435")
 			(effects
@@ -36175,7 +36175,7 @@
 			(uuid "2aa0edaa-2c77-4b84-9d2a-e532270bddd1")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(uuid "3f63ecab-75ec-4130-a11e-f098434925a1")
 			(effects

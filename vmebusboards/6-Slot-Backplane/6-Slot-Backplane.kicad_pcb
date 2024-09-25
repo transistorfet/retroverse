@@ -32934,7 +32934,7 @@
 	(footprint "Computie_Connectors:TE_1-1775099-3_ATX_24_Pin_PowerSupply"
 		(layer "F.Cu")
 		(uuid "a948fdab-b2c6-4416-bab5-980d203d545b")
-		(at 230.502 116.1986)
+		(at 231.915 103.373)
 		(property "Reference" "J101"
 			(at -17.54785 -5.99281 0)
 			(layer "F.SilkS")

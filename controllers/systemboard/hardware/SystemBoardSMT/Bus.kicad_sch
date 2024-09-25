@@ -3169,16 +3169,8 @@
 		(uuid "84221fc4-23f3-4c99-9a70-5a84f0900998")
 	)
 	(no_connect
-		(at 146.05 80.01)
-		(uuid "9b80be7d-1dcf-43b0-adc9-218a71f11ca8")
-	)
-	(no_connect
 		(at 233.68 44.45)
 		(uuid "ba9de894-28e2-4d3d-a05f-fd72856963d5")
-	)
-	(no_connect
-		(at 146.05 77.47)
-		(uuid "c12cf287-464d-442b-be3c-51694cd7cd6f")
 	)
 	(no_connect
 		(at 233.68 29.21)
@@ -3595,6 +3587,16 @@
 		)
 		(uuid "204d708f-4dba-4f80-859b-e1ed226fec2b")
 	)
+	(wire
+		(pts
+			(xy 134.62 80.01) (xy 146.05 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "224b197d-ae3b-45ec-ba18-a1c5363e54e5")
+	)
 	(bus
 		(pts
 			(xy 209.55 59.69) (xy 209.55 62.23)
@@ -3644,6 +3646,16 @@
 			(type default)
 		)
 		(uuid "3098305d-71ce-4fa3-80eb-05be39b69612")
+	)
+	(wire
+		(pts
+			(xy 134.62 77.47) (xy 146.05 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "32cc479c-0b67-4971-a81b-d0d549592671")
 	)
 	(bus
 		(pts
@@ -5388,6 +5400,28 @@
 			)
 		)
 	)
+	(global_label "SERDAT"
+		(shape bidirectional)
+		(at 134.62 80.01 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "65235213-89c9-4e04-b1b0-61ac1a14c795")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 123.5688 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "AM5"
 		(shape bidirectional)
 		(at 229.87 59.69 180)
@@ -5577,6 +5611,28 @@
 		(uuid "a28c68f4-93c4-431c-88c9-aa5c147790f3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 13.6834 17.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SERCLK"
+		(shape bidirectional)
+		(at 134.62 77.47 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a84d6ee9-e4f2-4200-82f8-21e01803e5be")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 123.3269 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
