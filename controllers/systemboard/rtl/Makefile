@@ -1,5 +1,5 @@
 
-TOOLS = ../../computie-vme/tools
+TOOLS = ../../../tools
 RUN_YOSYS = $(TOOLS)/atf15xx_yosys/run_yosys.sh
 RUN_FITTER = $(TOOLS)/atf15xx_yosys/run_fitter.sh
 
@@ -14,7 +14,7 @@ systemboard_test: systemboard_test.jed
 ##############
 
 %.jed: %.edif
-	$(RUN_FITTER) $(basename $<)
+	$(RUN_FITTER) -p TQFP100 $(basename $<)
 
 %.edif: %.v
 	$(RUN_YOSYS) $(basename $<)

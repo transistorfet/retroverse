@@ -40,7 +40,6 @@ fp-info-cache
 *.sim
 *.vcd
 *.edif
-*.jed
 *.pla
 *.tt3
 *.fit

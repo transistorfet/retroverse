@@ -1,4 +1,5 @@
 `include "interrupts.v"
+`include "local_peripherals.v"
 `include "vmebus_interface.v"
 
 module buslogic(
@@ -48,7 +49,9 @@ module buslogic(
     reg request_ram;
     reg request_rom;
     reg request_serial;
-    reg request_vme;
+    reg request_vme_a16;
+    reg request_vme_a24;
+    reg request_vme_a40;
 
     assign cpu_clock = clock;
 
@@ -59,7 +62,9 @@ module buslogic(
         .request_ram(request_ram),
         .request_rom(request_rom),
         .request_serial(request_serial),
-        .request_vme(request_vme)
+        .request_vme_a16(request_vme_a16),
+        .request_vme_a24(request_vme_a24),
+        .request_vme_a40(request_vme_a40)
     );
 
     ram_select ram_select(
@@ -74,7 +79,8 @@ module buslogic(
     vme_bus_arbitration vme_bus_arbitration(
         .clock(clock),
 
-        .request_vme(request_vme),
+        .request_vme(request_vme_a16 || request_vme_a24 || request_vme_a40),
+
         .bus_acquired(bus_acquired),
 
         .vme_bus_request(vme_bus_request),
@@ -85,7 +91,9 @@ module buslogic(
     vme_data_transfer vme_data_transfer(
         .clock(clock),
 
-        .request_vme(request_vme),
+        .request_vme_a16(request_vme_a16),
+        .request_vme_a24(request_vme_a24),
+        .request_vme_a40(request_vme_a40),
         .bus_acquired(bus_acquired),
 
         .cpu_as(cpu_as),

@@ -1,5 +1,5 @@
 
-TOOLS = ../../tools
+TOOLS = ../../../../tools
 RUN_YOSYS = $(TOOLS)/atf15xx_yosys/run_yosys.sh
 RUN_FITTER = $(TOOLS)/atf15xx_yosys/run_fitter.sh
 

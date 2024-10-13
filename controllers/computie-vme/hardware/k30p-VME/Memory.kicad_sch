@@ -9,7 +9,7 @@
 		(rev "1")
 	)
 	(lib_symbols
-		(symbol "Computie_Memory:AM29F040"
+		(symbol "Computie_Memory:AM29F040-J"
 			(pin_names
 				(offset 1.016)
 			)
@@ -24,7 +24,7 @@
 					)
 				)
 			)
-			(property "Value" "AM29F040"
+			(property "Value" "AM29F040-J"
 				(at 0 2.54 0)
 				(effects
 					(font
@@ -32,7 +32,7 @@
 					)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "Package_LCC:PLCC-32_THT-Socket"
 				(at 0 0 0)
 				(effects
 					(font
@@ -41,7 +41,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" ""
+			(property "Datasheet" "https://www.mouser.ca/datasheet/2/196/spansion_inc_am29f040b_eol_21445e8-3004346.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -50,7 +50,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "4-Mbit (512Kx8) Flash Memory"
+			(property "Description" "4-Mbit (512Kx8) Flash Memory, PLCC-44"
 				(at 0 0 0)
 				(effects
 					(font
@@ -59,7 +59,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "AM29F040_1_1"
+			(symbol "AM29F040-J_1_1"
 				(rectangle
 					(start -10.16 22.86)
 					(end 10.16 -27.94)
@@ -649,7 +649,7 @@
 				)
 			)
 		)
-		(symbol "Computie_Memory:AS6C8016"
+		(symbol "Computie_Memory:AS6C8016-55ZIN"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -662,7 +662,7 @@
 					(justify bottom)
 				)
 			)
-			(property "Value" "AS6C8016"
+			(property "Value" "AS6C8016-55ZIN"
 				(at 0 1.27 0)
 				(effects
 					(font
@@ -671,7 +671,16 @@
 					(justify bottom)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.alliancememory.com/wp-content/uploads/pdf/lp_sram/AS6C8016.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -680,16 +689,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "http://www.futurlec.com/Datasheet/Memory/628528.pdf"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "512K x 8 High-Speed CMOS Static RAM, 55/70ns, DIP-32/SSOP-32"
+			(property "Description" "512K x 8 High-Speed CMOS Static RAM, 55/70ns, TSSOP-II 44"
 				(at 0 0 0)
 				(effects
 					(font
@@ -716,7 +716,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "AS6C8016_0_0"
+			(symbol "AS6C8016-55ZIN_0_0"
 				(pin power_in line
 					(at -1.27 27.94 270)
 					(length 2.54)
@@ -790,7 +790,7 @@
 					)
 				)
 			)
-			(symbol "AS6C8016_0_1"
+			(symbol "AS6C8016-55ZIN_0_1"
 				(rectangle
 					(start -10.16 25.4)
 					(end 10.16 -30.48)
@@ -803,7 +803,7 @@
 					)
 				)
 			)
-			(symbol "AS6C8016_1_1"
+			(symbol "AS6C8016-55ZIN_1_1"
 				(pin input line
 					(at -12.7 12.7 0)
 					(length 2.54)
@@ -1528,9 +1528,9 @@
 		)
 		(symbol "power:+5V"
 			(power)
+			(pin_numbers hide)
 			(pin_names
-				(offset 0)
-			)
+				(offset 0) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1578,7 +1578,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "power-flag"
+			(property "ki_keywords" "global power"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1628,8 +1628,8 @@
 			(symbol "+5V_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
-					(name "+5V"
+					(length 0)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1648,9 +1648,9 @@
 		)
 		(symbol "power:GND"
 			(power)
+			(pin_numbers hide)
 			(pin_names
-				(offset 0)
-			)
+				(offset 0) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1698,7 +1698,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "power-flag"
+			(property "ki_keywords" "global power"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1724,8 +1724,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
-					(name "GND"
+					(length 0)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4910,7 +4910,7 @@
 		)
 		(uuid "1bbba4d4-e09b-4b4f-9451-3af7a5d529fb")
 	)
-	(label "D10"
+	(label "LD10"
 		(at 95.25 147.32 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4921,7 +4921,7 @@
 		)
 		(uuid "004c30e7-6330-4697-9fc0-b5d7920dd6c6")
 	)
-	(label "A5"
+	(label "LA5"
 		(at 157.48 54.61 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4932,7 +4932,7 @@
 		)
 		(uuid "02c83d21-2e73-44f3-bb2b-756771264b4a")
 	)
-	(label "A5"
+	(label "LA5"
 		(at 57.15 129.54 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4943,7 +4943,7 @@
 		)
 		(uuid "03328d2f-e421-48e5-98fe-f9c7ecd78634")
 	)
-	(label "A8"
+	(label "LA8"
 		(at 57.15 57.15 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4954,7 +4954,7 @@
 		)
 		(uuid "03d68c1a-1435-4991-873b-da2c7f3cd666")
 	)
-	(label "A18"
+	(label "LA18"
 		(at 57.15 82.55 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4965,7 +4965,7 @@
 		)
 		(uuid "047e37d0-4bd4-44fb-988b-5f7c6422a9e1")
 	)
-	(label "A10"
+	(label "LA10"
 		(at 57.15 62.23 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4976,7 +4976,7 @@
 		)
 		(uuid "0555642d-8e89-4201-bd6c-164719c7d271")
 	)
-	(label "A17"
+	(label "LA17"
 		(at 157.48 85.09 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4987,7 +4987,7 @@
 		)
 		(uuid "0605130c-580b-4819-ad66-c83d35594573")
 	)
-	(label "D24"
+	(label "LD24"
 		(at 95.25 62.23 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4998,7 +4998,7 @@
 		)
 		(uuid "0a5cd370-4583-4d6f-b184-a8007188b0ff")
 	)
-	(label "D5"
+	(label "LD5"
 		(at 95.25 134.62 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5009,7 +5009,7 @@
 		)
 		(uuid "0f765765-aa6f-4145-a27b-da00623e3daf")
 	)
-	(label "A20"
+	(label "LA20"
 		(at 57.15 167.64 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5020,7 +5020,7 @@
 		)
 		(uuid "12bd221b-6957-4e17-be36-84c144f38c78")
 	)
-	(label "D4"
+	(label "LD4"
 		(at 95.25 132.08 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5031,7 +5031,7 @@
 		)
 		(uuid "144410b3-448f-4d0c-b987-84824c9b3bb9")
 	)
-	(label "A7"
+	(label "LA7"
 		(at 157.48 59.69 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5042,7 +5042,7 @@
 		)
 		(uuid "15534c21-6cec-4134-99ec-fe2c2af51a19")
 	)
-	(label "A3"
+	(label "LA3"
 		(at 57.15 44.45 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5053,7 +5053,7 @@
 		)
 		(uuid "18b18b06-fdf4-42ad-8dea-f7cb3c369f56")
 	)
-	(label "D6"
+	(label "LD6"
 		(at 95.25 137.16 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5064,7 +5064,7 @@
 		)
 		(uuid "19460a4a-73e6-4109-aa95-2e8c277def3a")
 	)
-	(label "D13"
+	(label "LD13"
 		(at 95.25 154.94 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5075,7 +5075,7 @@
 		)
 		(uuid "19873fcf-48dc-486c-b3a9-07a7b6ddc49c")
 	)
-	(label "D25"
+	(label "LD25"
 		(at 195.58 44.45 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5086,7 +5086,7 @@
 		)
 		(uuid "1bac899b-fe23-4651-98a3-6bfb310c282f")
 	)
-	(label "A14"
+	(label "LA14"
 		(at 57.15 72.39 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5097,7 +5097,7 @@
 		)
 		(uuid "22413856-d2c4-42b2-aacb-e7a64d66eb63")
 	)
-	(label "A3"
+	(label "LA3"
 		(at 57.15 124.46 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5108,7 +5108,7 @@
 		)
 		(uuid "288f7069-76bf-4c28-ad92-9d39efae4646")
 	)
-	(label "D7"
+	(label "LD7"
 		(at 95.25 139.7 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5119,7 +5119,7 @@
 		)
 		(uuid "2f357180-42c2-4a18-96f1-d7f63505a669")
 	)
-	(label "D9"
+	(label "LD9"
 		(at 95.25 144.78 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5130,7 +5130,7 @@
 		)
 		(uuid "34e9d2f8-a3a5-4cf2-b6fc-dd5bbce42e5c")
 	)
-	(label "D22"
+	(label "LD22"
 		(at 95.25 57.15 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5141,7 +5141,7 @@
 		)
 		(uuid "40535e5c-34c7-4243-ab7c-a14fc93eba62")
 	)
-	(label "A11"
+	(label "LA11"
 		(at 57.15 64.77 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5152,7 +5152,7 @@
 		)
 		(uuid "42957a59-97fc-475c-8846-665a7819ab72")
 	)
-	(label "D24"
+	(label "LD24"
 		(at 195.58 41.91 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5163,7 +5163,7 @@
 		)
 		(uuid "44ede298-7f00-4836-ac85-ec4456d15711")
 	)
-	(label "A1"
+	(label "LA1"
 		(at 157.48 44.45 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5174,7 +5174,7 @@
 		)
 		(uuid "467b7420-d5db-4191-9c1a-c78428ead30d")
 	)
-	(label "D15"
+	(label "LD15"
 		(at 95.25 160.02 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5185,7 +5185,7 @@
 		)
 		(uuid "46bff196-3ee0-4d7b-9c75-6288b0ad097a")
 	)
-	(label "A15"
+	(label "LA15"
 		(at 57.15 154.94 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5196,7 +5196,7 @@
 		)
 		(uuid "4752e11c-7bed-4027-8c05-867f0c25ecc7")
 	)
-	(label "A2"
+	(label "LA2"
 		(at 57.15 41.91 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5207,7 +5207,7 @@
 		)
 		(uuid "47959fc8-fdb8-494e-ab73-e0793c14c302")
 	)
-	(label "D17"
+	(label "LD17"
 		(at 95.25 44.45 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5218,7 +5218,7 @@
 		)
 		(uuid "4a376b1a-0e91-458f-b416-9fc80f7d3865")
 	)
-	(label "A16"
+	(label "LA16"
 		(at 157.48 82.55 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5229,7 +5229,7 @@
 		)
 		(uuid "4e9e6981-d0c8-4a3a-b0c5-94fa09127d71")
 	)
-	(label "A15"
+	(label "LA15"
 		(at 157.48 80.01 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5240,7 +5240,7 @@
 		)
 		(uuid "53d0ad6c-cc7a-40fb-b64c-288874ef0c11")
 	)
-	(label "D31"
+	(label "LD31"
 		(at 95.25 80.01 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5251,7 +5251,7 @@
 		)
 		(uuid "54a4a659-c621-4962-aeca-6191d56c2af3")
 	)
-	(label "A15"
+	(label "LA15"
 		(at 57.15 74.93 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5262,7 +5262,7 @@
 		)
 		(uuid "556fe419-584e-4438-af4b-9b404c1633b0")
 	)
-	(label "D3"
+	(label "LD3"
 		(at 95.25 129.54 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5273,7 +5273,7 @@
 		)
 		(uuid "585546c4-e9e1-4f91-8f37-31408160b53b")
 	)
-	(label "A2"
+	(label "LA2"
 		(at 157.48 46.99 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5284,7 +5284,7 @@
 		)
 		(uuid "5e1e501c-c014-4ed2-a5bb-f6a6aff9afe2")
 	)
-	(label "A11"
+	(label "LA11"
 		(at 157.48 69.85 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5295,7 +5295,7 @@
 		)
 		(uuid "5ee8659f-b416-48fe-a38c-cacb038450b3")
 	)
-	(label "A11"
+	(label "LA11"
 		(at 57.15 144.78 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5306,7 +5306,7 @@
 		)
 		(uuid "5ff0ae1b-8662-44f8-bdd0-32f04d0f3f74")
 	)
-	(label "A14"
+	(label "LA14"
 		(at 57.15 152.4 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5317,7 +5317,7 @@
 		)
 		(uuid "60755532-513b-4d09-ac06-6f1efb01a298")
 	)
-	(label "A12"
+	(label "LA12"
 		(at 57.15 147.32 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5328,7 +5328,7 @@
 		)
 		(uuid "625873bc-5b0b-4942-a4a8-68cd18db6486")
 	)
-	(label "A17"
+	(label "LA17"
 		(at 57.15 80.01 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5339,7 +5339,7 @@
 		)
 		(uuid "6a0e892c-a518-40d8-bc34-bf383882b7a9")
 	)
-	(label "D29"
+	(label "LD29"
 		(at 95.25 74.93 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5350,7 +5350,7 @@
 		)
 		(uuid "6a4f3252-fcaa-4a68-a6d0-3f1a583c4697")
 	)
-	(label "A0"
+	(label "LA0"
 		(at 157.48 41.91 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5361,7 +5361,7 @@
 		)
 		(uuid "6a6cb13d-5cce-4c81-9910-155400b8b71f")
 	)
-	(label "D27"
+	(label "LD27"
 		(at 195.58 49.53 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5372,7 +5372,7 @@
 		)
 		(uuid "70b7a555-6b31-407f-ba3a-ae881dd4f0e9")
 	)
-	(label "A10"
+	(label "LA10"
 		(at 57.15 142.24 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5383,7 +5383,7 @@
 		)
 		(uuid "71bcc8ce-daa6-4027-9436-93c77dd931ab")
 	)
-	(label "D28"
+	(label "LD28"
 		(at 195.58 52.07 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5394,7 +5394,7 @@
 		)
 		(uuid "78f5e5f5-a41d-4423-908c-a84e07142692")
 	)
-	(label "A14"
+	(label "LA14"
 		(at 157.48 77.47 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5405,7 +5405,7 @@
 		)
 		(uuid "79517a31-a891-45ad-b695-6c63ff99a442")
 	)
-	(label "D0"
+	(label "LD0"
 		(at 95.25 121.92 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5416,7 +5416,7 @@
 		)
 		(uuid "7a71d2fb-7069-4bb0-9f77-11416fe5691e")
 	)
-	(label "D21"
+	(label "LD21"
 		(at 95.25 54.61 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5427,7 +5427,7 @@
 		)
 		(uuid "82fdbec7-8cc9-4fe1-be94-018000b15530")
 	)
-	(label "A7"
+	(label "LA7"
 		(at 57.15 54.61 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5438,7 +5438,7 @@
 		)
 		(uuid "83b38178-6c4c-4491-b62c-59eb9b5f5d3e")
 	)
-	(label "D8"
+	(label "LD8"
 		(at 95.25 142.24 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5449,7 +5449,7 @@
 		)
 		(uuid "83d94ee0-288c-455d-b4fe-75ce803a397b")
 	)
-	(label "A13"
+	(label "LA13"
 		(at 157.48 74.93 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5460,7 +5460,7 @@
 		)
 		(uuid "85aaf7cc-6842-4500-9064-d852d18744c6")
 	)
-	(label "A12"
+	(label "LA12"
 		(at 157.48 72.39 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5471,7 +5471,7 @@
 		)
 		(uuid "887788f7-71b7-49fa-8031-4c1269341427")
 	)
-	(label "D28"
+	(label "LD28"
 		(at 95.25 72.39 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5482,7 +5482,7 @@
 		)
 		(uuid "888adf59-c499-466a-8b75-8223b5d5fc17")
 	)
-	(label "A4"
+	(label "LA4"
 		(at 57.15 46.99 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5493,7 +5493,7 @@
 		)
 		(uuid "8ddc677e-6bea-4936-9d2f-76347176d17b")
 	)
-	(label "A8"
+	(label "LA8"
 		(at 57.15 137.16 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5504,7 +5504,7 @@
 		)
 		(uuid "8e426a91-ba64-4d39-b13b-3950ed0bd4bd")
 	)
-	(label "D31"
+	(label "LD31"
 		(at 195.58 59.69 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5515,7 +5515,7 @@
 		)
 		(uuid "925a36cc-148e-4f99-b563-602599a5e993")
 	)
-	(label "D18"
+	(label "LD18"
 		(at 95.25 46.99 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5526,7 +5526,7 @@
 		)
 		(uuid "94f225d6-ed64-408b-ac4f-58834084f15c")
 	)
-	(label "A7"
+	(label "LA7"
 		(at 57.15 134.62 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5537,7 +5537,7 @@
 		)
 		(uuid "978f9c96-e00b-4a77-936b-63c5f61fb9e3")
 	)
-	(label "D14"
+	(label "LD14"
 		(at 95.25 157.48 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5548,7 +5548,7 @@
 		)
 		(uuid "97c8694b-6e0f-42b4-b6f4-7c9f72c15fbf")
 	)
-	(label "D11"
+	(label "LD11"
 		(at 95.25 149.86 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5559,7 +5559,7 @@
 		)
 		(uuid "9ae0277c-9657-40ec-9ac2-a9c0918a9236")
 	)
-	(label "A18"
+	(label "LA18"
 		(at 157.48 87.63 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5570,7 +5570,7 @@
 		)
 		(uuid "a04d0f12-8506-4328-a19e-ccdc9722b62f")
 	)
-	(label "A10"
+	(label "LA10"
 		(at 157.48 67.31 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5581,7 +5581,7 @@
 		)
 		(uuid "a0761bb6-fff3-42dc-8453-e6afdce04146")
 	)
-	(label "D2"
+	(label "LD2"
 		(at 95.25 127 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5592,7 +5592,7 @@
 		)
 		(uuid "a1deb737-a4a2-45fe-9b1a-679baf9fa76f")
 	)
-	(label "A4"
+	(label "LA4"
 		(at 157.48 52.07 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5603,7 +5603,7 @@
 		)
 		(uuid "a30e18f9-7fa9-496c-b7b0-30197b2c769a")
 	)
-	(label "A9"
+	(label "LA9"
 		(at 57.15 59.69 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5614,7 +5614,7 @@
 		)
 		(uuid "a659987f-efae-4f9f-8e4a-53f45a7738f0")
 	)
-	(label "D23"
+	(label "LD23"
 		(at 95.25 59.69 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5625,7 +5625,7 @@
 		)
 		(uuid "aea200d1-3d81-4aee-9888-bc0ec52270f8")
 	)
-	(label "D26"
+	(label "LD26"
 		(at 195.58 46.99 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5636,7 +5636,7 @@
 		)
 		(uuid "b04930dc-a030-4aab-9fa1-d32b7900a1bb")
 	)
-	(label "A20"
+	(label "LA20"
 		(at 57.15 87.63 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5647,7 +5647,7 @@
 		)
 		(uuid "b15c6f99-abbb-4958-8eae-299a76e01a33")
 	)
-	(label "D1"
+	(label "LD1"
 		(at 95.25 124.46 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5658,7 +5658,7 @@
 		)
 		(uuid "b3786d12-ba34-407e-ab17-d469e9a87761")
 	)
-	(label "A13"
+	(label "LA13"
 		(at 57.15 69.85 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5669,7 +5669,7 @@
 		)
 		(uuid "b442c814-e92c-4794-bad5-33f3ee603dc1")
 	)
-	(label "A16"
+	(label "LA16"
 		(at 57.15 157.48 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5680,7 +5680,7 @@
 		)
 		(uuid "be107821-a14c-4f53-bb43-c1ef1f032ce5")
 	)
-	(label "A19"
+	(label "LA19"
 		(at 57.15 85.09 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5691,7 +5691,7 @@
 		)
 		(uuid "bea1e1d6-8fb0-49a5-ae33-2cefd817282f")
 	)
-	(label "D16"
+	(label "LD16"
 		(at 95.25 41.91 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5702,7 +5702,7 @@
 		)
 		(uuid "bf43b72d-321b-4018-8178-306b0496de87")
 	)
-	(label "D20"
+	(label "LD20"
 		(at 95.25 52.07 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5713,7 +5713,7 @@
 		)
 		(uuid "c03c02b7-91f9-4a59-831a-862d8876729d")
 	)
-	(label "A19"
+	(label "LA19"
 		(at 57.15 165.1 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5724,7 +5724,7 @@
 		)
 		(uuid "c14585bf-1a98-482f-bf95-6c00d3928bc7")
 	)
-	(label "D19"
+	(label "LD19"
 		(at 95.25 49.53 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5735,7 +5735,7 @@
 		)
 		(uuid "c232d0ad-4e4c-4a48-a062-758c0012fc77")
 	)
-	(label "A3"
+	(label "LA3"
 		(at 157.48 49.53 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5746,7 +5746,7 @@
 		)
 		(uuid "c2ef39bf-1d3a-4ccc-ba9a-beed76c8bcc9")
 	)
-	(label "A9"
+	(label "LA9"
 		(at 157.48 64.77 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5757,7 +5757,7 @@
 		)
 		(uuid "c5239a39-7ca0-4bd1-8d1a-176cecff0114")
 	)
-	(label "D30"
+	(label "LD30"
 		(at 95.25 77.47 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5768,7 +5768,7 @@
 		)
 		(uuid "c7cacdc6-8156-49d2-a2a0-b394d75194dd")
 	)
-	(label "A16"
+	(label "LA16"
 		(at 57.15 77.47 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5779,7 +5779,7 @@
 		)
 		(uuid "cc343c1c-3b74-43ff-908d-c16877dc0d23")
 	)
-	(label "A6"
+	(label "LA6"
 		(at 57.15 132.08 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5790,7 +5790,7 @@
 		)
 		(uuid "ceaa0561-f843-4df7-9699-b7ba420f5c04")
 	)
-	(label "A6"
+	(label "LA6"
 		(at 157.48 57.15 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5801,7 +5801,7 @@
 		)
 		(uuid "d2a602e3-6491-4eb0-bfe7-bc31546b1c68")
 	)
-	(label "A5"
+	(label "LA5"
 		(at 57.15 49.53 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5812,7 +5812,7 @@
 		)
 		(uuid "d5e7461c-d4ee-43bd-bdb9-04147bcf70ab")
 	)
-	(label "D30"
+	(label "LD30"
 		(at 195.58 57.15 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5823,7 +5823,7 @@
 		)
 		(uuid "d99797fa-2bb8-4148-b784-58c398a947e7")
 	)
-	(label "A4"
+	(label "LA4"
 		(at 57.15 127 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5834,7 +5834,7 @@
 		)
 		(uuid "dbc7d98d-9504-486d-abba-5bdb9e394cca")
 	)
-	(label "A17"
+	(label "LA17"
 		(at 57.15 160.02 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5845,7 +5845,7 @@
 		)
 		(uuid "dbfac4df-9a9c-4ae7-b269-c36e4c03fc7d")
 	)
-	(label "A12"
+	(label "LA12"
 		(at 57.15 67.31 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5856,7 +5856,7 @@
 		)
 		(uuid "e626f231-a64e-4be4-bd40-20ebe846ae5d")
 	)
-	(label "A6"
+	(label "LA6"
 		(at 57.15 52.07 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5867,7 +5867,7 @@
 		)
 		(uuid "e7067c09-7878-48b1-b9b8-fe3c4b51243a")
 	)
-	(label "A8"
+	(label "LA8"
 		(at 157.48 62.23 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5878,7 +5878,7 @@
 		)
 		(uuid "ed980f8b-7295-408a-96b7-c7bffb534f5f")
 	)
-	(label "A2"
+	(label "LA2"
 		(at 57.15 121.92 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5889,7 +5889,7 @@
 		)
 		(uuid "edc18818-3aa4-42eb-bd00-6b063e08c7bb")
 	)
-	(label "D12"
+	(label "LD12"
 		(at 95.25 152.4 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5900,7 +5900,7 @@
 		)
 		(uuid "ede49a0e-d648-4d90-800e-09e885c8f024")
 	)
-	(label "A18"
+	(label "LA18"
 		(at 57.15 162.56 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5911,7 +5911,7 @@
 		)
 		(uuid "eed7fb62-6999-4874-a8b3-41fd6c048351")
 	)
-	(label "D26"
+	(label "LD26"
 		(at 95.25 67.31 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5922,7 +5922,7 @@
 		)
 		(uuid "f3a02d5e-fd82-4c5d-b3fa-1923ac02b889")
 	)
-	(label "A13"
+	(label "LA13"
 		(at 57.15 149.86 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5933,7 +5933,7 @@
 		)
 		(uuid "f6de8054-6fa4-47fe-842b-780f76fb46f7")
 	)
-	(label "D25"
+	(label "LD25"
 		(at 95.25 64.77 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5944,7 +5944,7 @@
 		)
 		(uuid "f7497d10-d86e-4232-af6f-c578cd21a9a5")
 	)
-	(label "D29"
+	(label "LD29"
 		(at 195.58 54.61 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5955,7 +5955,7 @@
 		)
 		(uuid "f9aaddba-bf6c-4dc2-9a12-8b5babc43c29")
 	)
-	(label "D27"
+	(label "LD27"
 		(at 95.25 69.85 180)
 		(fields_autoplaced yes)
 		(effects
@@ -5966,7 +5966,7 @@
 		)
 		(uuid "fbe46903-7428-4292-a4ba-26bb6bf73d03")
 	)
-	(label "A9"
+	(label "LA9"
 		(at 57.15 139.7 0)
 		(fields_autoplaced yes)
 		(effects
@@ -6208,7 +6208,7 @@
 			)
 		)
 	)
-	(global_label "A[0..31]"
+	(global_label "LA[0..31]"
 		(shape input)
 		(at 31.75 30.48 180)
 		(fields_autoplaced yes)
@@ -6220,16 +6220,17 @@
 		)
 		(uuid "92b87362-1d0f-4bec-b677-7e336588c976")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 0 6.35 0)
+			(at 20.1166 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
 			)
 		)
 	)
-	(global_label "D[0..31]"
+	(global_label "LD[0..31]"
 		(shape bidirectional)
 		(at 31.75 26.67 180)
 		(fields_autoplaced yes)
@@ -6241,11 +6242,12 @@
 		)
 		(uuid "a642d452-de0e-4595-97d7-d011ae30a277")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 0 6.35 0)
+			(at 18.8239 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -6293,7 +6295,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Computie_Memory:AS6C8016")
+		(lib_id "Computie_Memory:AS6C8016-55ZIN")
 		(at 76.2 64.77 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6318,6 +6320,15 @@
 			)
 		)
 		(property "Footprint" "Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm"
+			(at 76.2 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.alliancememory.com/wp-content/uploads/pdf/lp_sram/AS6C8016.pdf"
 			(at 76.2 64.77 0)
 			(effects
 				(font
@@ -6326,16 +6337,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.futurlec.com/Datasheet/Memory/628528.pdf"
-			(at 76.2 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
+		(property "Description" "512K x 8 High-Speed CMOS Static RAM, 55/70ns, TSSOP-II 44"
 			(at 76.2 64.77 0)
 			(effects
 				(font
@@ -6492,7 +6494,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Computie_Memory:AS6C8016")
+		(lib_id "Computie_Memory:AS6C8016-55ZIN")
 		(at 76.2 144.78 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6517,6 +6519,15 @@
 			)
 		)
 		(property "Footprint" "Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm"
+			(at 76.2 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.alliancememory.com/wp-content/uploads/pdf/lp_sram/AS6C8016.pdf"
 			(at 76.2 144.78 0)
 			(effects
 				(font
@@ -6525,16 +6536,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.futurlec.com/Datasheet/Memory/628528.pdf"
-			(at 76.2 144.78 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
+		(property "Description" "512K x 8 High-Speed CMOS Static RAM, 55/70ns, TSSOP-II 44"
 			(at 76.2 144.78 0)
 			(effects
 				(font
@@ -6734,7 +6736,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 76.2 36.83 0)
 			(effects
 				(font
@@ -6805,7 +6807,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 76.2 99.06 0)
 			(effects
 				(font
@@ -6876,7 +6878,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 76.2 179.07 0)
 			(effects
 				(font
@@ -6947,7 +6949,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 76.2 116.84 0)
 			(effects
 				(font
@@ -6975,7 +6977,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Computie_Memory:AM29F040")
+		(lib_id "Computie_Memory:AM29F040-J")
 		(at 176.53 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7008,7 +7010,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.mouser.ca/datasheet/2/196/spansion_inc_am29f040b_eol_21445e8-3004346.pdf"
 			(at 176.53 62.23 0)
 			(effects
 				(font
@@ -7017,7 +7019,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4-Mbit (512Kx8) Flash Memory, PLCC-44"
 			(at 176.53 62.23 0)
 			(effects
 				(font
@@ -7181,7 +7183,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 176.53 36.83 0)
 			(effects
 				(font
@@ -7252,7 +7254,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 176.53 92.71 0)
 			(effects
 				(font

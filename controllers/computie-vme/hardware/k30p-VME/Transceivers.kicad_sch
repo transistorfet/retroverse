@@ -14,7 +14,7 @@
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "U"
-				(at -10.16 29.21 0)
+				(at 2.1941 33.02 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -23,7 +23,7 @@
 				)
 			)
 			(property "Value" "74ABT16245DL"
-				(at 2.54 -29.21 0)
+				(at 2.1941 30.48 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -41,7 +41,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf"
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74abt16245a.pdf"
 				(at 0 -3.81 0)
 				(effects
 					(font
@@ -50,7 +50,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "16-Bit Bidirectional Transceiver with 3V to 5.5V Single Power Supply, TSSOP-48"
+			(property "Description" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -957,9 +957,9 @@
 		)
 		(symbol "power:+5V"
 			(power)
+			(pin_numbers hide)
 			(pin_names
-				(offset 0)
-			)
+				(offset 0) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1007,7 +1007,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "power-flag"
+			(property "ki_keywords" "global power"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1057,8 +1057,8 @@
 			(symbol "+5V_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
-					(name "+5V"
+					(length 0)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1077,9 +1077,9 @@
 		)
 		(symbol "power:GND"
 			(power)
+			(pin_numbers hide)
 			(pin_names
-				(offset 0)
-			)
+				(offset 0) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1127,7 +1127,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "power-flag"
+			(property "ki_keywords" "global power"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1153,8 +1153,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
-					(name "GND"
+					(length 0)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6391,8 +6391,8 @@
 		(uuid "ff376568-b1c1-41ac-9635-fe11af5a4897")
 	)
 	(image
-		(at 30.988 180.848)
-		(scale 0.162652)
+		(at 230.886 117.602)
+		(scale 0.427374)
 		(uuid "2c942a15-d36b-4222-9a79-6c8dbcbd2983")
 		(data "iVBORw0KGgoAAAANSUhEUgAABHsAAAEwCAIAAAColOqxAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA"
 			"ABg4AAAYOAFT1w/+AAAgAElEQVR4nOydZ1wUyfPwa1lYYEGSBBUUMKCoKIIJ9FBREQQTBg5FwZ8B"
@@ -7397,9 +7397,9 @@
 		)
 		(uuid "2b2ff2eb-e806-49be-b84d-ded32d68704f")
 	)
-	(text "NOTE: D[7..0] ARE ALLOWED TO FLOAT HIGH DURING AN A40\nCYCLE, INSTEAD OF BEING DRIVEN HIGH, TO SAVE A TRANSCEIVER"
+	(text "NOTE: ON THIS BOARD, D[7..0] ARE ALLOWED TO FLOAT HIGH DURING AN A40\nCYCLE, INSTEAD OF BEING DRIVEN HIGH, TO SAVE A TRANSCEIVER"
 		(exclude_from_sim no)
-		(at 16.002 188.976 0)
+		(at 191.008 131.064 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7410,7 +7410,7 @@
 	)
 	(text "See VME64 Table 2-28"
 		(exclude_from_sim no)
-		(at 27.432 174.498 0)
+		(at 202.692 105.664 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9546,7 +9546,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74abt16245a.pdf"
 			(at 54.61 146.05 0)
 			(effects
 				(font
@@ -9767,7 +9767,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 121.92 93.98 0)
 			(effects
 				(font
@@ -9848,7 +9848,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 191.77 33.02 0)
 			(effects
 				(font
@@ -9923,7 +9923,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74abt16245a.pdf"
 			(at 121.92 67.31 0)
 			(effects
 				(font
@@ -10144,7 +10144,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 121.92 172.72 0)
 			(effects
 				(font
@@ -10219,7 +10219,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74abt16245a.pdf"
 			(at 54.61 67.31 0)
 			(effects
 				(font
@@ -10440,7 +10440,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 121.92 111.76 0)
 			(effects
 				(font
@@ -10521,7 +10521,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 121.92 33.02 0)
 			(effects
 				(font
@@ -10602,7 +10602,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 54.61 93.98 0)
 			(effects
 				(font
@@ -10677,7 +10677,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74abt16245a.pdf"
 			(at 121.92 146.05 0)
 			(effects
 				(font
@@ -10898,7 +10898,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 35.56 120.65 0)
 			(effects
 				(font
@@ -10963,7 +10963,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 191.77 93.98 0)
 			(effects
 				(font
@@ -11044,7 +11044,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 54.61 33.02 0)
 			(effects
 				(font
@@ -11125,7 +11125,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 54.61 172.72 0)
 			(effects
 				(font
@@ -11206,7 +11206,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 35.56 41.91 0)
 			(effects
 				(font
@@ -11271,7 +11271,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
 			(at 54.61 111.76 0)
 			(effects
 				(font
@@ -11346,7 +11346,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74abt16245a.pdf"
 			(at 191.77 67.31 0)
 			(effects
 				(font
