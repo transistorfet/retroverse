@@ -30,9 +30,9 @@ module vme_data_transfer(
     // TODO temporary
     output reg [1:0] state,
 
-    input reg request_vme_a16,
-    input reg request_vme_a24,
-    input reg request_vme_a40,
+    input request_vme_a16,
+    input request_vme_a24,
+    input request_vme_a40,
     input bus_acquired,
 
     input cpu_as,

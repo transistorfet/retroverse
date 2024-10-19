@@ -1,6 +1,8 @@
 module systemboard(
     //inout vme_sysreset,
     output reg statusled,
+    inout vme_address_strobe,
+    input vme_address_1,
     //inout [1:0] vme_data_strobe,
     //inout vme_write,
     //inout vme_dtack,
@@ -15,7 +17,7 @@ module systemboard(
     //input reset,
     input clock,
     output vme_sysclk,
-    inout vme_bbsy,
+    //inout vme_bbsy,
     inout vme_bclr,
     //inout vme_acfail,
     //input [3:0] vme_bgin,
@@ -73,6 +75,8 @@ module systemboard(
     //assign statusled = (vme_address == 24'hffffff && vme_data == 8'h00);
     assign statusled = 1'b1;
 
+    assign vme_address_strobe = (vme_address_1 == 1'b1) ? 1'b0 : 1'bZ;
+
     always @(posedge clock) begin
 
         case (state)
@@ -83,7 +87,7 @@ module systemboard(
 
                 if (vme_br != 4'b1111) begin
                     state <= BUS_ACQUIRED;
-                    vme_bbsy <= ACTIVE;
+                    //vme_bbsy <= ACTIVE;
 
                     if (vme_br[0] == ACTIVE) begin
                         vme_bgout[0] <= ACTIVE;
@@ -107,7 +111,7 @@ module systemboard(
             BUS_ACQUIRED: begin
                 if (vme_br[current] == INACTIVE) begin
                     state <= IDLE;
-                    vme_bbsy <= INACTIVE;
+                    //vme_bbsy <= INACTIVE;
                     vme_bgout[current] <= INACTIVE;
                 end else if ((vme_br & request_mask) != request_mask) begin
                     state <= BUS_CLEAR;
@@ -115,7 +119,7 @@ module systemboard(
                 end
             end
             BUS_CLEAR: begin
-                vme_bbsy <= INACTIVE;
+                //vme_bbsy <= INACTIVE;
                 //vme_address_out <= 24'hFF00000;
                 //vme_dtb_output_enable <= 1'b1;
                 if (vme_br[current] == INACTIVE) begin
@@ -145,6 +149,8 @@ endmodule
 //PIN: vme_br_1                 : 69
 //PIN: vme_br_2                 : 68
 //PIN: vme_br_3                 : 67
+//PIN: vme_address_strobe       : 9
+//PIN: vme_address_1            : 23
 
 // Pin assignment for the experimental Yosys FLoow
 //

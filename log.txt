@@ -537,3 +537,27 @@
 - the skookum kit with the ejector handles is really nice, but it's too expensive, so an alternative would be
   necessary, and it doesn't have the front panel.
 
+
+2024-10-13:
+
+- I'm getting close to the schematics for k30p-VME being done, but I have a few niggly bits.  I'm *just* short a pin or two for the
+  CPLD.  I kind of need both the DS3-0 signals *and* the RAMSEL signal to make the ram work, or else I'd need an extra logic chip to
+  AND together the DS1 and DS0 signals, and the DS3 and DS2 signals to provide the /CE signal for the chips.  That means getting rid
+  of a signal, and I'm looking to get rid of the VME /BCLR signal because it's not necessary if the board only holds the bus for
+  short periods.
+- I also need to figure out what to do about the /RESET signal.  If you could make it so that system reset resets the boards but
+  button reset only resets the one board, and if that didn't require the CPLD, then you could avoid needing a pin you don't have.
+  I think it *might* be possible with a diode connecting VSYSRST to the capacitor-side of the Power-On-Reset circuit
+- just thought that I need to look up whether it's the bus arbitrator or the board requesting the bus that asserts the /BBSY signal
+  it's the bus requester that drives /BBSY so it's necessary for that to be connected to the CPLD (and I've removed it from the
+  systemboard logic)
+
+2024-10-14:
+
+- I'm starting to lay copper and finalize the part's positions for k30p.  I have 4 bypass caps for the CPU on the opposite side of
+  the board, behind the CPU.  It might save me board space for use?  Well not really in the sense that the backside could also be
+  used as a single solid surface for copper traces, but typically they move vertically on the bottom layer, and horizontally on the
+  top since the SMT parts are on the top and their pads are usually horizontal (easier to enter horizontally than vertically).  The
+  buses that need to move horizontally are benefitted by the caps on the bottom instead of the top, but the traces going vertically
+  would be on the backside, so caps on the front would be better...
+

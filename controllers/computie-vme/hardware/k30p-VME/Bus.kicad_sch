@@ -1281,7 +1281,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 12.7 0)
 					(length 3.81)
 					(name "GND"
@@ -1353,7 +1353,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 2.54 0)
 					(length 3.81)
 					(name "GND"
@@ -1389,7 +1389,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -2.54 0)
 					(length 3.81)
 					(name "GND"
@@ -1425,7 +1425,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -7.62 0)
 					(length 3.81)
 					(name "GND"
@@ -1677,7 +1677,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -38.1 0)
 					(length 3.81)
 					(name "-12V"
@@ -1695,7 +1695,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -40.64 0)
 					(length 3.81)
 					(name "+5V"
@@ -1803,7 +1803,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 17.78 0)
 					(length 3.81)
 					(name "GND"
@@ -2402,7 +2402,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -10.16 0)
 					(length 3.81)
 					(name "GND"
@@ -2456,7 +2456,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -17.78 0)
 					(length 3.81)
 					(name "GND"
@@ -2618,7 +2618,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -38.1 0)
 					(length 3.81)
 					(name "+5VStdby"
@@ -2636,7 +2636,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -40.64 0)
 					(length 3.81)
 					(name "+5V"
@@ -3559,7 +3559,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -38.1 0)
 					(length 3.81)
 					(name "+12V"
@@ -3577,7 +3577,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 -40.64 0)
 					(length 3.81)
 					(name "+5V"
@@ -3685,7 +3685,7 @@
 						)
 					)
 				)
-				(pin power_out line
+				(pin passive line
 					(at -5.08 17.78 0)
 					(length 3.81)
 					(name "GND"
@@ -4524,12 +4524,20 @@
 		(uuid "fceaf762-9e97-4803-a480-54d49b608341")
 	)
 	(no_connect
+		(at 153.67 41.91)
+		(uuid "1760a3f8-4543-4f79-919e-4afb6307df90")
+	)
+	(no_connect
 		(at 153.67 29.21)
 		(uuid "1bd8fbb7-1480-476b-b43d-dbc850f547df")
 	)
 	(no_connect
 		(at 153.67 77.47)
 		(uuid "4e2a3dca-100a-45dd-a15e-40836aa941e8")
+	)
+	(no_connect
+		(at 153.67 39.37)
+		(uuid "5401be34-3aef-4f27-a621-da87b53cedab")
 	)
 	(no_connect
 		(at 71.12 100.33)
@@ -4540,8 +4548,52 @@
 		(uuid "690ce2f5-4534-4967-89b2-b23985a24616")
 	)
 	(no_connect
+		(at 153.67 49.53)
+		(uuid "83dd84a2-78a1-4bba-aa56-51a6f6686be7")
+	)
+	(no_connect
+		(at 153.67 57.15)
+		(uuid "862c3d16-1927-4405-8781-983bf19b3221")
+	)
+	(no_connect
+		(at 246.38 46.99)
+		(uuid "8e596ee1-cf00-408d-855b-e70f4ee8621b")
+	)
+	(no_connect
+		(at 153.67 44.45)
+		(uuid "920c4a12-c339-431f-857f-ad6152670567")
+	)
+	(no_connect
+		(at 106.68 95.25)
+		(uuid "95ff8e1a-48e8-4637-b426-f1d5df525e6a")
+	)
+	(no_connect
 		(at 153.67 74.93)
 		(uuid "98a9da79-2d44-47d9-b691-7043e42e2596")
+	)
+	(no_connect
+		(at 153.67 59.69)
+		(uuid "c5780bf3-effe-4e0c-b987-3c3547180b7a")
+	)
+	(no_connect
+		(at 153.67 36.83)
+		(uuid "ced2026f-b527-4051-a699-52aff4f68932")
+	)
+	(no_connect
+		(at 153.67 54.61)
+		(uuid "da669be5-522b-4c49-b737-08abb9b34621")
+	)
+	(no_connect
+		(at 106.68 92.71)
+		(uuid "dd7030d3-87a5-422b-b461-6a5c2672e0a2")
+	)
+	(no_connect
+		(at 153.67 46.99)
+		(uuid "ddbad64b-de87-4a09-84d1-1a574b290199")
+	)
+	(no_connect
+		(at 246.38 100.33)
+		(uuid "f93ce74f-5aad-460a-962c-2ff9f72bf277")
 	)
 	(bus_entry
 		(at 228.6 24.13)
@@ -5263,16 +5315,6 @@
 			(type default)
 		)
 		(uuid "2d5a2b3a-ed8d-4c3b-8aab-8f4c9b70dab5")
-	)
-	(wire
-		(pts
-			(xy 242.57 46.99) (xy 246.38 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2e4aca90-3f69-45df-81dd-f79961089866")
 	)
 	(bus
 		(pts
@@ -7188,28 +7230,6 @@
 		(uuid "03fb2a74-8157-439f-a31a-adaa1af89890")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 55.2534 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "~{VSYSFAIL}"
-		(shape input)
-		(at 242.57 46.99 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "04777262-abae-41d2-9cf2-bd0ba092b4d2")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 231.1785 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10081,71 +10101,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
-		(at 106.68 95.25 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "a51bb9a9-5ad7-4458-9dbb-27bfde70ecc5")
-		(property "Reference" "#PWR061"
-			(at 110.49 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 101.6 95.25 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 106.68 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 106.68 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 106.68 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1af5f71f-cc16-4653-9347-883e224997ff")
-		)
-		(instances
-			(project "k30p-VME"
-				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "#PWR061")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Computie_Connectors:VME64-P1-3R")
 		(at 158.75 62.23 0)
 		(unit 2)
@@ -12130,71 +12085,6 @@
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR072")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 106.68 92.71 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f7495618-c430-43a6-8b4d-11a5d6962ad9")
-		(property "Reference" "#PWR060"
-			(at 100.33 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 101.6 92.71 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 106.68 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 106.68 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 106.68 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0df9d435-3a60-46d1-8e55-5e106e959473")
-		)
-		(instances
-			(project "k30p-VME"
-				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
-					(reference "#PWR060")
 					(unit 1)
 				)
 			)
