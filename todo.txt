@@ -7,16 +7,6 @@
 
 * make a breakout board, which you can design now and use with the components on order, to connect a logic analyzer
 
-* in order to prevent transceivers from driving the same outputs, you'd need a dual 2-4 decoder, some invertors, and maybe an or/and gate for taking into account direction
-
-* make a mode that you can at least manually select, where an external device can write data to the local bus with the cpu suspended, either using the A24/D16 cycle or the A32/D32
-  cycle.  The A40/MD32 cycle is not possible without additional latches for the address, unless... you can use a transparent bidirectional latch, there is 74ABT16646 but it's in a
-  56-pin package, and requires a clock, which makes it less of a drop in replacement
-
-* do you have to transfer data between parts of the data bus to interface the 68030 with the VME bus, in light of the fact that the upper most 8 bits is used to transfer 8 bit data?
-
-* I need to figure out all the logic for the bus artibtrator, and for the CPU card.  I should have it mostly done early on so I know what signals will be needed
-
 * should you use active or passive terminating resistors?  I saw somewhere that a backplane with passives draws 1.5A which is a lot, even though this will have its own power supply
 * make an 8 socket backplane to start, 123mm by 178mm or something, which is not too expensive or big
 * for the daisy chain lines, it would be nice to have a switch to bypass a socket, but there are 5 signals.  You can put a hex non-inverting 3 state buffers across each socket and

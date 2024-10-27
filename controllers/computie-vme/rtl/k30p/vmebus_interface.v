@@ -155,6 +155,7 @@ module vme_data_transfer(
 
                         data_low_dir <= cpu_write == ACTIVE ? DIR_OUT : DIR_IN;
                         md32_cross_dir <= cpu_write == ACTIVE ? DIR_OUT : DIR_IN;
+                        vme_lword <= 1'bZ;
                     end else begin
                         // 16-bit or 8-bit Operation
                         d16_cross_oe <= ACTIVE;

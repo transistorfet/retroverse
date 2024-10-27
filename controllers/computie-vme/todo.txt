@@ -2,6 +2,11 @@
 To Do for ComputieVME
 =====================
 
+- rotate the caps
+- route the upper addres lines up and around and down
+- route the lower data bus as you've started
+- maybe move the caps a bit to route the upper data bus between the chips, maybe the AND gate and the memory chip
+
 
 - looking more into the other signals, DBEN doesn't look as valuable, because it mostly mirrors either AS or DS depending on a read or write
   but ECS might be valuable because it goes low before AS does, which could be used to request the bus and put the address information on the

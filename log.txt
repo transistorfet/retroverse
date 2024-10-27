@@ -561,3 +561,27 @@
   buses that need to move horizontally are benefitted by the caps on the bottom instead of the top, but the traces going vertically
   would be on the backside, so caps on the front would be better...
 
+2024-10-23:
+
+- an important issue came up when laying out the board.  A0 doesn't exist on the VMEbus, which means I don't need to use that bit of
+  the transceiver at all, but also, for the MD32 cycle, there's only 15 bits and not 16 on the address bus for the upper 16 data
+  bits.  I've come across this before but I don't seem to have it in my notes yet.  The spec sort of covers it, but not in an
+  entirely clear way without referencing a couple different tables.
+- it uses LWORD to transfer one of the bits.  Rule 2.70 states this but only references the one of the bytes in the transfer.  It
+  takes table 2-29 to see the bytes relative to the address and data signals
+- it's not clearly stated, but the LWORD signal is only needed during the address phase potentially, so it might still be possible
+  to use it to do an A40/D16 or A40/D8 operation, I hope, (I mean I can do it non-standard anyways since it's mainly the memory card
+  that will use A40 cycles).  I'm trying to figure out if the A40 address modifier is always paired with the MD32 cycle.  I don't
+  think it matters in either case because the CPLD will control the buffers
+
+  Rule 2.70:
+    When accessing Byte(0-7), LWORD* MUST carry the least significant bit of Byte(3)
+    and A7 MUST carry the most significant bit of Byte(3). When accessing Byte(0-3) in
+    MD32 Mode, LWORD* MUST carry the least significant bit of Byte(1) and A7 MUST
+    carry the most significant bit of Byte(1). (See Table 2-29.)
+
+- the table showing bytes mapped to buses matches what the MC68030 manual Figure 7-4 shows as the bytes to data bit mapping
+  (basically, big-endian)
+- So LWORD carries the least significant bit of Byte(1), which is D23-D16, so LWORD carries D16.  A7 must carry the most significant
+  bit of Byte(1), which is D23, so A7 will carry D23.  A15-A8 will carry Byte(0), which is D32-D24
+
