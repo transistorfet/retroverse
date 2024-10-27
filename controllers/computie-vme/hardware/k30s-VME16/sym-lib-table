@@ -1,8 +1,0 @@
-(sym_lib_table
-  (version 7)
-  (lib (name "Computie_68k")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_68k.kicad_sym")(options "")(descr ""))
-  (lib (name "Computie_Connectors")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Connectors.kicad_sym")(options "")(descr ""))
-  (lib (name "Computie_CPLDs")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_CPLDs.kicad_sym")(options "")(descr ""))
-  (lib (name "Computie_Memory")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Memory.kicad_sym")(options "")(descr ""))
-  (lib (name "Computie_Transceivers")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Transceivers.kicad_sym")(options "")(descr ""))
-)

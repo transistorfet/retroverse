@@ -1,4 +1,0 @@
-(fp_lib_table
-  (version 7)
-  (lib (name "Computie_Connectors")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/footprints/Computie_Connectors.pretty")(options "")(descr ""))
-)
