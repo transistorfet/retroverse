@@ -539,7 +539,6 @@
 
 
 2024-10-13:
-
 - I'm getting close to the schematics for k30p-VME being done, but I have a few niggly bits.  I'm *just* short a pin or two for the
   CPLD.  I kind of need both the DS3-0 signals *and* the RAMSEL signal to make the ram work, or else I'd need an extra logic chip to
   AND together the DS1 and DS0 signals, and the DS3 and DS2 signals to provide the /CE signal for the chips.  That means getting rid
@@ -553,7 +552,6 @@
   systemboard logic)
 
 2024-10-14:
-
 - I'm starting to lay copper and finalize the part's positions for k30p.  I have 4 bypass caps for the CPU on the opposite side of
   the board, behind the CPU.  It might save me board space for use?  Well not really in the sense that the backside could also be
   used as a single solid surface for copper traces, but typically they move vertically on the bottom layer, and horizontally on the
@@ -562,7 +560,6 @@
   would be on the backside, so caps on the front would be better...
 
 2024-10-23:
-
 - an important issue came up when laying out the board.  A0 doesn't exist on the VMEbus, which means I don't need to use that bit of
   the transceiver at all, but also, for the MD32 cycle, there's only 15 bits and not 16 on the address bus for the upper 16 data
   bits.  I've come across this before but I don't seem to have it in my notes yet.  The spec sort of covers it, but not in an
@@ -584,4 +581,10 @@
   (basically, big-endian)
 - So LWORD carries the least significant bit of Byte(1), which is D23-D16, so LWORD carries D16.  A7 must carry the most significant
   bit of Byte(1), which is D23, so A7 will carry D23.  A15-A8 will carry Byte(0), which is D32-D24
+
+2024-11-02:
+- I need a memory card, and I'm not sure if I should try using dynamic ram.  If I have a CPLD anyways, I should be able to do the
+  refresh cycle, but it might take more work to bring up, and without it, I couldn't have two CPU cards coordinating, but it might
+  be a while before I get there anyways
+
 
