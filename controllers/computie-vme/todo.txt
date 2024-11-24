@@ -3,7 +3,7 @@ To Do for ComputieVME
 =====================
 
 - should you used 0603 caps for space saving?
-- make a frontpanel design
+
 - make a fully static design if possible, possibly removing the A40/MD32 cycle if it's too complex
 
 

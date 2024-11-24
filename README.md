@@ -58,6 +58,16 @@ COMET backplane, prototyping card, and single board computer:
     - computer card is missing bus arbitration, but the backplane supports it
 
 
-VME Equipment Manufacturers
----------------------------
+Desktop Case
+------------
+
+I bought a brand new Schroff PropacPro 3U 63HP 266mm deep Unshielded Complete Desktop case.  I
+initially requested a quote from Schroff, but unsurprisingly they sent me back a list of authorized
+redistributors instead.  It turned out that Digikey did actually have the cases available for
+backorder but the listing was uncategorized, so you had to search specifically for the part number
+to find it.
+
+https://schroff.nvent.com/en-ca/products/enc24576-006
+https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A
+
 

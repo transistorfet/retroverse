@@ -587,4 +587,47 @@
   refresh cycle, but it might take more work to bring up, and without it, I couldn't have two CPU cards coordinating, but it might
   be a while before I get there anyways
 
+2024-11-16:
+- k30p-VME is ready to be ordered more or less.  I should do final checks
+- bigboy's front panels should be ordered
+- I've modified the COMET CF Card to include the the additional AM[5:3] pins, and the card slot that I have (3M N7E50-Q516RB-40)
+- I've ordered the Schroff PropacPro 3U 63HP 266D case from digikey, as well as some front panels with handles, should arrive in January
+- I need to order parts soon
+
+
+- for MemBird, the memory card, I was looking into memory and the 72-pin memory sticks I have don't fit the cards well.  They can't go
+  vertically in the 100mm direction because they're too long, and they fit horizontally, but with less clearance to the connector than
+  I have for the transceviers on the bigboy, so I'd have to put the transceivers below the sticks, and I really only have enough space
+  with that for 2 to 4 sticks
+- So I looked into DRAM on digikey, and there's basically not much older stuff.  The SRAM is pretty expensive, at least $20 for 8Mbit
+  There is Pseudo-SRAM which is some DRAM inside the chip with a controller.  It's just on the verge of being possible, with the largest
+  sizes of 32MBit and 64MBit.  For 128MB of ram on the card, it would take 16 to 32 chips, which would cost $80 to $160 in chips alone.
+- Beyond that density, you get into SDRAM, which is available with parallel interfaces for $3.63 per chip for 256Mbit.  It would take
+  4 chips to get 128MB for $14.52 total!  That then makes it possible to consider 256MB or 512MB, which would still be under $60
+- the problem is that DRAM is harder to interface to with the clock and commands, and I'm not sure if I'll need more than just a latch
+  for the data signals.  If I need a FIFO, I'd almost certainly have to go the FPGA route instead of an ATF1508, but that would also
+  give me a PLL and the ability to read and write the ram faster than the VME bus timings.  Even the ice40hx4k with 107 I/O pins would
+  be stretched to cover one RAM chip, and the VMEbus alone
+- I could also make 2 boards, a big one and a small but fast/simple one with SRAM or PRSAM?
+
+2024-11-17:
+- Ok, so the more I think about it, the more I think I should make at least two memboards: one that's big and has all the features,
+  which means needing programmable logic, and one that's completely static so it doesn't require a programmer to get started, at the
+  expense of not have a lot of features or a lot of memory.  That means it would use SRAM and PSRAM for the small board, and no
+  programmable logic chip.  I'd still like to support the A40/MD32 cycle, but D8OE + D16 would be enough, which are actually really
+  simple to implement.
+- I'll design the SDRAM + iCE40 board later because it will be decently complicated, but I could design the other one now
+- I was thinking of naming them MemBird, with Raven being the biggest one using SDRAM.  The smallest one I could name either after
+  the American Woodcock, which is also called a Timberdoodle, or I could keep with the Corvid theme and call it Magpie, Nutcracker,
+  Crow (even though they're still kind of big), or after one of the Jays, even a Blue Jay being pretty small
+
+- for the static logic board, I'd need to derive a chip select signal from the bus, using a comparitor for selecting the board from
+  the address.  Technically I'd need a 16-bit comparitor if I wanted to support the A40 cycle, but I could get away with only
+  populating 8 bits of that.
+- I'd need bus transceivers, and for the 8 and 16 bit cycles there's no need to move data around, but if you support 32-bit
+  accesses, then there would have to be a way of getting the upper two bytes onto the lower bus when doing a 16-bit operation
+- the 32-bit cycle would require a latch for the address as well
+- maybe you should make one without the A40/MD32 because it's going to require a lot of extra.  But maybe it's possible to have
+  space on the board for both, with the ability to populate only part of it for people who might want to build it for a 16-bit
+  computer that doesn't use 32-bit addresses
 

@@ -4524,20 +4524,12 @@
 		(uuid "fceaf762-9e97-4803-a480-54d49b608341")
 	)
 	(no_connect
-		(at 153.67 41.91)
-		(uuid "1760a3f8-4543-4f79-919e-4afb6307df90")
-	)
-	(no_connect
 		(at 153.67 29.21)
 		(uuid "1bd8fbb7-1480-476b-b43d-dbc850f547df")
 	)
 	(no_connect
 		(at 153.67 77.47)
 		(uuid "4e2a3dca-100a-45dd-a15e-40836aa941e8")
-	)
-	(no_connect
-		(at 153.67 39.37)
-		(uuid "5401be34-3aef-4f27-a621-da87b53cedab")
 	)
 	(no_connect
 		(at 71.12 100.33)
@@ -4548,20 +4540,12 @@
 		(uuid "690ce2f5-4534-4967-89b2-b23985a24616")
 	)
 	(no_connect
-		(at 153.67 49.53)
-		(uuid "83dd84a2-78a1-4bba-aa56-51a6f6686be7")
-	)
-	(no_connect
 		(at 153.67 57.15)
 		(uuid "862c3d16-1927-4405-8781-983bf19b3221")
 	)
 	(no_connect
 		(at 246.38 46.99)
 		(uuid "8e596ee1-cf00-408d-855b-e70f4ee8621b")
-	)
-	(no_connect
-		(at 153.67 44.45)
-		(uuid "920c4a12-c339-431f-857f-ad6152670567")
 	)
 	(no_connect
 		(at 106.68 95.25)
@@ -4576,20 +4560,12 @@
 		(uuid "c5780bf3-effe-4e0c-b987-3c3547180b7a")
 	)
 	(no_connect
-		(at 153.67 36.83)
-		(uuid "ced2026f-b527-4051-a699-52aff4f68932")
-	)
-	(no_connect
 		(at 153.67 54.61)
 		(uuid "da669be5-522b-4c49-b737-08abb9b34621")
 	)
 	(no_connect
 		(at 106.68 92.71)
 		(uuid "dd7030d3-87a5-422b-b461-6a5c2672e0a2")
-	)
-	(no_connect
-		(at 153.67 46.99)
-		(uuid "ddbad64b-de87-4a09-84d1-1a574b290199")
 	)
 	(no_connect
 		(at 246.38 100.33)
@@ -5258,6 +5234,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.13 46.99) (xy 151.13 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "23900020-8c6b-48af-bacb-33781ba35653")
+	)
+	(wire
+		(pts
 			(xy 224.79 67.31) (xy 246.38 67.31)
 		)
 		(stroke
@@ -5315,6 +5301,16 @@
 			(type default)
 		)
 		(uuid "2d5a2b3a-ed8d-4c3b-8aab-8f4c9b70dab5")
+	)
+	(wire
+		(pts
+			(xy 151.13 39.37) (xy 153.67 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2eba5165-0e24-4db4-8a94-4893011c18a9")
 	)
 	(bus
 		(pts
@@ -5778,6 +5774,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.13 36.83) (xy 151.13 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "652454df-80df-4d4c-ad4f-c949e273bc03")
+	)
+	(wire
+		(pts
 			(xy 194.31 157.48) (xy 189.23 157.48)
 		)
 		(stroke
@@ -5855,6 +5861,16 @@
 			(type default)
 		)
 		(uuid "70411a2b-dc99-4136-9071-d970cf47446d")
+	)
+	(wire
+		(pts
+			(xy 153.67 41.91) (xy 151.13 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70e32156-6219-4c82-a903-ba88307cfffc")
 	)
 	(wire
 		(pts
@@ -5965,6 +5981,16 @@
 			(type default)
 		)
 		(uuid "88bec079-9422-43ef-aa0e-d586667ac19f")
+	)
+	(wire
+		(pts
+			(xy 151.13 49.53) (xy 153.67 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8aece0b1-a983-4ff3-bd91-ce1005d71658")
 	)
 	(bus
 		(pts
@@ -6418,6 +6444,16 @@
 	)
 	(wire
 		(pts
+			(xy 153.67 46.99) (xy 151.13 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8a22c5e-f25c-4505-b217-7f8fa43b897d")
+	)
+	(wire
+		(pts
 			(xy 64.77 62.23) (xy 71.12 62.23)
 		)
 		(stroke
@@ -6425,6 +6461,16 @@
 			(type default)
 		)
 		(uuid "cbba5a09-3846-44be-93d4-f692fc3f6f56")
+	)
+	(wire
+		(pts
+			(xy 151.13 41.91) (xy 151.13 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cbd21512-4442-4e7f-82fb-cb39bfc0c3f6")
 	)
 	(bus
 		(pts
@@ -6485,6 +6531,16 @@
 			(type default)
 		)
 		(uuid "d9dcb54d-ea2c-4521-946d-60ec16c28054")
+	)
+	(wire
+		(pts
+			(xy 151.13 44.45) (xy 153.67 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dde03b5c-e0b5-47ec-b5b0-117813e612c5")
 	)
 	(bus
 		(pts
@@ -6595,6 +6651,16 @@
 			(type default)
 		)
 		(uuid "e63ac97f-4d63-48b0-a54c-ffd695b6c8d3")
+	)
+	(wire
+		(pts
+			(xy 153.67 36.83) (xy 151.13 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e82019c9-f548-490b-9868-df154c765a17")
 	)
 	(wire
 		(pts
@@ -7930,7 +7996,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "01eacdb1-5384-493c-8949-01355c625006")
-		(property "Reference" "C22"
+		(property "Reference" "C?"
 			(at 206.8068 114.4016 0)
 			(effects
 				(font
@@ -7982,6 +8048,12 @@
 			(uuid "43dd53b5-3c63-4457-bbaa-657d32ff2c7c")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C22")
@@ -8070,7 +8142,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0800a0b8-d355-47aa-bfa8-23a66c5b6c6a")
-		(property "Reference" "C21"
+		(property "Reference" "C?"
 			(at 196.6468 133.4516 0)
 			(effects
 				(font
@@ -8122,6 +8194,12 @@
 			(uuid "4239043c-05d5-4d99-af14-6db552b36bc8")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C21")
@@ -8139,7 +8217,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "14386fba-710f-4599-bac0-981d8f5e15c7")
-		(property "Reference" "#PWR058"
+		(property "Reference" "#PWR?"
 			(at 58.42 44.45 0)
 			(effects
 				(font
@@ -8187,6 +8265,12 @@
 			(uuid "3084d45b-667b-49ef-8246-59cc00ae328b")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR058")
@@ -8214,7 +8298,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1dfd8abd-d74f-4939-ae22-b1cc988bfb4f")
-		(property "Reference" "#PWR067"
+		(property "Reference" "#PWR?"
 			(at 146.05 80.01 0)
 			(effects
 				(font
@@ -8262,6 +8346,12 @@
 			(uuid "e3b3edc2-e74a-4db5-9970-d20d49e20ef4")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR067")
@@ -8289,7 +8379,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "207d111e-2cde-4b10-b29f-64018a24bd52")
-		(property "Reference" "#PWR076"
+		(property "Reference" "#PWR?"
 			(at 194.31 165.1 0)
 			(effects
 				(font
@@ -8337,6 +8427,12 @@
 			(uuid "868fe617-18b8-40f3-8560-b06b94cf2c58")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR076")
@@ -8354,7 +8450,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "228dae6b-9253-4144-85c9-b2696efc9edf")
-		(property "Reference" "#PWR071"
+		(property "Reference" "#PWR?"
 			(at 194.31 134.62 0)
 			(effects
 				(font
@@ -8402,6 +8498,12 @@
 			(uuid "54eea704-849f-44bb-859d-4797f1ac61ed")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR071")
@@ -8420,7 +8522,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "25ac250a-7b97-42e6-b223-632edc40b636")
-		(property "Reference" "U16"
+		(property "Reference" "U?"
 			(at 117.1859 72.39 0)
 			(effects
 				(font
@@ -8514,6 +8616,12 @@
 			(uuid "d8d71812-164b-4494-a081-f6e11b2a3a2b")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "U?")
+					(unit 1)
+				)
+			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "U16")
@@ -8532,7 +8640,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2648fbe6-5209-48b5-92c0-4fe81d678220")
-		(property "Reference" "H1"
+		(property "Reference" "H?"
 			(at 259.08 123.19 0)
 			(effects
 				(font
@@ -8578,6 +8686,12 @@
 			)
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "H?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "H1")
@@ -8595,7 +8709,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "27275438-b9b6-4762-bb28-66c091eb5e86")
-		(property "Reference" "C13"
+		(property "Reference" "C?"
 			(at 156.0068 133.4516 0)
 			(effects
 				(font
@@ -8647,6 +8761,12 @@
 			(uuid "1df63a74-8404-4916-afd2-9597b4880b91")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C13")
@@ -8664,7 +8784,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "290eeab0-7b0e-4099-a629-ffc9c3c0df18")
-		(property "Reference" "C14"
+		(property "Reference" "C?"
 			(at 166.1668 114.4016 0)
 			(effects
 				(font
@@ -8716,6 +8836,12 @@
 			(uuid "2afa828b-cb4a-4c13-b777-561c4f175c6d")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C14")
@@ -8733,7 +8859,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2e1d3e39-2c5f-4bc2-afc0-3860a11d55ab")
-		(property "Reference" "C31"
+		(property "Reference" "C?"
 			(at 191.5668 153.7716 0)
 			(effects
 				(font
@@ -8785,6 +8911,12 @@
 			(uuid "b60a2c1d-5e92-4eb2-a620-e365e965083b")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C31")
@@ -8802,7 +8934,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2f4ff8df-5759-4325-b6e5-70a11a2d67d9")
-		(property "Reference" "#PWR075"
+		(property "Reference" "#PWR?"
 			(at 194.31 154.94 0)
 			(effects
 				(font
@@ -8850,6 +8982,12 @@
 			(uuid "35aa4deb-d5f5-451a-9694-4c23d003ad2f")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR075")
@@ -8867,7 +9005,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2fa8f6d9-41e0-49c0-a7e5-ac251fb910c5")
-		(property "Reference" "#PWR062"
+		(property "Reference" "#PWR?"
 			(at 119.38 76.2 0)
 			(effects
 				(font
@@ -8915,6 +9053,12 @@
 			(uuid "3843eb38-9649-48e6-9623-d124e47c649e")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR062")
@@ -8932,7 +9076,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "30a8d787-aadb-4659-bd2f-1045df1089a3")
-		(property "Reference" "C27"
+		(property "Reference" "C?"
 			(at 227.1268 133.4516 0)
 			(effects
 				(font
@@ -8984,6 +9128,12 @@
 			(uuid "a2eafd8a-24d1-4f9c-a45d-78212862e41d")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C27")
@@ -9001,7 +9151,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "378787e9-d361-469a-9e6f-c3aee30b3db5")
-		(property "Reference" "C30"
+		(property "Reference" "C?"
 			(at 181.4068 153.7716 0)
 			(effects
 				(font
@@ -9053,6 +9203,12 @@
 			(uuid "670035ed-6f19-490a-8152-a0cb98ef1a1b")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C30")
@@ -9071,7 +9227,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "452a9093-39d7-4e52-9502-1bdfef41414c")
-		(property "Reference" "#PWR064"
+		(property "Reference" "#PWR?"
 			(at 138.43 80.01 0)
 			(effects
 				(font
@@ -9119,6 +9275,12 @@
 			(uuid "aca21d47-d993-4922-8684-ef50742beb57")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR064")
@@ -9136,7 +9298,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "45411b51-ee12-415f-ac16-63a1043155d7")
-		(property "Reference" "JP7"
+		(property "Reference" "JP?"
 			(at 69.85 163.4744 0)
 			(effects
 				(font
@@ -9186,6 +9348,12 @@
 			(uuid "a27bc0b1-808b-4d83-b578-3c1d4df625f8")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "JP?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "JP7")
@@ -9203,7 +9371,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5060784f-c172-4f08-ab55-4577855f4712")
-		(property "Reference" "#PWR068"
+		(property "Reference" "#PWR?"
 			(at 156.21 102.87 0)
 			(effects
 				(font
@@ -9251,6 +9419,12 @@
 			(uuid "af03c547-bbb8-4f59-922d-e6e1737c6d77")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR068")
@@ -9278,7 +9452,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5a33aa5b-7137-4fd8-9151-606c26fa9466")
-		(property "Reference" "C18"
+		(property "Reference" "C?"
 			(at 186.4868 114.4016 0)
 			(effects
 				(font
@@ -9330,6 +9504,12 @@
 			(uuid "c5d06017-fe62-428e-98f6-893d28892201")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C18")
@@ -9348,7 +9528,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5a67a107-351a-4096-8893-89339a98e854")
-		(property "Reference" "H2"
+		(property "Reference" "H?"
 			(at 259.08 130.81 0)
 			(effects
 				(font
@@ -9394,6 +9574,12 @@
 			)
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "H?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "H2")
@@ -9411,7 +9597,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "640a09e0-9ece-4f2c-9654-d83ac2caa2ec")
-		(property "Reference" "C29"
+		(property "Reference" "C?"
 			(at 237.2868 133.4516 0)
 			(effects
 				(font
@@ -9463,6 +9649,12 @@
 			(uuid "6cadc696-4fff-4f49-9b9d-d310b60d13e1")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C29")
@@ -9480,7 +9672,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7422bd0c-e4fa-4321-bb07-eb6dd12707a1")
-		(property "Reference" "C17"
+		(property "Reference" "C?"
 			(at 176.3268 133.4516 0)
 			(effects
 				(font
@@ -9532,6 +9724,12 @@
 			(uuid "e45100a5-72a6-448c-ac68-faeb73c6355c")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C17")
@@ -9549,7 +9747,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7472fb94-9192-45c6-85b1-c033431c4cdd")
-		(property "Reference" "#PWR066"
+		(property "Reference" "#PWR?"
 			(at 146.05 72.39 0)
 			(effects
 				(font
@@ -9597,6 +9795,12 @@
 			(uuid "02fdb72f-a80c-44c9-b377-e46d3a811dc9")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR066")
@@ -9624,7 +9828,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "75008bfd-0de3-4b68-80f8-a6df415f1fa4")
-		(property "Reference" "C33"
+		(property "Reference" "C?"
 			(at 211.8868 153.7716 0)
 			(effects
 				(font
@@ -9676,6 +9880,12 @@
 			(uuid "1e98e275-cf66-4f49-a123-4d90c58b361e")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C33")
@@ -9693,7 +9903,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "75866187-d2fe-45f6-ad12-65d9acac1a6d")
-		(property "Reference" "C24"
+		(property "Reference" "C?"
 			(at 216.9668 114.4016 0)
 			(effects
 				(font
@@ -9745,6 +9955,12 @@
 			(uuid "747ada55-f042-4416-856f-0fc6943b3602")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C24")
@@ -9762,7 +9978,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7ac5b7b5-c107-4dc3-9856-8db3aeb06a84")
-		(property "Reference" "C20"
+		(property "Reference" "C?"
 			(at 196.6468 114.4016 0)
 			(effects
 				(font
@@ -9814,6 +10030,12 @@
 			(uuid "482b5886-7460-45bd-be78-555662f44d39")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C20")
@@ -9831,7 +10053,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "83d393bf-2670-4b6d-9939-77eaf03a5223")
-		(property "Reference" "C25"
+		(property "Reference" "C?"
 			(at 216.9668 133.4516 0)
 			(effects
 				(font
@@ -9883,6 +10105,12 @@
 			(uuid "b5142440-944a-448d-94a9-e569ecf3738b")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C25")
@@ -9900,7 +10128,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "84727e6f-c0a2-451b-86c4-79376c43c17f")
-		(property "Reference" "#PWR069"
+		(property "Reference" "#PWR?"
 			(at 194.31 115.57 0)
 			(effects
 				(font
@@ -9948,6 +10176,12 @@
 			(uuid "c12b6ad0-7918-4ffb-ba65-3027065d5ae1")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR069")
@@ -9965,7 +10199,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9b1eb2fd-6b0f-4d75-a0f6-a2852e0b6bc3")
-		(property "Reference" "#PWR059"
+		(property "Reference" "#PWR?"
 			(at 73.66 102.87 0)
 			(effects
 				(font
@@ -10013,6 +10247,12 @@
 			(uuid "cd2e0c3e-8dd7-4882-b37b-00b8139826cd")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "IVC-k30"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR059")
@@ -10040,7 +10280,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9e549cca-d93f-4a1b-a8c9-e4d4ca17fa71")
-		(property "Reference" "C28"
+		(property "Reference" "C?"
 			(at 237.2868 114.4016 0)
 			(effects
 				(font
@@ -10092,6 +10332,12 @@
 			(uuid "5e679003-94b5-411c-a027-88dac1cbc3e7")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C28")
@@ -10467,7 +10713,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a6bfeb89-2cf6-4850-95af-22a66a53c2a2")
-		(property "Reference" "#PWR070"
+		(property "Reference" "#PWR?"
 			(at 194.31 125.73 0)
 			(effects
 				(font
@@ -10515,6 +10761,12 @@
 			(uuid "c67095db-fafd-4419-8008-66968ed61fb6")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR070")
@@ -10532,7 +10784,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a71ebdd4-cf83-4f2e-878e-8070d3bc359c")
-		(property "Reference" "C16"
+		(property "Reference" "C?"
 			(at 176.3268 114.4016 0)
 			(effects
 				(font
@@ -10584,6 +10836,12 @@
 			(uuid "47863418-5de3-448d-bb2f-aba289a14537")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C16")
@@ -11317,7 +11575,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ae090183-b432-4e52-9cf6-d71b5f8e06b1")
-		(property "Reference" "C15"
+		(property "Reference" "C?"
 			(at 166.1668 133.4516 0)
 			(effects
 				(font
@@ -11369,6 +11627,12 @@
 			(uuid "bb698f1d-1399-4061-be9c-cba8e2df7f71")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C15")
@@ -11386,7 +11650,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "aea625a2-4d8b-4015-9a57-9d4b762613e7")
-		(property "Reference" "C26"
+		(property "Reference" "C?"
 			(at 227.1268 114.4016 0)
 			(effects
 				(font
@@ -11438,6 +11702,12 @@
 			(uuid "3d66baec-1b02-4a41-bd6d-78699a354dd3")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C26")
@@ -11449,13 +11719,13 @@
 	(symbol
 		(lib_id "74xx:74LS05")
 		(at 60.96 72.39 0)
-		(unit 6)
+		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "b47b37c8-3ea1-4268-bb81-19ca0b156a11")
-		(property "Reference" "U3"
+		(property "Reference" "U?"
 			(at 54.61 68.58 0)
 			(effects
 				(font
@@ -11541,6 +11811,12 @@
 			(uuid "a941c0ce-3028-42ef-9c0a-779fee6b8ad0")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "U?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "U3")
@@ -11559,7 +11835,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c05a2fdc-7bdb-4562-a3f3-e82cf47b2a27")
-		(property "Reference" "#PWR065"
+		(property "Reference" "#PWR?"
 			(at 138.43 100.33 0)
 			(effects
 				(font
@@ -11607,6 +11883,12 @@
 			(uuid "38393e5a-7bfa-4df3-a139-7e1edb93d05e")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR065")
@@ -11624,7 +11906,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c9752b55-adc8-404f-a29e-472a3f259db2")
-		(property "Reference" "JP5"
+		(property "Reference" "JP?"
 			(at 69.85 140.716 0)
 			(effects
 				(font
@@ -11674,6 +11956,12 @@
 			(uuid "947c9dd5-153e-4e8d-a836-304fcd93f573")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "JP?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "JP5")
@@ -11691,7 +11979,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "cb3ae6c3-d5a3-48a8-b908-8f3554f854ad")
-		(property "Reference" "C23"
+		(property "Reference" "C?"
 			(at 206.8068 133.4516 0)
 			(effects
 				(font
@@ -11743,6 +12031,12 @@
 			(uuid "8a34eb2c-0300-4ca3-a5d6-db47fe83174f")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C23")
@@ -11760,7 +12054,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d5f385bc-5ecc-4542-919b-06c5d1c287eb")
-		(property "Reference" "JP6"
+		(property "Reference" "JP?"
 			(at 69.85 148.336 0)
 			(effects
 				(font
@@ -11810,6 +12104,12 @@
 			(uuid "d03202e7-fa91-44dd-ab90-cabbe7993394")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "JP?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "JP6")
@@ -11827,7 +12127,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "da9fe2fb-a78a-415a-b9c6-e305c74ce9de")
-		(property "Reference" "C12"
+		(property "Reference" "C?"
 			(at 156.0068 114.4016 0)
 			(effects
 				(font
@@ -11879,6 +12179,12 @@
 			(uuid "f9f52cce-371f-4daf-902d-075979b2c4ee")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C12")
@@ -11896,7 +12202,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "db6df0ce-5e22-4081-a85c-27ccd4fb5b8d")
-		(property "Reference" "C19"
+		(property "Reference" "C?"
 			(at 186.4868 133.4516 0)
 			(effects
 				(font
@@ -11948,6 +12254,12 @@
 			(uuid "b3a89903-3a3f-4b5d-8ab7-7bcef8921500")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C19")
@@ -11965,7 +12277,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e6eacd90-67c0-464e-9716-f62e58ed94ce")
-		(property "Reference" "C32"
+		(property "Reference" "C?"
 			(at 201.7268 153.7716 0)
 			(effects
 				(font
@@ -12017,6 +12329,12 @@
 			(uuid "8d892ab4-4817-45f8-b95a-5f30e875a7ad")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "C?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "C32")
@@ -12034,7 +12352,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f1509138-cb80-4c37-907e-a690d072e866")
-		(property "Reference" "#PWR072"
+		(property "Reference" "#PWR?"
 			(at 194.31 144.78 0)
 			(effects
 				(font
@@ -12082,6 +12400,12 @@
 			(uuid "4b110c42-0cb7-4bfa-9085-22a1330d2b91")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR072")
@@ -12170,7 +12494,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "fbfcf491-1570-49e6-835a-68dc57ed4ebc")
-		(property "Reference" "#PWR063"
+		(property "Reference" "#PWR?"
 			(at 119.38 114.3 0)
 			(effects
 				(font
@@ -12218,6 +12542,12 @@
 			(uuid "c1603fe6-4079-4719-b818-10477afe5d34")
 		)
 		(instances
+			(project "Bus"
+				(path "/0a4129e6-6eeb-4716-9736-5c1dbae4e4c6"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "k30p-VME"
 				(path "/dd13a6b9-cb24-4a73-96ce-c29930072fba/372c1966-b642-4e1e-8b8f-ada6fd5e1159"
 					(reference "#PWR063")
