@@ -1,3 +1,14 @@
 
-- 
+* make an sdram card with fpga for the controller
+
+
+
+TODO: if you did MD32, you'd have two more 16-bit transcievers
+(these are using positive logic, so need to be translated)
+B0OE <- CS_ANY & (!LWORD & !A1 | LWORD) & DS0
+B1OE <- CS_ANY & (!LWORD & !A1 | LWORD) & DS1
+B2LOE <- CS_ANY & !LWORD & A1 & DS0
+B3LOE <- CS_ANY & !LWORD & A1 & DS1
+B2UOE <- CS_ANY & LWORD
+B3UOE <- CS_ANY & LWORD
 

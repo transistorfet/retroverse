@@ -2979,126 +2979,6 @@
 				)
 			)
 		)
-		(symbol "power:+5V"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+5V"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+5V\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+5V_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+5V_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "power:GND"
 			(power)
 			(pin_numbers hide)
@@ -3195,6 +3075,126 @@
 				)
 			)
 		)
+		(symbol "power:VBUS"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "VBUS"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"VBUS\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "VBUS_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "VBUS_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 	)
 	(junction
 		(at 43.18 19.05)
@@ -3257,10 +3257,6 @@
 		(uuid "3972a76d-4215-4291-a97c-0f70c3dcbf1f")
 	)
 	(no_connect
-		(at 71.12 46.99)
-		(uuid "456b9397-f4e9-41bc-a24e-33cc6c7f06a2")
-	)
-	(no_connect
 		(at 153.67 52.07)
 		(uuid "5387f074-33f5-431f-973d-e2ace28d6101")
 	)
@@ -3271,6 +3267,10 @@
 	(no_connect
 		(at 153.67 54.61)
 		(uuid "5cb099e9-45f7-42e6-936a-3f8936b74592")
+	)
+	(no_connect
+		(at 246.38 52.07)
+		(uuid "6cbf8654-b201-40cb-8878-53f97da2003a")
 	)
 	(no_connect
 		(at 153.67 97.79)
@@ -4383,16 +4383,6 @@
 	)
 	(wire
 		(pts
-			(xy 242.57 52.07) (xy 246.38 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8ad0e59c-3d19-4ce9-a84e-a258966f33bd")
-	)
-	(wire
-		(pts
 			(xy 68.58 44.45) (xy 68.58 49.53)
 		)
 		(stroke
@@ -4440,6 +4430,16 @@
 			(type default)
 		)
 		(uuid "91b0b161-bd2f-4e1d-915b-9c7bc6db13bf")
+	)
+	(wire
+		(pts
+			(xy 64.77 46.99) (xy 71.12 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9341630e-946a-4576-8531-6188933dadc1")
 	)
 	(bus
 		(pts
@@ -5502,28 +5502,6 @@
 			)
 		)
 	)
-	(global_label "~{VSYSRESET}"
-		(shape output)
-		(at 242.57 52.07 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "8d5c59d4-72d8-4418-a116-13270975e054")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 229.2435 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "VD[0..15]"
 		(shape bidirectional)
 		(at 27.94 15.24 180)
@@ -5537,6 +5515,28 @@
 		(uuid "8f5ecdb0-36a3-448b-8e6b-7b347568f8b8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 14.9534 15.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "~{SYSCLK}"
+		(shape output)
+		(at 64.77 46.99 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9919993b-b634-462f-a490-4e7d80cd0d5f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 54.7091 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5723,6 +5723,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:VBUS")
+		(at 152.4 102.87 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0adff47d-599a-495c-bede-7551f021a55d")
+		(property "Reference" "#PWR018"
+			(at 156.21 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 149.352 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
+			(at 152.4 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b06cd211-d9d5-47af-b462-626610467cbc")
+		)
+		(instances
+			(project "MemBird - Woodcock"
+				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
+					(reference "#PWR018")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Mechanical:MountingHole")
 		(at 256.54 124.46 0)
 		(unit 1)
@@ -5787,15 +5853,15 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
+		(lib_id "power:VBUS")
 		(at 245.11 102.87 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "27cdf8b1-51f3-47ba-9291-cfc5e5d3f7c0")
-		(property "Reference" "#PWR011"
+		(uuid "18482d82-a32e-48be-a8ad-c46c3e685537")
+		(property "Reference" "#PWR020"
 			(at 248.92 102.87 0)
 			(effects
 				(font
@@ -5804,12 +5870,13 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+5V"
-			(at 240.03 102.87 90)
+		(property "Value" "VBUS"
+			(at 242.062 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5830,7 +5897,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
 			(at 245.11 102.87 0)
 			(effects
 				(font
@@ -5840,12 +5907,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "d756748d-826e-483a-9467-3fbfbf564ae3")
+			(uuid "5c83b99a-c4ab-4731-89aa-7ce8717214a6")
 		)
 		(instances
 			(project "MemBird - Woodcock"
 				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
-					(reference "#PWR011")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -5860,7 +5927,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "29db9004-c830-4428-93ed-1190a2ec1155")
-		(property "Reference" "#PWR01"
+		(property "Reference" "#PWR014"
 			(at 58.42 44.45 0)
 			(effects
 				(font
@@ -5910,72 +5977,7 @@
 		(instances
 			(project "MemBird - Woodcock"
 				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
-					(reference "#PWR01")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 152.4 102.87 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "5bfc4c32-185f-4130-8022-e2a30ff99928")
-		(property "Reference" "#PWR09"
-			(at 156.21 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 147.32 102.87 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 152.4 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 152.4 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 152.4 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "187ea080-9f30-4bdb-a21b-1fe47b527022")
-		)
-		(instances
-			(project "MemBird - Woodcock"
-				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
-					(reference "#PWR09")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -6329,71 +6331,6 @@
 				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
 					(reference "U2")
 					(unit 2)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 69.85 102.87 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "7085192d-5b66-44e1-9b45-e50cee2b2d29")
-		(property "Reference" "#PWR02"
-			(at 73.66 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 64.77 102.87 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3fe99098-b16a-4d2c-872d-9cde69b131d6")
-		)
-		(instances
-			(project "MemBird - Woodcock"
-				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
-					(reference "#PWR02")
-					(unit 1)
 				)
 			)
 		)
@@ -6823,7 +6760,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "94bf1df2-1bf7-4a1f-b8b2-dcf725a6053f")
-		(property "Reference" "#PWR07"
+		(property "Reference" "#PWR016"
 			(at 146.05 72.39 0)
 			(effects
 				(font
@@ -6873,7 +6810,73 @@
 		(instances
 			(project "MemBird - Woodcock"
 				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
-					(reference "#PWR07")
+					(reference "#PWR016")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VBUS")
+		(at 69.85 102.87 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a3541a41-540e-4212-8bc1-6f953bd358c6")
+		(property "Reference" "#PWR015"
+			(at 73.66 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 66.802 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c9d37167-c008-4d7b-83a6-8597519265e6")
+		)
+		(instances
+			(project "MemBird - Woodcock"
+				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -6888,7 +6891,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b5dfe9fb-95ff-44bf-ab3e-13ed99b3dd7d")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR019"
 			(at 238.76 44.45 0)
 			(effects
 				(font
@@ -6938,7 +6941,7 @@
 		(instances
 			(project "MemBird - Woodcock"
 				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
-					(reference "#PWR010")
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -7305,7 +7308,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d803900c-f446-400b-9411-447e17c741e2")
-		(property "Reference" "#PWR08"
+		(property "Reference" "#PWR017"
 			(at 146.05 80.01 0)
 			(effects
 				(font
@@ -7355,7 +7358,7 @@
 		(instances
 			(project "MemBird - Woodcock"
 				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2/f54ca5f0-e03d-427c-8923-370a2b2d60e8"
-					(reference "#PWR08")
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)

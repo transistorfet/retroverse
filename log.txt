@@ -631,3 +631,11 @@
   space on the board for both, with the ability to populate only part of it for people who might want to build it for a 16-bit
   computer that doesn't use 32-bit addresses
 
+2024-11-24:
+- I designed a 16-bit, 3.3 or 5V, SRAM or PSRAM, VME bus memory card.  It doesn't support the A40/MD32 cycle because I'm trying to
+  make it quickly for the christmas break.  It won't support unaligned accesses either.  Only A24
+- the VME spec says that dtack must not be asserted if the card doesn't support qword or unaligned operations, so I'll have to make
+  sure to exclude those somehow
+- what I'm not sure about is whether DTACK needs to be on a timer.  I definitely need to fix the fact that it's not
+  3-stated/open-collector
+

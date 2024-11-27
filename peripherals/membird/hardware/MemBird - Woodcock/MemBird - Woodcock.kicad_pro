@@ -580,16 +580,20 @@
       "Root"
     ],
     [
-      "2607bc31-0c18-4e05-9a61-cf4e6196c75a",
-      "Memory"
+      "f54ca5f0-e03d-427c-8923-370a2b2d60e8",
+      "Bus"
+    ],
+    [
+      "47c75564-6710-4981-ae2c-d2d47a24b632",
+      "Logic"
     ],
     [
       "27ee1734-7e46-45dd-999c-8106ba0b1939",
       "Transceivers"
     ],
     [
-      "f54ca5f0-e03d-427c-8923-370a2b2d60e8",
-      "Bus"
+      "2607bc31-0c18-4e05-9a61-cf4e6196c75a",
+      "Memory"
     ]
   ],
   "text_variables": {}

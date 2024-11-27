@@ -5,4 +5,6 @@
   (lib (name "Computie_CPLDs")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_CPLDs.kicad_sym")(options "")(descr ""))
   (lib (name "Computie_Memory")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Memory.kicad_sym")(options "")(descr ""))
   (lib (name "Computie_Transceivers")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Transceivers.kicad_sym")(options "")(descr ""))
+  (lib (name "Computie_Microcontrollers")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Microcontrollers.kicad_sym")(options "")(descr ""))
+  (lib (name "Computie_Miscellaneous")(type "KiCad")(uri "${KIPRJMOD}/../../../../common/kicad-libraries/computie-kicad-library/symbols/Computie_Miscellaneous.kicad_sym")(options "")(descr ""))
 )
