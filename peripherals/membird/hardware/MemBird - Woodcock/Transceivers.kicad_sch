@@ -1541,7 +1541,7 @@
 				)
 			)
 		)
-		(symbol "Computie_Transceivers:74LVCC3245APWR"
+		(symbol "Computie_Transceivers:74LVC8T245PW"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1573,7 +1573,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf"
+			(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74LVC_LVCH8T245.pdf"
 				(at 0 -15.24 0)
 				(effects
 					(font
@@ -1609,7 +1609,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "74LVCC3245APWR_0_1"
+			(symbol "74LVC8T245PW_0_1"
 				(rectangle
 					(start -10.16 16.51)
 					(end 10.16 -17.78)
@@ -1622,7 +1622,7 @@
 					)
 				)
 			)
-			(symbol "74LVCC3245APWR_1_1"
+			(symbol "74LVC8T245PW_1_1"
 				(pin power_in line
 					(at 3.81 19.05 270)
 					(length 2.54)
@@ -1893,10 +1893,10 @@
 						)
 					)
 				)
-				(pin no_connect non_logic
-					(at -5.08 -20.32 90)
+				(pin power_in line
+					(at -3.81 19.05 270)
 					(length 2.54) hide
-					(name "N/C"
+					(name "VCCb"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6335,7 +6335,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Computie_Transceivers:74LVCC3245APWR")
+		(lib_id "Computie_Transceivers:74LVC8T245PW")
 		(at 62.23 143.51 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6344,7 +6344,7 @@
 		(dnp no)
 		(uuid "127111d4-fbd0-4315-8e2e-2b8175440f23")
 		(property "Reference" "U14"
-			(at 51.816 125.476 0)
+			(at 52.07 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6352,8 +6352,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "74LVCC3245APWR"
-			(at 67.056 125.476 0)
+		(property "Value" "74LVC8T245APW"
+			(at 64.77 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6371,7 +6371,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf"
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74LVC_LVCH8T245.pdf"
 			(at 62.23 158.75 0)
 			(effects
 				(font
@@ -6380,7 +6380,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "8-Bit Dual Supply Bidirectional Translating Transceiver with 5V Tolerant Inputs and Outputs, TSSOP-24"
 			(at 62.23 143.51 0)
 			(effects
 				(font

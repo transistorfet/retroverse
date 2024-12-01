@@ -1665,12 +1665,6 @@
 		)
 	)
 	(junction
-		(at 49.53 162.56)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2912d136-c87c-402e-b5b9-b5bc274a1918")
-	)
-	(junction
 		(at 59.69 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1696,16 +1690,6 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 156.21) (xy 45.72 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0c68437a-92a9-4c9a-8c06-c4339da0ebf1")
-	)
-	(wire
-		(pts
 			(xy 132.08 152.4) (xy 137.16 152.4)
 		)
 		(stroke
@@ -1723,16 +1707,6 @@
 			(type default)
 		)
 		(uuid "1908a397-100c-4a14-83f8-afde786b4c3f")
-	)
-	(wire
-		(pts
-			(xy 45.72 153.67) (xy 49.53 153.67)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "19fc9b2f-d3d3-42cf-ac2e-2483ed8cc6bc")
 	)
 	(wire
 		(pts
@@ -1756,16 +1730,6 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 162.56) (xy 49.53 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "30e92fd8-3638-4b12-a421-360e8699d355")
-	)
-	(wire
-		(pts
 			(xy 69.85 153.67) (xy 73.66 153.67)
 		)
 		(stroke
@@ -1786,7 +1750,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 162.56) (xy 49.53 163.83)
+			(xy 49.53 161.29) (xy 49.53 163.83)
 		)
 		(stroke
 			(width 0)
@@ -1813,16 +1777,6 @@
 			(type default)
 		)
 		(uuid "43e202ef-210a-4b73-b0dc-a6f9a99e3496")
-	)
-	(wire
-		(pts
-			(xy 49.53 161.29) (xy 49.53 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "470bd0bc-b991-4624-b204-d79652332e46")
 	)
 	(wire
 		(pts
@@ -3375,75 +3329,6 @@
 		(uuid "e89b4e85-5fd4-468a-9817-bef0f3730a52")
 	)
 	(symbol
-		(lib_id "Connector_Generic:Conn_01x02")
-		(at 40.64 153.67 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "00779388-d5fd-4e47-8b32-06ea54b9a415")
-		(property "Reference" "J1"
-			(at 40.64 147.32 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "5V"
-			(at 40.64 149.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 40.64 153.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 40.64 153.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 40.64 153.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "209ae8e7-d775-4e90-bbb5-681a64aa8c54")
-		)
-		(pin "2"
-			(uuid "f672ddb9-9d47-4cea-8d28-d55fef95be57")
-		)
-		(instances
-			(project "MemBird - Woodcock"
-				(path "/6376137f-dc27-4ca5-b911-07fd12a37fc2"
-					(reference "J1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C_Small")
 		(at 73.66 158.75 0)
 		(unit 1)
@@ -4255,7 +4140,7 @@
 				)
 			)
 		)
-		(property "Value" "5V / 3.3V"
+		(property "Value" "3.3V / 5V"
 			(at 142.24 148.59 0)
 			(effects
 				(font
