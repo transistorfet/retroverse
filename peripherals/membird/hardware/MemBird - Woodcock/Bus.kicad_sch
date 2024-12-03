@@ -4113,7 +4113,7 @@
 	)
 	(bus
 		(pts
-			(xy 27.94 19.05) (xy 43.18 19.05)
+			(xy 31.75 19.05) (xy 43.18 19.05)
 		)
 		(stroke
 			(width 0)
@@ -4523,7 +4523,7 @@
 	)
 	(bus
 		(pts
-			(xy 27.94 15.24) (xy 52.07 15.24)
+			(xy 31.75 15.24) (xy 52.07 15.24)
 		)
 		(stroke
 			(width 0)
@@ -5388,7 +5388,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5410,7 +5409,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5432,7 +5430,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5454,7 +5451,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5476,7 +5472,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5498,13 +5493,12 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
 	(global_label "VD[0..15]"
 		(shape bidirectional)
-		(at 27.94 15.24 180)
+		(at 31.75 15.24 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5514,13 +5508,12 @@
 		)
 		(uuid "8f5ecdb0-36a3-448b-8e6b-7b347568f8b8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 14.9534 15.24 0)
+			(at 18.7634 15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5542,13 +5535,12 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
 	(global_label "VA[0..23]"
 		(shape input)
-		(at 27.94 19.05 180)
+		(at 31.75 19.05 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5558,13 +5550,12 @@
 		)
 		(uuid "b13e44c7-62a5-43b8-8930-e53a5acc69a3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 16.2461 19.05 0)
+			(at 20.0561 19.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5586,7 +5577,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5608,7 +5598,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5630,7 +5619,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5652,7 +5640,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5674,7 +5661,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5696,7 +5682,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)
@@ -5718,7 +5703,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
 			)
 		)
 	)

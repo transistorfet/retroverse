@@ -639,3 +639,6 @@
 - what I'm not sure about is whether DTACK needs to be on a timer.  I definitely need to fix the fact that it's not
   3-stated/open-collector
 
+2024-12-02:
+- ordered 5 boards, k30p-VME, Aluminum frontpanel for it, MemBird - Woodcock, Alum. frontpanel for BigBoy, and Tom Storey's CF Card
+

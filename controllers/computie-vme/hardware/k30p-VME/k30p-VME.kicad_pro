@@ -59,11 +59,24 @@
         }
       ],
       "drc_exclusions": [
+        "hole_clearance|43771000|100180000|3ff11927-f6a4-4e89-8443-380b9815f479|544b68d9-7d6f-4e25-943a-5bd243ddcc12",
+        "hole_clearance|43771000|100180000|3ff11927-f6a4-4e89-8443-380b9815f479|756158b7-d81a-47ae-8a58-f67ce8710d12",
         "hole_clearance|43771000|112787000|8f014e6e-3013-44fb-bb84-d00bf661021d|337c5a0a-e0a6-402d-97ed-813c61728a4f",
+        "hole_clearance|43771000|112787000|8f014e6e-3013-44fb-bb84-d00bf661021d|3942d937-61d1-4d21-91fc-cff258b6de37",
         "hole_clearance|43771000|118887000|a3c3310c-39c4-4d20-b2e2-90a068d015d4|3aecda56-c62e-4727-b8ab-191e9b51ba4e",
         "hole_clearance|43771000|118887000|a3c3310c-39c4-4d20-b2e2-90a068d015d4|f9c151dc-b5b4-44e5-957c-e9fd50d6babe",
+        "hole_clearance|43771000|94080000|b7b6c48b-0e18-497f-bddd-ca8624248ec7|3e8af593-29f4-4f13-901f-3b04071eb3e5",
+        "hole_clearance|43771000|94080000|b7b6c48b-0e18-497f-bddd-ca8624248ec7|8ff553ab-8dfd-4148-ae8f-39f8eb891002",
         "shorting_items|43771000|113287000|24b7d9a2-80fa-4e44-92dc-f36aee42b414|3e76693b-7b90-415e-ad49-eac4fb0bd229",
-        "shorting_items|43771000|118087000|48debe58-d839-4011-bcce-7a4c0d17df5f|2e736b88-57ab-4b8e-b7fd-892237ea0a08"
+        "shorting_items|43771000|118087000|48debe58-d839-4011-bcce-7a4c0d17df5f|2e736b88-57ab-4b8e-b7fd-892237ea0a08",
+        "silk_edge_clearance|36878000|49019000|17856675-fd59-40f5-9138-8e40dbff268a|37f66a70-4540-4bac-9cb4-2e823fb300c3",
+        "silk_edge_clearance|36878000|56319000|17856675-fd59-40f5-9138-8e40dbff268a|660a1732-2ed8-497e-affb-c75764446c77",
+        "silk_edge_clearance|36878000|56319000|17856675-fd59-40f5-9138-8e40dbff268a|f0b0c5ce-ebbe-490e-bb2f-db11083a8201",
+        "silk_edge_clearance|36878000|72637000|17856675-fd59-40f5-9138-8e40dbff268a|c99fbe14-446d-492e-ba4d-8a150767dd2c",
+        "silk_edge_clearance|36878000|79937000|17856675-fd59-40f5-9138-8e40dbff268a|38826be0-e015-4c86-9299-16a6281c8e18",
+        "silk_edge_clearance|36878000|79937000|17856675-fd59-40f5-9138-8e40dbff268a|b07fbbbb-3142-4df2-bd0f-f1f12f10149c",
+        "solder_mask_bridge|43771000|113287000|24b7d9a2-80fa-4e44-92dc-f36aee42b414|3e76693b-7b90-415e-ad49-eac4fb0bd229",
+        "solder_mask_bridge|43771000|118087000|48debe58-d839-4011-bcce-7a4c0d17df5f|2e736b88-57ab-4b8e-b7fd-892237ea0a08"
       ],
       "meta": {
         "version": 2
@@ -479,6 +492,23 @@
         "via_diameter": 0.45,
         "via_drill": 0.2,
         "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.127,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "USB",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
       }
     ],
     "meta": {
@@ -527,7 +557,7 @@
   },
   "schematic": {
     "annotate_start_num": 0,
-    "bom_export_filename": "",
+    "bom_export_filename": "k30p-VME.csv",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
       "field_delimiter": ",",
@@ -577,11 +607,23 @@
           "label": "DNP",
           "name": "${DNP}",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
-      "name": "Grouped By Value",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
@@ -595,7 +637,7 @@
       "intersheets_ref_own_page": false,
       "intersheets_ref_prefix": "",
       "intersheets_ref_short": false,
-      "intersheets_ref_show": false,
+      "intersheets_ref_show": true,
       "intersheets_ref_suffix": "",
       "junction_size_choice": 3,
       "label_size_ratio": 0.375,

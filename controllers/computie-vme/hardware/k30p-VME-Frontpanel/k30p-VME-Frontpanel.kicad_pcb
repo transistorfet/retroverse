@@ -356,8 +356,8 @@
 		)
 		(pad "" np_thru_hole oval
 			(at -0.166 0.794 90)
-			(size 11 5)
-			(drill oval 11 5)
+			(size 12 7)
+			(drill oval 12 7)
 			(layers "F&B.Cu" "*.Mask")
 			(uuid "4c81c939-ba25-43a7-863c-eb90a7667dce")
 		)
@@ -372,7 +372,7 @@
 			(at 0 -3.7 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3fd47660-d35e-43d3-b871-58f9250b6d5f")
+			(uuid "69638cb9-a292-41e6-a526-f5b6e223ae2f")
 			(effects
 				(font
 					(size 1 1)
@@ -383,7 +383,7 @@
 		(property "Value" "FrontPanel_PlasticCollar_Hole_2.7mm_M2.5_Pair"
 			(at 0 3.7 0)
 			(layer "F.Fab")
-			(uuid "89a5bdb7-7595-4982-9a2c-02a5475eb7c3")
+			(uuid "53b7c36d-6546-4e93-93d4-3355a39070ab")
 			(effects
 				(font
 					(size 1 1)
@@ -396,7 +396,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "200cf33b-0705-4e98-9e5f-3a98842b2999")
+			(uuid "979a2f42-d2c0-44b1-af4d-21c6f4c9caf0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -409,7 +409,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a10f1484-9e8a-489c-9a73-d2654ab7780a")
+			(uuid "8db3a2c2-0776-44d8-abd7-4528d71c8157")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -422,7 +422,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "6f64d18b-f0e7-4369-869f-949e0ba038f0")
+			(uuid "33a0eecd-0406-49c6-8dd3-9be33a610a70")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -434,7 +434,7 @@
 		(fp_text user "${REFERENCE}"
 			(at 0 0 0)
 			(layer "F.Fab")
-			(uuid "466abcee-b1eb-4617-8f3b-079ca406059e")
+			(uuid "622751ab-6c32-4b97-a6f7-e69e5de87a38")
 			(effects
 				(font
 					(size 1 1)
@@ -447,14 +447,14 @@
 			(size 6 3.3)
 			(drill oval 6 3.3)
 			(layers "F&B.Cu" "*.Mask")
-			(uuid "67c1091f-a7a1-41c2-9a72-e964b673e89c")
+			(uuid "113bc52f-a620-48d8-8d9f-92d452235ba6")
 		)
 		(pad "" np_thru_hole oval
 			(at 7.62 125.5)
 			(size 6 3.3)
 			(drill oval 6 3.3)
 			(layers "F&B.Cu" "*.Mask")
-			(uuid "d70843b4-edc7-4a0c-8533-f6360b884294")
+			(uuid "2e4dff7c-c688-4a3f-bd20-199edc23f872")
 		)
 	)
 	(footprint "Computie_Mechanical:FrontPanel_PCBHolder_MountingHole_2.7mm_M2.5_Pair"
@@ -467,7 +467,7 @@
 			(at 0 -3.7 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1a89504b-0587-412a-b055-3657c3b72848")
+			(uuid "a38b5991-15eb-408b-8115-44f257b784a1")
 			(effects
 				(font
 					(size 1 1)
@@ -478,7 +478,7 @@
 		(property "Value" "MountingHole_2.7mm_M2.5"
 			(at 0 3.7 0)
 			(layer "F.Fab")
-			(uuid "a65a42be-6322-4246-af92-b98cb88a6087")
+			(uuid "51975b6e-69b3-44e2-a916-869809acbae5")
 			(effects
 				(font
 					(size 1 1)
@@ -491,7 +491,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "99e70b18-6dab-4469-aa6f-7f6ad596a125")
+			(uuid "bdd85f10-1bb3-4630-91cb-b4aa4c1f541e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -504,7 +504,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8616bedb-fbf7-4967-a329-22450525c83a")
+			(uuid "324e871f-68de-4b7d-a645-0607da9f6e5a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -517,7 +517,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "1089bff8-e4e5-4dd8-a722-c7e2957230ed")
+			(uuid "83c05a2d-524e-48af-85cb-e179458fba4a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -535,7 +535,7 @@
 			)
 			(fill none)
 			(layer "F.CrtYd")
-			(uuid "e7d587d5-aa8d-4e9d-88af-c64efad6d214")
+			(uuid "53449442-b53e-4a99-b12a-0b391b78b74a")
 		)
 		(fp_circle
 			(center 7.62 114.2)
@@ -546,18 +546,7 @@
 			)
 			(fill none)
 			(layer "F.CrtYd")
-			(uuid "ffca5086-6b72-4a6c-9083-dda6d2526096")
-		)
-		(fp_rect
-			(start 2.5 106.4)
-			(end 12.7 117.5)
-			(stroke
-				(width 0.12)
-				(type dash)
-			)
-			(fill none)
-			(layer "B.Fab")
-			(uuid "6ee03306-49b4-4159-9821-9b3dfc744b2c")
+			(uuid "65cbc7d6-b304-4425-ae00-66271c0b832f")
 		)
 		(fp_rect
 			(start 2.52 11)
@@ -568,7 +557,18 @@
 			)
 			(fill none)
 			(layer "B.Fab")
-			(uuid "88bb485e-8b85-4c25-87cf-d1e54ced0373")
+			(uuid "e0803b15-86e8-4b8d-9250-10aa9ccafd8e")
+		)
+		(fp_rect
+			(start 2.52 106.4)
+			(end 12.72 117.5)
+			(stroke
+				(width 0.12)
+				(type dash)
+			)
+			(fill none)
+			(layer "B.Fab")
+			(uuid "772929f7-f19e-4bca-9e43-17a829cac3d9")
 		)
 		(fp_rect
 			(start 2.42 14.25)
@@ -579,12 +579,12 @@
 			)
 			(fill none)
 			(layer "F.Fab")
-			(uuid "ad84ac4f-db9c-42d9-a4e1-d7dc276478ef")
+			(uuid "4a02cd22-d778-4f1b-b631-085b4d143573")
 		)
 		(fp_text user "${REFERENCE}"
 			(at 0 0 0)
 			(layer "F.Fab")
-			(uuid "482a9f6b-d211-4ab9-b1fc-f9f03e1f87c6")
+			(uuid "49f8d006-61ff-4075-b304-4ba6f8c1f864")
 			(effects
 				(font
 					(size 1 1)
@@ -597,28 +597,28 @@
 			(size 2.7 2.7)
 			(drill 2.7)
 			(layers "F&B.Cu" "*.Mask")
-			(uuid "cf5a6e8e-3cbb-485f-bbfd-10c37a323b4b")
+			(uuid "7de5d07d-468c-4a53-ab1a-38fbfe8f6bc0")
 		)
 		(pad "" np_thru_hole circle
 			(at 7.62 14.3)
 			(size 2.7 2.7)
 			(drill 2.7)
 			(layers "F&B.Cu" "*.Mask")
-			(uuid "1896bf4b-3716-42e7-b788-8af1e7477392")
+			(uuid "d8567afb-4c01-4763-b0ff-852ee5a53070")
 		)
 		(pad "" np_thru_hole circle
 			(at 7.62 114.2)
 			(size 2.7 2.7)
 			(drill 2.7)
 			(layers "F&B.Cu" "*.Mask")
-			(uuid "13e3b0f9-faef-4c5f-8a88-8ad406e43095")
+			(uuid "789186b1-fe1d-4dd5-bb8b-a5aa4af91987")
 		)
 		(pad "" np_thru_hole circle
 			(at 12.82 114.2)
 			(size 2.7 2.7)
 			(drill 2.7)
 			(layers "F&B.Cu" "*.Mask")
-			(uuid "7c39ef3d-7a9d-46fb-8278-ed9af70b43a6")
+			(uuid "3a16ff7a-3615-45a5-84bb-a72e174b6227")
 		)
 	)
 	(footprint "clipboard:a6ef016d-fb2c-424c-b34c-1f3124658b43"
@@ -825,8 +825,8 @@
 		)
 		(pad "" np_thru_hole oval
 			(at 0.634 -0.603 90)
-			(size 11 5)
-			(drill oval 11 5)
+			(size 12 7)
+			(drill oval 12 7)
 			(layers "F&B.Cu" "*.Mask")
 			(uuid "51d91b1f-228f-4370-b524-4575be5f67ba")
 		)
@@ -1283,7 +1283,7 @@
 		)
 	)
 	(gr_text "USB1"
-		(at 85 117.73 270)
+		(at 86.106 117.73 270)
 		(layer "F.SilkS")
 		(uuid "c03fdd2f-538b-4542-b79b-a1fce144e88d")
 		(effects
@@ -1309,7 +1309,7 @@
 		)
 	)
 	(gr_text "USB2"
-		(at 85 136.271 270)
+		(at 86.106 136.271 270)
 		(layer "F.SilkS")
 		(uuid "e1e0ed61-e408-4502-b312-0fe9ad90d3da")
 		(effects
