@@ -46,26 +46,32 @@ Why VMEbus?
 * the DIN41612 connectors it uses are still widely available with solder tails
 
 
-[Understanding VMEBus](https://mdavidsaver.github.io/epics-doc/vme/understanding-vme.pdf)
-[VME FAQ from VITA](https://www.vita.com/VMEbus-FAQ)
-[VME P1 Connector Pinout](https://allpinouts.org/pinouts/connectors/buses/vme-versamodule-eurocard-p1/)
-[VME64](https://www.ge.infn.it/~musico/Vme/Vme64.pdf)
+About VMEbus
+------------
+
+* [Understanding VMEBus](https://mdavidsaver.github.io/epics-doc/vme/understanding-vme.pdf)
+* [VME FAQ from VITA](https://www.vita.com/VMEbus-FAQ)
+* [VME P1 Connector Pinout](https://allpinouts.org/pinouts/connectors/buses/vme-versamodule-eurocard-p1/)
+* [VME64](https://www.ge.infn.it/~musico/Vme/Vme64.pdf)
 
 
 Other VME Projects
 ------------------
 
-VMEbus prototyping card PCB:
-    - https://github.com/rhaamo/VME
+#### VMEbus prototyping card PCB:
 
-Proto Boards, Blanking Plates, Plate Adapters, ECB backplanes:
-    - https://www.ebay.ca/usr/martenelectric
-    - https://www.martenelectric.cz/index.html
+* [https://github.com/rhaamo/VME](https://github.com/rhaamo/VME)
 
-COMET backplane, prototyping card, and single board computer:
-    - https://hackaday.io/project/192539-comet68k
-    - https://github.com/tomstorey/COMET
-    - computer card is missing bus arbitration, but the backplane supports it
+#### Proto Boards, Blanking Plates, Plate Adapters, ECB backplanes:
+
+* [https://www.ebay.ca/usr/martenelectric](https://www.ebay.ca/usr/martenelectric)
+* [https://www.martenelectric.cz/index.html](https://www.martenelectric.cz/index.html)
+
+#### COMET backplane, prototyping card, and single board computer:
+
+* [https://hackaday.io/project/192539-comet68k](https://hackaday.io/project/192539-comet68k)
+* [https://github.com/tomstorey/COMET](https://github.com/tomstorey/COMET)
+* computer card is missing bus arbitration, but the backplane supports it
 
 
 Desktop Case
@@ -77,6 +83,6 @@ redistributors instead.  It turned out that Digikey did actually have the cases 
 backorder but the listing was uncategorized, so you had to search specifically for the part number
 to find it.
 
-https://schroff.nvent.com/en-ca/products/enc24576-006
-https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A
+[https://schroff.nvent.com/en-ca/products/enc24576-006](https://schroff.nvent.com/en-ca/products/enc24576-006)
+[https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A](https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A)
 
