@@ -22,15 +22,15 @@ module buslogic(
     output [1:0] cpu_dsack,
     output [2:0] cpu_ipl,
 
-    output vme_as,
-    output [1:0] vme_ds,
-    output vme_lword,
-    output vme_write,
-    output [5:0] vme_address_mod,
+    inout vme_as,
+    inout [1:0] vme_ds,
+    inout vme_lword,
+    inout vme_write,
+    inout [5:0] vme_address_mod,
     input vme_dtack,
     input vme_berr,
     input [2:0] vme_ipl,
-    output vme_iack,
+    inout vme_iack,
 
     input serial_irq,
     output serial_iack,
@@ -54,6 +54,9 @@ module buslogic(
     reg request_vme_a40;
 
     assign cpu_clock = clock;
+
+    localparam ACTIVE = 1'b0;
+    localparam INACTIVE = 1'b1;
 
     address_decode address_decode(
         .cpu_as(cpu_as),
@@ -88,6 +91,7 @@ module buslogic(
         .vme_bus_grant_out(vme_bus_grant_out),
     );
 
+    /*
     vme_data_transfer vme_data_transfer(
         .clock(clock),
 
@@ -121,6 +125,20 @@ module buslogic(
         .md32_cross_oe(md32_cross_oe),
         .md32_cross_dir(md32_cross_dir)
     );
+    */
+
+    always @(*) begin
+        addr_low_oe <= INACTIVE;
+        a40_cross_oe <= INACTIVE;
+        data_low_oe <= INACTIVE;
+        data_low_dir <= INACTIVE;
+        d16_cross_oe <= INACTIVE;
+        d16_cross_dir <= INACTIVE;
+        md32_cross_oe <= INACTIVE;
+        md32_cross_dir <= INACTIVE;
+
+        vme_address_mod <= 6'bXXXXXX;
+    end
 
     interrupts interrupts(
         .cpu_as(cpu_as),

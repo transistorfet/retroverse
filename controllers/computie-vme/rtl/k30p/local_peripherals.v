@@ -25,12 +25,12 @@ module address_decode(
 
         if (cpu_as == ACTIVE) begin
             case (address)
-                4'b0000: request_rom <= ACTIVE;
-                4'b0001: request_ram <= ACTIVE;
-                4'b0010: request_ram <= ACTIVE;
-                4'b0111: request_serial <= ACTIVE;
+                4'h0: request_rom <= ACTIVE;
+                4'h1: request_ram <= ACTIVE;
+                4'h2: request_ram <= ACTIVE;
+                4'h7: request_serial <= ACTIVE;
                 default: begin
-                    if (address == 4'b1111 && n_address_top == ACTIVE) begin
+                    if (address == 4'hF && n_address_top == ACTIVE) begin
                         request_vme_a16 <= ACTIVE;
                     end else if (n_address_top == ACTIVE) begin
                         request_vme_a24 <= ACTIVE;

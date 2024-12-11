@@ -1,4 +1,13 @@
 
+* update the readmes
+* write a post about something
+* work on logic for computie
+
+* design sdram card with ice40 fpga, printed in yellow?  called MemBird - Raven?  Something else if it's not black solder mask?
+* design a board that uses a raspi compute module?  so basically the VME interface?
+
+
+
 * add ADC voltage monitor to big boy or a bus arbiter board to give a failure signal if the voltage is not within range
   I've had issues in testing where the voltage sagged due to the wire I was using, which could have been low enough to damage a sensitive board, so best if I had a signal for that
 * add detection for the extra bus pins on the 4th row.  If there's no power or something present, then assume it's not connected and the onboard logic can only do multiplexed operations
