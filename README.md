@@ -43,7 +43,23 @@ Why VMEbus?
 
 * it's asynchronous, so it can support devices operating at different speeds
 
+* it supports dynamic bus sizing for 8-bit, 16-bit, and multiplexed 32-bit operations in 3U
+
+* in the 6U form factor, it can also support full 32-bit or multiplexed 64-bit operations
+
 * the DIN41612 connectors it uses are still widely available with solder tails
+
+* supports cheap 3U board sizes of 100mm x 160mm or 100mm x 100mm
+
+* also supports 6U board sizes for bigger and more complex devices
+
+
+Why Not VMEBus?
+---------------
+
+* it can be a bit more complicated to interface to for simple 8-bit systems
+
+* it's slower than newer buses like CompactPCI
 
 
 About VMEbus
@@ -83,6 +99,6 @@ redistributors instead.  It turned out that Digikey did actually have the cases 
 backorder but the listing was uncategorized, so you had to search specifically for the part number
 to find it.
 
-[https://schroff.nvent.com/en-ca/products/enc24576-006](https://schroff.nvent.com/en-ca/products/enc24576-006)
-[https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A](https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A)
+* [https://schroff.nvent.com/en-ca/products/enc24576-006](https://schroff.nvent.com/en-ca/products/enc24576-006)
+* [https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A](https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A)
 
