@@ -1,7 +1,5 @@
 
-* update the readmes
 * write a post about something
-* work on logic for computie
 
 * design sdram card with ice40 fpga, printed in yellow?  called MemBird - Raven?  Something else if it's not black solder mask?
 * design a board that uses a raspi compute module?  so basically the VME interface?

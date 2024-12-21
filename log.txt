@@ -642,3 +642,58 @@
 2024-12-02:
 - ordered 5 boards, k30p-VME, Aluminum frontpanel for it, MemBird - Woodcock, Alum. frontpanel for BigBoy, and Tom Storey's CF Card
 
+2024-12-15:
+- [writing a couple days later] I started the k30p-VME build this day.  It went alright, but there were issues with filming and
+  issues with the board too.  The filming issues I'll comment about elsewhere, since it's not really related (sound issues with
+  pulseaudio causing stuttering that affected the whole 4h stream).  The power issue was because the CPLD was unprogrammed and the
+  /OE signals to the transceivers were therefore low, which caused them to write into each other, particularly the address
+  transceivers since they are hardwired for the output-to-VME direction, and U15 and U11 will write into the same 16-bit address
+  lines.
+- I tried powering the board at first, and it immediately hit the current limit.  I tried increasing the limit bit by bit but I
+  probably shouldn't have gone all the way to 1.8A because I knew that was way too much for the board to be drawing, and that might
+  have fried something
+- I felt that some of the transceivers were really hot to touch, so I tried resoldering those but it didn't help
+- I also noticed that the clock was the wrong frequency, 16.66MHz instead of 50MHz.  I also touched up the solder connections on the
+  CPLD, and that fixed the clock, but it broke again when I tried aligning the crystal a bit better.
+- I realized that the transceivers were probably outputting into each other since the /OE signals coming out of the CPLD were low
+  when it was unprogrammed.
+- When I went to program the chip, it was giving an error that the chip was missing or not responding.  I tried programming the
+  other SystemBoard that uses the same chip to verify that my setup was working, and I had the jtag connected right, but it still
+  wouldn't work
+- I tried resoldering the CPLD connections to see if that changed anything, and it then worked fine to program, so that was a
+  relief.  I guess I just didn't have it soldered right, or had a pin bridged without it being noticable to visual inspection.  I
+  might still have a faulty pin, but that will be harder to verify without rigorous testing
+- with the chip programmed, the current draw dropped to 350mA which was still a bit high.  I figured it might be caused by water
+  from washing the flux off, so I'll leave the board to sit for a day or two and check again
+
+- I definitely need some better flux because the tacky stuff is annoying when debugging the board.  It's sticky and gets all over my
+  fingers, which then makes my fingertips chapped and broken
+- I need to find a better soldering technique too.  It took way too long to get the TSSOP-48s soldering right when going slow.  I
+  had a bit better time when I loaded it with solder and then took it off with wick instead of trying to avoid the wick, but even
+  then I wasn't sure about there being solder underneath.  Maybe I should instead do the sloppy solder and then follow up with hot
+  air to make the solder flow better, or even just doing it all with hot air
+- that said, I found the chips actually aligned quite well into the solder pads, such that they were somewhat captive in the up/down
+  direction, and slid left and right a bit within the pads so I could get the chips in the middle-ish, without much difficulty
+
+2024-12-17:
+- powering on the board again, it's only drawing 250mA instead of 350mA
+- I went through some of the logic and found a mistake with the dsack signals and a few others, where it's treating them as outputs
+  instead of as open drain
+- so I wrote a new CPLD program and the current draw dropped to 150mA, and at times is as low as 100mA.  That's much more in-line
+  with what I'd expect, so again, I might have fried some inputs on the CPLD if they drew too much current
+- there is still a problem where the transceivers start burning up when I program the CPLD due to those /OE signals not having
+  pull-ups.  It would be nice to somehow reduce the number of CPLD signals needed, so I can do other things with them, but I'd still
+  need to be able to turn all the outputs off (bus-off/high impedence) in addition to preventing them from both being on at the same
+  time
+- now I need to go through all the transceiver I/Os and check that each bit of each transceiver is working correctly
+
+2024-12-21:
+- I managed to bodge in some pull up resistors for 3 of the 5 transceivers, which should be enough to avoid conflict between them
+  as long as the board isn't plugged into the backplane when re-programming the logic chip.  Luckily it went alright, but I didn't
+  want to push it and try to get all 5 pull-ups in.  I got the rest of the things on the board, and tried it with chips in, and of
+  course it didn't work first time.  The address strobe seems to be low during a reset, and then goes high for a bit before going
+  low again, where it seems to stop, as if it's not getting the DSACK signals, even though those appear to be pulled low by the
+  CPLD.  It's possible the logic is wrong, or it could be an issue with the pullups for the DSACK not being strong enough, although
+  since they are actuating, I would have expected them to execute but incorrectly instead of locking up completely, so it could be
+  a different issue.  I'll have to debug it more in detail, now that the board is cleaned
+
