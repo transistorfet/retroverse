@@ -6,7 +6,10 @@ module buslogic(
     input clock,
     output reg cpu_clock,
 
-    output [3:0] ram_ds,
+    output reg request_ram,
+    output reg request_rom,
+    output reg [3:0] ram_ds,
+    output reg request_serial,
 
     output reg vme_bus_request,
     input vme_bus_grant_in,
@@ -16,14 +19,13 @@ module buslogic(
     input cpu_ds,
     input cpu_write,
     input [1:0] cpu_siz,
-    input [23:20] cpu_address_high,
+    input [3:0] cpu_address_high,
     input [1:0] cpu_address_low,
     input [2:0] cpu_fc,
     inout [1:0] cpu_dsack,
     input cpu_berr,
     output reg [2:0] cpu_ipl,
 
-    /*
     inout vme_as,
     inout [1:0] vme_ds,
     inout vme_lword,
@@ -33,7 +35,6 @@ module buslogic(
     input vme_berr,
     input [2:0] vme_ipl,
     inout vme_iack,
-    */
 
     input serial_irq,
     output serial_iack,
@@ -53,12 +54,18 @@ module buslogic(
 );
 
     reg bus_acquired;
-    reg request_ram;
-    reg request_rom;
-    reg request_serial;
     reg request_vme_a16;
     reg request_vme_a24;
     reg request_vme_a40;
+
+    reg [1:0] cpu_dsack_out;
+    reg [1:0] vme_dsack_out;
+
+    reg vme_as_out;
+    reg [1:0] vme_ds_out;
+    reg vme_lword_out;
+    reg vme_write_out;
+    reg [5:0] vme_address_mod_out;
 
     //assign cpu_clock = clock;
     reg [2:0] clock_counter;
@@ -72,7 +79,7 @@ module buslogic(
 
     address_decode address_decode(
         .cpu_as(cpu_as),
-        .address(cpu_address_high),
+        .address_high(cpu_address_high),
 
         .request_ram(request_ram),
         .request_rom(request_rom),
@@ -103,7 +110,12 @@ module buslogic(
         .vme_bus_grant_out(vme_bus_grant_out),
     );
 
-    /*
+    assign vme_as = bus_acquired == ACTIVE ? vme_as_out : 1'bZ;
+    assign vme_ds = bus_acquired == ACTIVE ? vme_ds_out : 1'bZ;
+    assign vme_lword = bus_acquired == ACTIVE ? vme_lword_out : 1'bZ;
+    assign vme_write = bus_acquired == ACTIVE ? vme_write_out : 1'bZ;
+    assign vme_address_mod = bus_acquired == ACTIVE ? vme_address_mod_out : 1'bZ;
+
     vme_data_transfer vme_data_transfer(
         .clock(clock),
 
@@ -118,13 +130,13 @@ module buslogic(
         .cpu_siz(cpu_siz),
         .cpu_address(cpu_address_low),
         .cpu_fc(cpu_fc),
-        .cpu_dsack(cpu_dsack),
+        .cpu_dsack(vme_dsack_out),
 
-        .vme_as(vme_as),
-        .vme_ds(vme_ds),
-        .vme_lword(vme_lword),
-        .vme_write(vme_write),
-        .vme_address_mod(vme_address_mod),
+        .vme_as(vme_as_out),
+        .vme_ds(vme_ds_out),
+        .vme_lword(vme_lword_out),
+        .vme_write(vme_write_out),
+        .vme_address_mod(vme_address_mod_out),
         .vme_dtack(vme_dtack),
         .vme_berr(vme_berr),
 
@@ -137,16 +149,38 @@ module buslogic(
         .md32_cross_oe(md32_cross_oe),
         .md32_cross_dir(md32_cross_dir)
     );
-    */
+
+    assign cpu_dsack[0] = cpu_dsack_out[0] == ACTIVE ? 1'b0 : 1'bZ;
+    assign cpu_dsack[1] = cpu_dsack_out[1] == ACTIVE ? 1'b0 : 1'bZ;
 
     always @(*) begin
-        addr_low_oe <= serial_ip4;
-        md32_cross_oe <= !serial_ip4;
-        md32_cross_dir <= serial_ip5;
+        if (request_ram == ACTIVE) begin
+            cpu_dsack_out <= 2'b00;
+        end else if (request_rom == ACTIVE) begin
+            cpu_dsack_out <= 2'b10;
+        end else begin
+            cpu_dsack_out <= vme_dsack_out;
+        end
+    end
+
+    /*
+    assign cpu_dsack[0] = cpu_dsack_out[0] == ACTIVE ? 1'b0 : 1'bZ;
+    assign cpu_dsack[1] = cpu_dsack_out[1] == ACTIVE ? 1'b0 : 1'bZ;
+
+    assign vme_as = bus_acquired == ACTIVE ? vme_as_out : 1'bZ;
+    assign vme_ds = bus_acquired == ACTIVE ? vme_ds_out : 1'bZ;
+    assign vme_lword = bus_acquired == ACTIVE ? vme_lword_out : 1'bZ;
+    assign vme_write = bus_acquired == ACTIVE ? vme_write_out : 1'bZ;
+    assign vme_address_mod = bus_acquired == ACTIVE ? vme_address_mod_out : 1'bZ;
+
+    always @(*) begin
+        //addr_low_oe <= serial_ip4;
+        //md32_cross_oe <= !serial_ip4;
+        //md32_cross_dir <= serial_ip5;
 
         addr_low_oe <= INACTIVE;
         md32_cross_oe <= INACTIVE;
-        md32_cross_dir <= INACTIVE;
+        md32_cross_dir <= 1'b0;
 
         a40_cross_oe <= INACTIVE;
 
@@ -157,19 +191,30 @@ module buslogic(
 
         data_low_oe <= INACTIVE;
         d16_cross_oe <= INACTIVE;
-        data_low_dir <= INACTIVE;
-        d16_cross_dir <= INACTIVE;
+        data_low_dir <= 1'b0;
+        d16_cross_dir <= 1'b0;
 
-        vme_address_mod <= 6'bXXXXXX;
+        vme_as_out <= 1'b1;
+        vme_ds_out <= 2'b11;
+        vme_lword_out <= 1'b1;
+        vme_write_out <= 1'b1;
+        vme_address_mod_out <= 6'b101010;
 
-        cpu_dsack <= 2'bZZ;
-        if (request_ram) begin
-            cpu_dsack <= 2'b00;
-        end else if (request_rom || request_serial) begin
-            cpu_dsack <= 2'bZ0;
+        if (request_ram == ACTIVE) begin
+            cpu_dsack_out <= 2'b00;
+        end else if (request_rom == ACTIVE) begin
+            cpu_dsack_out <= 2'b10;
+        end else begin
+            cpu_dsack_out <= 2'b11;
         end
     end
+    */
 
+    /*
+    assign serial_iack = 1'b1;
+    assign cpu_ipl = 1'b111;
+    assign vme_iack = 1'b1;
+    */
     interrupts interrupts(
         .cpu_as(cpu_as),
         .cpu_fc(cpu_fc),
@@ -205,13 +250,19 @@ endmodule
 //PIN: cpu_ipl_0            : 96
 //PIN: cpu_ipl_1            : 94
 //PIN: cpu_ipl_2            : 93
+//PIN: cpu_avec             : 92
 
+//PIN: cpu_address_upper    : 50
 //PIN: cpu_address_high_3   : 49
 //PIN: cpu_address_high_2   : 48
 //PIN: cpu_address_high_1   : 47
 //PIN: cpu_address_high_0   : 46
 //PIN: cpu_address_low_1    : 36
 //PIN: cpu_address_low_0    : 35
+
+//PIN: cpu_bus_request      : 98
+//PIN: cpu_bus_grant        : 99
+//PIN: cpu_bus_grant_ack    : 100
 
 //PIN: addr_low_oe          : 27
 //PIN: a40_cross_oe         : 28
@@ -222,8 +273,8 @@ endmodule
 //PIN: d16_cross_dir        : 30
 //PIN: md32_cross_dir       : 33
 
+//PIN: request_rom          : 83
 //PIN: request_ram          : 84
-//PIN: request_rom          : 85
 //PIN: ram_ds_0             : 78
 //PIN: ram_ds_1             : 79
 //PIN: ram_ds_2             : 80
@@ -240,18 +291,24 @@ endmodule
 //PIN: vme_bus_request      : 55
 //PIN: vme_bus_grant_in     : 54
 //PIN: vme_bus_grant_out    : 53
+//PIN: vme_bus_busy         : 52
 
-//P IN: vme_as               : 69
-//P IN: vme_ds_0             : 67
-//P IN: vme_ds_1             : 64
-//P IN: vme_lword            : 60
-//P IN: vme_write            : 27
-//P IN: vme_dtack            : 9
+//PIN: vme_as               : 77
+//PIN: vme_lword            : 76
+//PIN: vme_write            : 75
+//PIN: vme_ds_1             : 72
+//PIN: vme_ds_0             : 71
+//PIN: vme_dtack            : 70
+//PIN: vme_berr             : 69
 
-//P IN: vme_address_mod_0    : 22
-//P IN: vme_address_mod_1    : 28
-//P IN: vme_address_mod_2    : 25
-//P IN: vme_address_mod_3    : 21
-//P IN: vme_address_mod_4    : 16
-//P IN: vme_address_mod_5    : 17
+//PIN: vme_address_mod_0    : 68
+//PIN: vme_address_mod_1    : 67
+//PIN: vme_address_mod_2    : 65
+//PIN: vme_address_mod_3    : 64
+//PIN: vme_address_mod_4    : 63
+//PIN: vme_address_mod_5    : 61
 
+//PIN: vme_ipl_0            : 60
+//PIN: vme_ipl_1            : 58
+//PIN: vme_ipl_2            : 57
+//PIN: vme_iack             : 56

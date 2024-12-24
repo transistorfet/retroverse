@@ -14,7 +14,7 @@ buslogic_test.edif: vmebus_interface.v interrupts.v
 ##############
 
 %.jed: %.edif
-	$(RUN_FITTER)  -p TQFP100 $(basename $<)
+	$(RUN_FITTER) -d ATF1508AS -p TQFP100 $(basename $<)
 
 %.edif: %.v
 	$(RUN_YOSYS) $(basename $<)

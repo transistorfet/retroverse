@@ -16,9 +16,21 @@ module vme_bus_arbitration(
     always @(posedge clock) begin
         // TODO bypassed for testing
         bus_acquired <= ACTIVE;
-
         vme_bus_request <= ACTIVE;
-        vme_bus_grant_out <= INACTIVE;
+        vme_bus_grant_out <= vme_bus_grant_in;
+
+        /*
+        if (request_vme == ACTIVE) begin
+            vme_bus_request <= ACTIVE;
+            vme_bus_grant_out <= INACTIVE;
+
+            bus_acquired <= vme_bus_grant_in;
+        end else begin
+            vme_bus_request <= INACTIVE;
+            bus_acquired <= INACTIVE;
+            vme_bus_grant_out <= vme_bus_grant_in;
+        end
+        */
     end
 
 endmodule
@@ -26,9 +38,6 @@ endmodule
 
 module vme_data_transfer(
     input clock,
-
-    // TODO temporary
-    output reg [1:0] state,
 
     input request_vme_a16,
     input request_vme_a24,
@@ -64,24 +73,21 @@ module vme_data_transfer(
     localparam ACTIVE = 1'b0;
     localparam INACTIVE = 1'b1;
 
-    // TODO double check these
-    localparam DIR_IN = 1'b0;
-    localparam DIR_OUT = 1'b1;
+    localparam DIR_IN = 1'b1;
+    localparam DIR_OUT = 1'b0;
 
     localparam IDLE = 2'b00;
     localparam ADDRESS = 2'b01;
     localparam DATA = 2'b10;
     localparam END = 2'b11;
 
-    // TODO temperorary for testing
-    //reg [1:0] state;
+    reg [1:0] state;
 
     wire request_vme;
     assign request_vme = request_vme_a16 | request_vme_a24 | request_vme_a40;
 
     initial begin
         state <= IDLE;
-
     end
 
     always @(posedge clock) begin

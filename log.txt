@@ -687,7 +687,7 @@
   time
 - now I need to go through all the transceiver I/Os and check that each bit of each transceiver is working correctly
 
-2024-12-21:
+2024-12-20:
 - I managed to bodge in some pull up resistors for 3 of the 5 transceivers, which should be enough to avoid conflict between them
   as long as the board isn't plugged into the backplane when re-programming the logic chip.  Luckily it went alright, but I didn't
   want to push it and try to get all 5 pull-ups in.  I got the rest of the things on the board, and tried it with chips in, and of
@@ -697,3 +697,77 @@
   since they are actuating, I would have expected them to execute but incorrectly instead of locking up completely, so it could be
   a different issue.  I'll have to debug it more in detail, now that the board is cleaned
 
+2024-12-22:
+- So I plugged in the FTDI to USB and initially I had the board unpowered and that wasn't responding at all.  The connector looked
+  soldered properly, so it wasn't that.  I looked more into USB-C and found a bunch of issues with how I wired up the connector.  I
+  was expecting to be able to just connect the connector as if it were a USB 2.0 or something, but supposedly you're supposed to
+  connect to both the A and B differential pair (jumping them together) which I had assumed would be done in the connector.  I also
+  needed to add two pull-down resistors on the CC lines
+- but I think powered the board and it enumerated fine *headsmack*.  Looking up the circuit I used from the FTDI manual, I wired it
+  as a self-powered device, so once it was powered it worked.  Maybe reflowing the chip and letting it dry afterwards fixed it, but
+  it seems to be fairly reliable now
+- that said, when it's powered down, it loses connection, and miniterm doesn't close the session, which is annoying.  I should look
+  into how to power the FTDI from the bus while still being able to power the rest of the board from its own supply.  With the other
+  boards, I was powering them entirely from USB anyways, so I never had the issue of them disconnecting
+
+- in testing the logic, I put resistors into the sockets to pull AS and DS high.  The DSACK signal were not changing state, and the
+  chip select lines were low.  The logic was checking the request lines for high instead low as active, but it still didn't work
+  when I changed it.  I used an interposing assign statement for the DSACK signals and that worked.  Yosys was giving warnings about
+  the unworking logic.  It might have been caused by the fact that I had an always block, but the `inout` IO wasn't reg.  That
+  seemed to make it work
+- then the request signals weren't changing state as I expected.  The rom select was working, but the ram select wasn't.  It turned
+  out to be a silly mistake.  The request signals were not routed to pins, so they were just internal regs.  The mapping was there
+  but the top block didn't declare them
+- with that, I put the CPU in, and could see it trying to fetch the first 8 bytes (the stack and reset vectors) from rom.  It
+  stopped after that.  I would have expected it to run on for a bit
+- I might have been touching the board at this time, which might have caused extra problems
+- I put the ram and serial chips back in, and played around more.  It wasn't seeming to work and also the probe I had seemed to not
+  be reliable anymore, but after a time, I saw that the A2 address line was changing, and then checking AS I could see it asserting
+  a whole bunch.  I saw garbled output on serial, but then remembered that I was using 115200 baud, and these boards can only go
+  38400 max, so I switched and it printed the Welcome message!!!  It still wasn't responding to inputs
+- it seemed to be resetting or locking up.  It would print the welcome message and respond enough to echo 20 or so characters typed
+  rapidly, but then it would lock up and not respond for a second or two, and then print the welcome message again.  The reset
+  button responds when the chip is running, but when it's not, the reset button doesn't do anything.
+- The reset lines is not changing state and the power is not sagging.  It's clearly not a momentary glitch that causes the CPU to
+  reset because the reset button is not able to reset the chip sooner, and the boot message prints right away when it's reset while
+  the CPU is running, so it's not the case that it just takes a while for the message to print.  The CPU is locked up somehow.  It's
+  also likely not an exception since the reset would respond in that case
+- another interesting observation is that the CPU doesn't seem to run on first powering up.  It doesn't print anything to serial.
+  The tx LED comes on at the start, but nothing shows up, and it the tx LED doesn't flicker peroidically, so I don't think the CPU
+  is resetting in a loop like it does otherwise.  I don't know how I got it running the last time, but maybe it's related to the
+  lockup
+- I'm not sure it's related but the first time this happened, removing the jtag for the CPLD fixed it, but this time that didn't
+  work and the FTDI was behaving oddly.  Bypassing the 4-port usb hub I was using seemed to make it work.  I think it might be
+  identified as a high speed device instead of a full speed device because of the lack of the necessary pull up/down resistor, which
+  according to the manual should be controlled by the vsense line of the FTDI, but since the GPIO isn't programmed for that by
+  default, I didn't hook it up.  That might cause the FTDI enumeration issues, but isn't likely to be causing the reset issue
+- but that said, it doesn't reset loop otherwise
+
+- touching the jumpers makes it glitch... do I need a jumper somewhere?
+- jumping the jumpers doesn't seem to have an effect but touching around that area is causing it to reboot.  It's hard to tell what
+  I'm touching.  When I try to just touch the jumpers or just touch the jtag connector or just touch the edges of the CPLD, it
+  doesn't do it.  Touching near the 74HC14 seems to be doing something, the right side of it
+- if I touch around the clock, it resets a lot and cuts off the welcome message, so that's not surprising.  Glitching the clock is
+  making it reset of course
+- by touching the right side of the 74HC14 seemed to make it work.  I can type things and the monitor responds with unknown when I
+  enter garbage... why is it working now without touching the board.  I'm sure this is short lived
+- if I put my finger on C19, it's more likely to work.  I'm not touching the CPLD, but I wonder if it's just not soldered well.
+  It's the only chip besides the small logic chips that I didn't reflow
+- it's really inconsistent.  Sometimes even just touching the board area between C19, the HC14, the jtag connector and the CPLD is
+  enough to make it glitch.  It could be a solder joint somewhere, but since it's not consistent, I'm not positive of it
+- when I had the issue with the RAM on the 68k-SMT, I was able to find the place where I could consistently make it work fine, and
+  that was touching one of the RAM chips, but here it seems less consistent, and even if it's the board itself (which seems less
+  likely because that spot was not exposed to heat), it's still not consistent even there
+
+- I found the problem!!!  I think at least.  I looked up what pins were on the sides of those logic chips, and in looking at the
+  schematic, I saw that the reset signal was wired to more than one gate, and I knew that there were two HC05 outputs that go to the
+  reset and halt, but those were accounted for and on the left side.  There was a trace was going across the chip to another gate on
+  the other side, and looking at the schematic, I saw that there was another reset input from the VME bus!  I had added that later
+  in the process to ensure that a bus wide reset signal would reset all the CPUs, but since it's not plugged into a bus, that input
+  to the invertor gate is floating
+- at first I couldn't get the card to start.  I don't know what was going on.  I powered it up with a pullup for the VRESET signal,
+  but the FTDI wasn't even enumerating.  I tried a bunch of things, but nothing seemed to work.  Touching the board, flexing the
+  board, changing the usb port on the computer end.  Sometimes the FTDI tx light would be on solid, and sometimes it would not come
+  on at all, but it wasn't enumerating.  I think a power down and up might have fixed it, but I don't know for sure.
+- either way, now that the board is running again, if I pull up VRESET to high, it runs fine and never resets.  Even if I power
+  cycle the board, it comes up working

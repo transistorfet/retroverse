@@ -21,3 +21,23 @@ Revision 1 Errata and Notes
   going at 50MHz, so it's definitely related to the resistor, but I'll have to play with sizes.  It
   turns out a 1K worked instead
 
+- I've hooked up the USB-C connector incorrectly.  I only wired up one differential pair, but I
+  should have jumped them to the matching pair, which are broken out as separate pins, and I also
+  needed to add 5.1k pull down resistors to the CC1 and CC2 signals.  Apparently these are required.
+  That said, I'm using a cable that only has the 4 pin USB-A connector on the other end, so I'm not
+  sure this alone can explain why it's not enumerating at all.  As it turned out, it's working now,
+  and I haven't tested it since I reflowed the FTDI so maybe that fixed it
+
+- the FTDI disconnects whenever power is cycled to the board, unlike the other boards I've had.
+  This is because I wired it up as a self-powered device and not a bus-powered device like the
+  adapter boards I have.  This could be annoying in practice, so I should consider changing how the
+  FTDI itself is powered
+
+- the jumper silkscreen labels aren't clear with respect to the logic value, and the symbol doesn't
+  reflect whether the jumper should be installed or not
+
+- the VRESET signal was not connected to the bus, so it wasn't pulled up during initial bringup and
+  that was causing the CPU to reset sporadically, which was difficult to narrow down except by
+  recognizing that touching the board was somehow causing it, but unreliably, and looking at what
+  was connected around those areas
+
