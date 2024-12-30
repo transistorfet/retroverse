@@ -4,7 +4,9 @@
 
 module buslogic(
     input clock,
+    input reset,
     output reg cpu_clock,
+    output reg status_led,
 
     output reg request_ram,
     output reg request_rom,
@@ -19,6 +21,7 @@ module buslogic(
     input cpu_ds,
     input cpu_write,
     input [1:0] cpu_siz,
+    input cpu_address_top,
     input [3:0] cpu_address_high,
     input [1:0] cpu_address_low,
     input [2:0] cpu_fc,
@@ -80,6 +83,7 @@ module buslogic(
     address_decode address_decode(
         .cpu_as(cpu_as),
         .address_high(cpu_address_high),
+        .n_address_top(cpu_address_top),
 
         .request_ram(request_ram),
         .request_rom(request_rom),
@@ -101,7 +105,7 @@ module buslogic(
     vme_bus_arbitration vme_bus_arbitration(
         .clock(clock),
 
-        .request_vme(request_vme_a16 || request_vme_a24 || request_vme_a40),
+        .request_vme(request_vme_a16 & request_vme_a24 & request_vme_a40),
 
         .bus_acquired(bus_acquired),
 
@@ -118,6 +122,8 @@ module buslogic(
 
     vme_data_transfer vme_data_transfer(
         .clock(clock),
+        .reset(reset),
+        .status_led(status_led),
 
         .request_vme_a16(request_vme_a16),
         .request_vme_a24(request_vme_a24),
@@ -232,6 +238,7 @@ endmodule
 //PIN: CHIP "buslogic" ASSIGNED TO AN TQFP100
 //PIN: clock                : 87
 //PIN: cpu_clock            : 85
+//PIN: reset                : 89
 //PIN: status_led           : 24
 
 //PIN: cpu_as               : 1
@@ -252,7 +259,7 @@ endmodule
 //PIN: cpu_ipl_2            : 93
 //PIN: cpu_avec             : 92
 
-//PIN: cpu_address_upper    : 50
+//PIN: cpu_address_top      : 50
 //PIN: cpu_address_high_3   : 49
 //PIN: cpu_address_high_2   : 48
 //PIN: cpu_address_high_1   : 47

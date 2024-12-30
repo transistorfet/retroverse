@@ -771,3 +771,36 @@
   on at all, but it wasn't enumerating.  I think a power down and up might have fixed it, but I don't know for sure.
 - either way, now that the board is running again, if I pull up VRESET to high, it runs fine and never resets.  Even if I power
   cycle the board, it comes up working
+
+2024-12-24:
+- yesterday, I got the memory working by changing only the base state of the ram_ds signals, which should have been all 1s but was
+  all 0s, and that got the ram working and the monitor running commands, seemingly without issue.  I tried loading data over serial,
+  but the monitor wasn't running properly.  It was printing out all of memory essentially (ie. it looked like the problem where the
+  null terminator check never passes, so it keeps printing characters past the end of the welcome message).  This problem happened
+  with clang's experimental 68k support which doesn't correctly account for the fact that the MOVEA instruction is treated like
+  MOVE, even though MOVEA will not update the flags register.  I assume it's compilation issue because the monitor in rom works
+  perfectly fine, and the monitor I compiled and loaded over serial was from the gloworm repository that I last used to test clang,
+  so I expect it's just something wrong with the compilation
+- I tried to add the logic for the VME bus and get that loaded so I can at least test it, and at first I loaded an image into the
+  CPLD that drew 500+mA, so something was clearly wrong, and the CPU wasn't running.  It took a while to figure out what was wrong,
+  commenting out code and writing it until I finally noticed that it was having a fitting problem, and instead of giving an error,
+  it just completely ignored my pin mappings, so it probably had two outputs driving into each other! *AAARGH*
+- it turned out to just be the pin assignments were from the devkit and I hadn't fixed them, so there were overlapping pin
+  assignments that caused the fitter to complain
+- after fixing that, I was able to get the logic written, but didn't test it that much because nothing is being pulled up
+
+- so I was going to solder on the VME connector, which I did eventually do before packing up, but I thought I'd test the FTDI change
+  that I was planning to make to the next revision.  I cut the power trace to the FTDI and soldered a wire up to the ferrite bead to
+  power the FTDI from the VBUS of the USB instead of from the board's power supply.  My hope was to prevent it from disconnecting
+  when I powercycle the board.  I powered the board, and the TX light came on solid, and it wouldn't enumerate with the computer.  I
+  tried resoldering the chip and restoring the power to VCC and I just couldn't for the life of me get it working again.  I have no
+  idea what went wrong.  I might have fried the chip, or soldering the pins might have caused the problem.  I previously had an
+  issue with it not enumerating, and I think reflowing the FTDI chip was what fixed it the last time, so maybe it just doesn't work
+  properly when it's hand soldered with an iron, or I need more temp or something.  It was really disappointing.  I was so close to
+  being done with soldering, but I guess I'll need to fix it somehow.  Worst case I have to put the headers on, pull the FTDI off,
+  and just use an external one, but I'd like to avoid that if possible
+
+- I'm starting to get burned out with this project.  I pushed myself to stream yesterday, and I was only going to do an hour, but I
+  ended up doing like 4 hours in total, and not stopping until 10pm.  I should take a break, but I'm also just... compelled to
+  continue futzing with the code side of things
+

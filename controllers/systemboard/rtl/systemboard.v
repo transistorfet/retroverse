@@ -1,8 +1,11 @@
 module systemboard(
-    //inout vme_sysreset,
+    input clock,
+    input reset,
     output reg statusled,
-    inout vme_address_strobe,
-    input vme_address_1,
+
+    output vme_sysclk,
+    //inout vme_sysreset,
+
     //inout [1:0] vme_data_strobe,
     //inout vme_write,
     //inout vme_dtack,
@@ -15,14 +18,12 @@ module systemboard(
     //inout [23:1] vme_address,
     //inout [7:0] vme_data,
     //input reset,
-    input clock,
-    output vme_sysclk,
     //inout vme_bbsy,
     inout vme_bclr,
-    //inout vme_acfail,
-    //input [3:0] vme_bgin,
     output reg [3:0] vme_bgout,
     input [3:0] vme_br,
+    //inout vme_acfail,
+    //input [3:0] vme_bgin,
     //inout vme_sysfail,
     //input vme_iackin,
     //output vme_iackout,
@@ -30,9 +31,6 @@ module systemboard(
     //inout [7:0] vme_irq
 );
 
-    //assign vme_sysreset = 1'bZ;
-    //assign statusled = 1'b0;
-    //assign vme_data_strobe = 2'bZZ;
     assign vme_sysclk = clock;
     //assign vme_iackout = vme_iackin;
 
@@ -40,22 +38,6 @@ module systemboard(
     //assign vme_irq = 7'bZZZZZZZ;
     //assign vme_sysfail = 1'bZ;
     //assign vme_address_mod = 7'bZZZZZ;
-/*
-    inout vme_write,
-    inout vme_dtack,
-    inout vme_address_strobe,
-    inout vme_berr,
-    inout vme_lword,
-    inout vme_serclk,
-    inout vme_serdat,
-    input reset,
-    inout vme_bbsy,
-    inout vme_bclr,
-    inout vme_acfail,
-    inout [3:0] vme_br,
-    inout vme_sysfail,
-    inout vme_iack,
-*/
 
     localparam ACTIVE = 1'b0;
     localparam INACTIVE = 1'b1;
@@ -73,69 +55,75 @@ module systemboard(
     //assign vme_address = vme_dtb_output_enable == 1'b1 ? vme_address_out : 24'hZZZZZZ;
 
     //assign statusled = (vme_address == 24'hffffff && vme_data == 8'h00);
-    assign statusled = 1'b1;
+    assign statusled = 1'b0;
 
-    assign vme_address_strobe = (vme_address_1 == 1'b1) ? 1'b0 : 1'bZ;
+    //assign vme_address_strobe = (vme_address_1 == 1'b1) ? 1'b0 : 1'bZ;
 
     always @(posedge clock) begin
+        //if (reset == ACTIVE) begin
+        //    state <= IDLE;
+        //    vme_bclr <= INACTIVE;
+        //    vme_bgout <= 4'b1111;
+        //end else begin
+            case (state)
+                IDLE: begin
+                    vme_dtb_output_enable <= 1'b0;
+                    vme_bclr <= INACTIVE;
+                    vme_bgout <= 4'b1111;
 
-        case (state)
-            IDLE: begin
-                vme_dtb_output_enable <= 1'b0;
-                vme_bclr <= INACTIVE;
-                vme_bgout <= 4'b1111;
+                    if (vme_br != 4'b1111) begin
+                        state <= BUS_ACQUIRED;
+                        //vme_bbsy <= ACTIVE;
 
-                if (vme_br != 4'b1111) begin
-                    state <= BUS_ACQUIRED;
-                    //vme_bbsy <= ACTIVE;
-
-                    if (vme_br[0] == ACTIVE) begin
-                        vme_bgout[0] <= ACTIVE;
-                        current <= 2'b00;
-                        request_mask <= 4'b0000;
-                    end else if (vme_br[1] == ACTIVE) begin
-                        vme_bgout[1] <= ACTIVE;
-                        current <= 2'b01;
-                        request_mask <= 4'b0001;
-                    end else if (vme_br[2] == ACTIVE) begin
-                        vme_bgout[2] <= ACTIVE;
-                        current <= 2'b10;
-                        request_mask <= 4'b0011;
-                    end else if (vme_br[3] == ACTIVE) begin
-                        vme_bgout[3] <= ACTIVE;
-                        current <= 2'b11;
-                        request_mask <= 4'b0111;
+                        if (vme_br[0] == ACTIVE) begin
+                            vme_bgout[0] <= ACTIVE;
+                            current <= 2'b00;
+                            request_mask <= 4'b0000;
+                        end else if (vme_br[1] == ACTIVE) begin
+                            vme_bgout[1] <= ACTIVE;
+                            current <= 2'b01;
+                            request_mask <= 4'b0001;
+                        end else if (vme_br[2] == ACTIVE) begin
+                            vme_bgout[2] <= ACTIVE;
+                            current <= 2'b10;
+                            request_mask <= 4'b0011;
+                        end else if (vme_br[3] == ACTIVE) begin
+                            vme_bgout[3] <= ACTIVE;
+                            current <= 2'b11;
+                            request_mask <= 4'b0111;
+                        end
                     end
                 end
-            end
-            BUS_ACQUIRED: begin
-                if (vme_br[current] == INACTIVE) begin
-                    state <= IDLE;
+                BUS_ACQUIRED: begin
+                    if (vme_br[current] == INACTIVE) begin
+                        state <= IDLE;
+                        //vme_bbsy <= INACTIVE;
+                        vme_bgout[current] <= INACTIVE;
+                    end else if ((vme_br & request_mask) != request_mask) begin
+                        state <= BUS_CLEAR;
+                        vme_bclr <= ACTIVE;
+                    end
+                end
+                BUS_CLEAR: begin
                     //vme_bbsy <= INACTIVE;
-                    vme_bgout[current] <= INACTIVE;
-                end else if ((vme_br & request_mask) != request_mask) begin
-                    state <= BUS_CLEAR;
-                    vme_bclr <= ACTIVE;
-                end
-            end
-            BUS_CLEAR: begin
-                //vme_bbsy <= INACTIVE;
-                //vme_address_out <= 24'hFF00000;
-                //vme_dtb_output_enable <= 1'b1;
-                if (vme_br[current] == INACTIVE) begin
+                    //vme_address_out <= 24'hFF00000;
+                    //vme_dtb_output_enable <= 1'b1;
+                    if (vme_br[current] == INACTIVE) begin
+                        state <= IDLE;
+                    end
+                end 
+                default:
                     state <= IDLE;
-                end
-            end 
-            default:
-                state <= IDLE;
-        endcase
+            endcase
+        //end
     end
 
 endmodule
-// Pin assignment for the experimental Yosys FLoow
+// Pin assignment for the experimental Yosys Flow
 //
 //PIN: CHIP "systemboard" ASSIGNED TO AN TQFP100
 //PIN: clock                    : 87
+//PIN: reset                    : 89
 //PIN: statusled                : 2
 //PIN: vme_sysclk               : 85
 //PIN: vme_bbsy                 : 84
@@ -152,9 +140,6 @@ endmodule
 //PIN: vme_address_strobe       : 9
 //PIN: vme_address_1            : 23
 
-// Pin assignment for the experimental Yosys FLoow
-//
-//P IN: CHIP "systemboard" ASSIGNED TO AN TQFP100
 //P IN: vme_sysreset             : 1
 //P IN: vme_data_strobe_1        : 5
 //P IN: vme_data_strobe_0        : 6
@@ -202,7 +187,6 @@ endmodule
 //P IN: vme_data_5               : 94
 //P IN: vme_data_6               : 93
 //P IN: vme_data_7               : 92
-//P IN: reset                    : 89
 //P IN: clock                    : 87
 //P IN: vme_sysclk               : 85
 //P IN: vme_bbsy                 : 84
