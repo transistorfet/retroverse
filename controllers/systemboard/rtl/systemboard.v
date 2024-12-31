@@ -1,27 +1,26 @@
 module systemboard(
     input clock,
     input reset,
-    output reg statusled,
+    output reg status_led,
 
     output vme_sysclk,
     //inout vme_sysreset,
 
-    //inout [1:0] vme_data_strobe,
-    //inout vme_write,
-    //inout vme_dtack,
-    //inout vme_address_strobe,
-    //inout [5:0] vme_address_mod,
+    input vme_address_strobe,
+    input [1:0] vme_data_strobe,
+    input vme_lword,
+    input vme_write,
+    inout vme_dtack,
     //inout vme_berr,
-    //inout vme_lword,
-    //inout vme_serclk,
-    //inout vme_serdat,
-    //inout [23:1] vme_address,
-    //inout [7:0] vme_data,
-    //input reset,
+    input [5:0] vme_address_mod,
+    input [23:0] vme_address,
+    inout [7:0] vme_data,
+
     //inout vme_bbsy,
     inout vme_bclr,
     output reg [3:0] vme_bgout,
     input [3:0] vme_br,
+
     //inout vme_acfail,
     //input [3:0] vme_bgin,
     //inout vme_sysfail,
@@ -54,11 +53,14 @@ module systemboard(
 
     //assign vme_address = vme_dtb_output_enable == 1'b1 ? vme_address_out : 24'hZZZZZZ;
 
-    //assign statusled = (vme_address == 24'hffffff && vme_data == 8'h00);
-    assign statusled = 1'b0;
+    //assign status_led = (vme_address == 24'hffffff && vme_data == 8'h00);
+    //assign status_led = 1'b0;
 
     //assign vme_address_strobe = (vme_address_1 == 1'b1) ? 1'b0 : 1'bZ;
 
+    ///
+    /// Bus Arbitrator Logic
+    ///
     always @(posedge clock) begin
         //if (reset == ACTIVE) begin
         //    state <= IDLE;
@@ -118,13 +120,40 @@ module systemboard(
         //end
     end
 
+    ////////////////////////////
+    /// Dummy Peripheral Logic
+    ////////////////////////////
+
+    wire requested_self;
+    reg vme_dtack_out;
+    wire data_bus_out_enabled;
+    reg [7:0] vme_data_out;
+
+    assign requested_self = vme_address_strobe == ACTIVE && vme_address[23:20] == 4'h5;
+    assign vme_dtack = vme_dtack_out == ACTIVE && vme_address_strobe == ACTIVE ? 1'b0 : 1'bZ;
+    assign data_bus_out_enabled = requested_self & vme_dtack_out == ACTIVE && vme_write == ACTIVE;
+    assign vme_data = data_bus_out_enabled ? vme_data_out : 8'bZZZZZZZZ;
+
+    always @(posedge clock) begin
+        vme_dtack_out <= INACTIVE;
+
+        if (requested_self) begin
+            if (vme_write == ACTIVE) begin
+                status_led <= vme_data == 8'hAA;
+            end else begin
+                vme_data_out <= 8'h37;
+            end
+            vme_dtack_out <= ACTIVE;
+        end
+    end
+
 endmodule
 // Pin assignment for the experimental Yosys Flow
 //
 //PIN: CHIP "systemboard" ASSIGNED TO AN TQFP100
 //PIN: clock                    : 87
 //PIN: reset                    : 89
-//PIN: statusled                : 2
+//PIN: status_led                : 2
 //PIN: vme_sysclk               : 85
 //PIN: vme_bbsy                 : 84
 //PIN: vme_bclr                 : 83
@@ -137,56 +166,54 @@ endmodule
 //PIN: vme_br_1                 : 69
 //PIN: vme_br_2                 : 68
 //PIN: vme_br_3                 : 67
+//PIN: vme_data_strobe_1        : 5
+//PIN: vme_data_strobe_0        : 6
+//PIN: vme_write                : 7
+//PIN: vme_dtack                : 8
 //PIN: vme_address_strobe       : 9
+//PIN: vme_address_mod_0        : 10
+//PIN: vme_address_mod_1        : 12
+//PIN: vme_address_mod_2        : 13
+//PIN: vme_address_mod_3        : 14
+//PIN: vme_address_mod_4        : 16
+//PIN: vme_address_mod_5        : 17
+//PIN: vme_berr                 : 19
+//PIN: vme_lword                : 20
 //PIN: vme_address_1            : 23
+//PIN: vme_address_2            : 24
+//PIN: vme_address_3            : 25
+//PIN: vme_address_4            : 27
+//PIN: vme_address_5            : 28
+//PIN: vme_address_6            : 29
+//PIN: vme_address_7            : 30
+//PIN: vme_address_8            : 31
+//PIN: vme_address_9            : 32
+//PIN: vme_address_10           : 33
+//PIN: vme_address_11           : 35
+//PIN: vme_address_12           : 36
+//PIN: vme_address_13           : 37
+//PIN: vme_address_14           : 40
+//PIN: vme_address_15           : 41
+//PIN: vme_address_16           : 42
+//PIN: vme_address_17           : 44
+//PIN: vme_address_18           : 45
+//PIN: vme_address_19           : 46
+//PIN: vme_address_20           : 47
+//PIN: vme_address_21           : 48
+//PIN: vme_address_22           : 49
+//PIN: vme_address_23           : 50
+//PIN: vme_data_0               : 100
+//PIN: vme_data_1               : 99
+//PIN: vme_data_2               : 98
+//PIN: vme_data_3               : 97
+//PIN: vme_data_4               : 96
+//PIN: vme_data_5               : 94
+//PIN: vme_data_6               : 93
+//PIN: vme_data_7               : 92
 
 //P IN: vme_sysreset             : 1
-//P IN: vme_data_strobe_1        : 5
-//P IN: vme_data_strobe_0        : 6
-//P IN: vme_write                : 7
-//P IN: vme_dtack                : 8
-//P IN: vme_address_strobe       : 9
-//P IN: vme_address_mod_0        : 10
-//P IN: vme_address_mod_1        : 12
-//P IN: vme_address_mod_2        : 13
-//P IN: vme_address_mod_3        : 14
-//P IN: vme_address_mod_4        : 16
-//P IN: vme_address_mod_5        : 17
-//P IN: vme_berr                 : 19
-//P IN: vme_lword                : 20
 //P IN: vme_serclk               : 21
 //P IN: vme_serdat               : 22
-//P IN: vme_address_1            : 23
-//P IN: vme_address_2            : 24
-//P IN: vme_address_3            : 25
-//P IN: vme_address_4            : 27
-//P IN: vme_address_5            : 28
-//P IN: vme_address_6            : 29
-//P IN: vme_address_7            : 30
-//P IN: vme_address_8            : 31
-//P IN: vme_address_9            : 32
-//P IN: vme_address_10           : 33
-//P IN: vme_address_11           : 35
-//P IN: vme_address_12           : 36
-//P IN: vme_address_13           : 37
-//P IN: vme_address_14           : 40
-//P IN: vme_address_15           : 41
-//P IN: vme_address_16           : 42
-//P IN: vme_address_17           : 44
-//P IN: vme_address_18           : 45
-//P IN: vme_address_19           : 46
-//P IN: vme_address_20           : 47
-//P IN: vme_address_21           : 48
-//P IN: vme_address_22           : 49
-//P IN: vme_address_23           : 50
-//P IN: vme_data_0               : 100
-//P IN: vme_data_1               : 99
-//P IN: vme_data_2               : 98
-//P IN: vme_data_3               : 97
-//P IN: vme_data_4               : 96
-//P IN: vme_data_5               : 94
-//P IN: vme_data_6               : 93
-//P IN: vme_data_7               : 92
 //P IN: clock                    : 87
 //P IN: vme_sysclk               : 85
 //P IN: vme_bbsy                 : 84

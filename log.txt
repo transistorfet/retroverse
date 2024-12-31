@@ -804,3 +804,28 @@
   ended up doing like 4 hours in total, and not stopping until 10pm.  I should take a break, but I'm also just... compelled to
   continue futzing with the code side of things
 
+2024-12-29:
+
+- I streamed a couple days ago and tried to reflow the FTDI chip and resolder it to no avail, so I removed it and put the the header
+  on, and am using the external one which more or less works fine without losing connection every time I power cycle, which is a
+  lot.  I didn't bother putting those streams on youtube, partly because it was broken into two separated by dinner, with one
+  session only 10 or 15 minutes, and I didn't want to put them up as two and didn't want to make a combined version. I guess in
+  future, I can pause the recording and stop the stream to take a dinner break
+
+- today I've been testig the logic and adding the systemboard to the mix.  Most of it has been minor things to make the bus cycles
+  work properly, but they were already sort of working.  I have the logic analyzer on the control pins of the bus, and the scope as
+  is out as well.  After loading a new logic into the CPLD, I can reset the CPU and load a monitor program that makes some VME
+  accesses after printing the message, but before the prompt shows.  I later made a command to run the test so I can pre-load it and
+  run the command at the same time I start a logic analyzer sampling
+- I had various issues with signals not being tri-stated, and the bus arbitration not working because I had disabled it in multiple
+  places and forgot that, so just tracing the whole pin from usage, through the top level block, pin assigment and schematic if
+  necessary, which caught a few minor things
+- I previously had found that I had the logic wrong for combining active-low request lines.  I was ORing them but I should have
+  ANDed them instead, so request_vme was never going low (active)
+
+- I was able to verify that the address on the bus during the access is correct, and initially the data bus was empty, but the CPU
+  bus had the data, so the transceiver was off.  I changed some things and got the data to appear on the bus, but now it won't
+  terminate the cycle ever, when it should...  I also notice sometimes when resetting or running the tests that it doesn't reliable
+  enter a known good state (some accesses are flakey and sometimes it seems to access when it shouldn't).  I have the system board
+  acting as a simple dummy peripheral, and between the two there's something wrong with the logic it would seem
+

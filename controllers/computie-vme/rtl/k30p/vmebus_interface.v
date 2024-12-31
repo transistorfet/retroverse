@@ -14,12 +14,13 @@ module vme_bus_arbitration(
     localparam INACTIVE = 1'b1;
 
     always @(posedge clock) begin
-        // TODO bypassed for testing
+        /*
+        // TODO these will bypassed bus arbitration for testing
         bus_acquired <= ACTIVE;
         vme_bus_request <= ACTIVE;
         vme_bus_grant_out <= vme_bus_grant_in;
+        */
 
-        /*
         if (request_vme == ACTIVE) begin
             vme_bus_request <= ACTIVE;
             vme_bus_grant_out <= INACTIVE;
@@ -30,7 +31,6 @@ module vme_bus_arbitration(
             bus_acquired <= INACTIVE;
             vme_bus_grant_out <= vme_bus_grant_in;
         end
-        */
     end
 
 endmodule
@@ -40,7 +40,9 @@ module vme_data_transfer(
     input clock,
     input reset,
     output reg status_led,
+    input slow_clock,
 
+    input request_vme,
     input request_vme_a16,
     input request_vme_a24,
     input request_vme_a40,
@@ -78,24 +80,29 @@ module vme_data_transfer(
     localparam DIR_IN = 1'b1;
     localparam DIR_OUT = 1'b0;
 
-    localparam IDLE = 2'b00;
-    localparam ADDRESS = 2'b01;
-    localparam DATA = 2'b10;
-    localparam END = 2'b11;
+    localparam IDLE = 3'h0;
+    localparam ADDRESS = 3'h1;
+    localparam DATA = 3'h2;
+    localparam ADDRESS40 = 3'h3;
+    localparam DATA40 = 3'h4;
+    localparam END = 3'h5;
 
-    reg [1:0] state;
-
-    // NOTE: since these are active-low, the logic is inverted, so AND will make request_vme low if any of the requests are present
-    wire request_vme;
-    assign request_vme = request_vme_a16 & request_vme_a24 & request_vme_a40;
+    reg [2:0] state;
 
     initial begin
         state <= IDLE;
     end
 
+    reg slow_div_2;
+    always @(posedge slow_clock) begin
+        slow_div_2 <= !slow_div_2;
+    end
+
     always @(posedge clock) begin
         if (reset == ACTIVE) begin
             state <= IDLE;
+            status_led <= 1'b1;
+
             addr_low_oe <= INACTIVE;
             a40_cross_oe <= INACTIVE;
             data_low_oe <= INACTIVE;
@@ -104,11 +111,14 @@ module vme_data_transfer(
             data_low_dir <= DIR_OUT;
             d16_cross_dir <= DIR_OUT;
             md32_cross_dir <= DIR_OUT;
+
             vme_as <= INACTIVE;
-            status_led <= 1'b1;
+            vme_ds <= { INACTIVE, INACTIVE };
         end else begin
             case (state)
                 IDLE: begin
+                    status_led <= 1'b0;
+
                     addr_low_oe <= INACTIVE;
                     a40_cross_oe <= INACTIVE;
                     data_low_oe <= INACTIVE;
@@ -117,17 +127,13 @@ module vme_data_transfer(
                     data_low_dir <= DIR_OUT;
                     d16_cross_dir <= DIR_OUT;
                     md32_cross_dir <= DIR_OUT;
+
                     vme_as <= INACTIVE;
-                    vme_ds <= 2'b11;
+                    vme_ds <= { INACTIVE, INACTIVE };
                     vme_lword <= INACTIVE;
                     vme_write <= INACTIVE;
-                    cpu_dsack <= 2'b11;
-                    status_led <= 1'b0;
+                    cpu_dsack <= { INACTIVE, INACTIVE };
                     vme_address_mod <= 6'b111111;
-                    vme_address_mod[0] <= vme_dtack;
-                    vme_address_mod[1] <= vme_berr;
-                    vme_address_mod[2] <= request_vme;
-                    vme_address_mod[3] <= bus_acquired;
 
                     if (vme_dtack == INACTIVE && vme_berr == INACTIVE && request_vme == ACTIVE && bus_acquired == ACTIVE) begin
                         state <= ADDRESS;
@@ -158,23 +164,23 @@ module vme_data_transfer(
                         if (cpu_siz == 2'b00) begin
                             // 32-bit Operation
                             vme_lword <= ACTIVE;
-                            vme_ds <= 2'b11;
+                            vme_ds <= { ACTIVE, ACTIVE };
 
                             addr_low_oe <= ACTIVE;
                             a40_cross_oe <= ACTIVE;
                         end else if (cpu_siz == 2'b01) begin
                             // 8-bit Operation
                             vme_lword <= INACTIVE;
-                            vme_ds <= cpu_address[0] ? 2'b01 : 2'b10;
+                            vme_ds <= cpu_address[0] ? { ACTIVE, INACTIVE } : { INACTIVE, ACTIVE };
                         end else begin
                             // 16-bit Operation
                             vme_lword <= INACTIVE;
-                            vme_ds <= 2'b11;
+                            vme_ds <= { ACTIVE, ACTIVE };
                         end
                     end
                 end
                 ADDRESS: begin
-                    status_led <= 1'b1;
+                    status_led <= slow_clock;
 
                     // TODO it's possible the DS signal comes in too soon (the same time as AS) which would mean in A40 mode, there'd be no time to see the address
                     if (vme_dtack == INACTIVE && vme_berr == INACTIVE && cpu_ds == ACTIVE) begin
@@ -200,9 +206,9 @@ module vme_data_transfer(
                     end
                 end
                 DATA: begin
-                    status_led <= 1'b1;
+                    status_led <= slow_div_2;
 
-                    if (vme_dtack == ACTIVE || request_vme == INACTIVE) begin
+                    if (vme_dtack == ACTIVE) begin
                         state <= END;
                         if (cpu_siz == 2'b00) begin
                             cpu_dsack <= 2'b00;  // long operation
@@ -214,11 +220,15 @@ module vme_data_transfer(
                 END: begin
                     status_led <= 1'b1;
 
-                    if (cpu_as == INACTIVE) begin
+                    if (cpu_ds == { INACTIVE, INACTIVE } && request_vme == INACTIVE) begin
                         state <= IDLE;
+                        cpu_dsack <= { INACTIVE, INACTIVE };
 
                         vme_as <= INACTIVE;
-                        vme_ds <= 2'b11; // deactivate
+                        vme_ds <= { INACTIVE, INACTIVE };
+                        vme_lword <= INACTIVE;
+                        vme_write <= INACTIVE;
+                        vme_address_mod <= 6'bZZZZZZ;
 
                         // Turn off all the transceivers
                         addr_low_oe <= INACTIVE;
@@ -226,14 +236,6 @@ module vme_data_transfer(
                         data_low_oe <= INACTIVE;
                         d16_cross_oe <= INACTIVE;
                         md32_cross_oe <= INACTIVE;
-                        cpu_dsack <= 2'b11;  // deactivate
-
-                        // tri-state all control signals
-                        vme_as <= 1'bZ;
-                        vme_ds <= 2'bZZ;
-                        vme_lword <= 1'bZ;
-                        vme_write <= 1'bZ;
-                        vme_address_mod <= 6'bZZZZZZ;
                     end
                 end
                 default: begin

@@ -72,9 +72,16 @@ module buslogic(
 
     //assign cpu_clock = clock;
     reg [2:0] clock_counter;
+    reg slow_clock;
+    reg [25:0] slow_counter;
     always @(posedge clock) begin
         clock_counter <= clock_counter + 3'b001;
         cpu_clock <= clock_counter[1];
+        slow_counter <= slow_counter + 26'h0000001;
+        if (slow_counter == 26'd25000000) begin
+            slow_counter <= 26'h000001;
+            slow_clock <= !slow_clock;
+        end
     end
 
     localparam ACTIVE = 1'b0;
@@ -93,6 +100,10 @@ module buslogic(
         .request_vme_a40(request_vme_a40)
     );
 
+    // NOTE: since these are active-low, the logic is inverted, so AND will make request_vme low if any of the requests are present
+    wire request_vme;
+    assign request_vme = request_vme_a16 & request_vme_a24 & request_vme_a40;
+
     ram_select ram_select(
         .request_ram(request_ram),
         .cpu_ds(cpu_ds),
@@ -105,7 +116,7 @@ module buslogic(
     vme_bus_arbitration vme_bus_arbitration(
         .clock(clock),
 
-        .request_vme(request_vme_a16 & request_vme_a24 & request_vme_a40),
+        .request_vme(request_vme),
 
         .bus_acquired(bus_acquired),
 
@@ -115,16 +126,18 @@ module buslogic(
     );
 
     assign vme_as = bus_acquired == ACTIVE ? vme_as_out : 1'bZ;
-    assign vme_ds = bus_acquired == ACTIVE ? vme_ds_out : 1'bZ;
+    assign vme_ds = bus_acquired == ACTIVE ? vme_ds_out : 2'bZZ;
     assign vme_lword = bus_acquired == ACTIVE ? vme_lword_out : 1'bZ;
     assign vme_write = bus_acquired == ACTIVE ? vme_write_out : 1'bZ;
-    assign vme_address_mod = bus_acquired == ACTIVE ? vme_address_mod_out : 1'bZ;
+    assign vme_address_mod = bus_acquired == ACTIVE ? vme_address_mod_out : 6'bZZZZZZ;
 
     vme_data_transfer vme_data_transfer(
         .clock(clock),
         .reset(reset),
         .status_led(status_led),
+        .slow_clock(slow_clock),
 
+        .request_vme(request_vme),
         .request_vme_a16(request_vme_a16),
         .request_vme_a24(request_vme_a24),
         .request_vme_a40(request_vme_a40),

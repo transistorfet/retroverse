@@ -41,3 +41,6 @@ Revision 1 Errata and Notes
   recognizing that touching the board was somehow causing it, but unreliably, and looking at what
   was connected around those areas
 
+- if you had a power jumper for all 5V for the board (on every board, not just this one), you could
+  figure out which board is drawing what current
+

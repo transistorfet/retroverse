@@ -12,7 +12,7 @@ module vme_data_transfer_tb();
     localparam INACTIVE = 1'b1;
 
     reg clock = 1'b0;
-    wire [1:0] state;
+    //wire [1:0] state;
 
     reg request_vme;
     reg bus_acquired;
@@ -44,7 +44,7 @@ module vme_data_transfer_tb();
     vme_data_transfer DTS(
         .clock(clock),
 
-        .state(state),
+        //.state(state),
 
         .request_vme(request_vme),
         .bus_acquired(bus_acquired),
