@@ -829,3 +829,31 @@
   enter a known good state (some accesses are flakey and sometimes it seems to access when it shouldn't).  I have the system board
   acting as a simple dummy peripheral, and between the two there's something wrong with the logic it would seem
 
+2025-01-01:
+
+- the systemboard's logic with the additional dummy peripheral had a bunch of problems, including reusing the same `state` register
+  for two different state machines, which well could have caused my problems, but I might also have an issue with flip flops and
+  timing of the state machine such that it was really inconsistent.  I replaced it with just `assign` logic instead of a clocked
+  block, and it's working quite reliably on the peripheral side, but it still locks up sometimes which I suspect is an issue with
+  the k30p's logic.  Given that the simple logic peripheral is working better than the state machine one, I'm more confident that
+  the MemBird Woodcock card will work, since it uses simple logic.  I'm glad I added that DTACK timer too, so I have that in my back
+  pocket
+
+2025-01-02:
+
+- I streamed the build of MemBird - Woodcock rev.1 and the soldering went really well, quick and straightforward.  I was expecting a
+  lot of struggle, but it seemed to go together in about 2h or so, maybe less.  I didn't have a lot of bridging, only a bit, and I
+  was able to fix it quickly with solder wick.  I was using the new No Clean liquid flux (instead of the tacky stuff), and it worked
+  great.
+- I did have issues getting the board working though, that I still haven't resolved.  It did seem to work the first time, writing a
+  value read back the same value, but as I tried playing with it more, it seemed to not be working quite right.  One issue was
+  definitely a mis-soldered chip, where it was raised up and a bunch of pins on the right side (of the top 74HC32) was not
+  connected, and fixing that change the behaviour a bit, but it still isn't working as expected.  Sometimes data would read back as
+  0xAAAA or 0x5555 from locations that weren't supposed to have been written, when I was trying to write 0xAA55, and I was expecting
+  the unpopulated chip areas to read back as 0xFFFF or 0x0000, but that wasn't always the case, although random data could be
+  expected from those unpopulated areas.  But I was sometimes getting 0xAAAA or 0x5555 from those locations, which really doesn't
+  make sense.  It could be bugs in the k30p that's reading and writing though
+- I also noticed that BERR and DTACK were both being asserted when only DTACK should be asserted.  The k30p is ignoring BERR from
+  the bus at the moment, so it wasn't causing problems, and trying to inspect it specifically didn't seem to reproduce the issue, so
+  I'm not sure if it's a problem.  I'll have to maybe get BigBoy to control a transfer to inpect it more closely
+

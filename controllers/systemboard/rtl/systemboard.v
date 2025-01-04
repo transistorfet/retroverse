@@ -19,7 +19,7 @@ module systemboard(
     //inout vme_bbsy,
     inout vme_bclr,
     output reg [3:0] vme_bgout,
-    input [3:0] vme_br,
+    input [3:0] vme_br
 
     //inout vme_acfail,
     //input [3:0] vme_bgin,
@@ -69,7 +69,7 @@ module systemboard(
         //end else begin
             case (state)
                 IDLE: begin
-                    vme_dtb_output_enable <= 1'b0;
+                    //vme_dtb_output_enable <= 1'b0;
                     vme_bclr <= INACTIVE;
                     vme_bgout <= 4'b1111;
 
@@ -79,19 +79,19 @@ module systemboard(
 
                         if (vme_br[0] == ACTIVE) begin
                             vme_bgout[0] <= ACTIVE;
-                            current <= 2'b00;
+                            current <= 2'h0;
                             request_mask <= 4'b0000;
                         end else if (vme_br[1] == ACTIVE) begin
                             vme_bgout[1] <= ACTIVE;
-                            current <= 2'b01;
+                            current <= 2'h1;
                             request_mask <= 4'b0001;
                         end else if (vme_br[2] == ACTIVE) begin
                             vme_bgout[2] <= ACTIVE;
-                            current <= 2'b10;
+                            current <= 2'h2;
                             request_mask <= 4'b0011;
                         end else if (vme_br[3] == ACTIVE) begin
                             vme_bgout[3] <= ACTIVE;
-                            current <= 2'b11;
+                            current <= 2'h3;
                             request_mask <= 4'b0111;
                         end
                     end
@@ -102,18 +102,18 @@ module systemboard(
                         //vme_bbsy <= INACTIVE;
                         vme_bgout[current] <= INACTIVE;
                     end else if ((vme_br & request_mask) != request_mask) begin
-                        state <= BUS_CLEAR;
-                        vme_bclr <= ACTIVE;
+                        //state <= BUS_CLEAR;
+                        //vme_bclr <= ACTIVE;
                     end
                 end
-                BUS_CLEAR: begin
-                    //vme_bbsy <= INACTIVE;
-                    //vme_address_out <= 24'hFF00000;
-                    //vme_dtb_output_enable <= 1'b1;
-                    if (vme_br[current] == INACTIVE) begin
-                        state <= IDLE;
-                    end
-                end 
+                //BUS_CLEAR: begin
+                //    //vme_bbsy <= INACTIVE;
+                //    //vme_address_out <= 24'hFF00000;
+                //    //vme_dtb_output_enable <= 1'b1;
+                //    if (vme_br[current] == INACTIVE) begin
+                //        state <= IDLE;
+                //    end
+                //end 
                 default:
                     state <= IDLE;
             endcase
@@ -124,28 +124,63 @@ module systemboard(
     /// Dummy Peripheral Logic
     ////////////////////////////
 
+    localparam DEVICE_IDLE = 2'h0;
+    localparam DEVICE_RESPOND = 2'h1;
+    localparam DEVICE_END = 2'h2;
+
+    reg [1:0] device_state;
+
     wire requested_self;
     reg vme_dtack_out;
-    wire data_bus_out_enabled;
+    reg vme_data_bus_out_enabled;
     reg [7:0] vme_data_out;
 
     assign requested_self = vme_address_strobe == ACTIVE && vme_address[23:20] == 4'h5;
-    assign vme_dtack = vme_dtack_out == ACTIVE && vme_address_strobe == ACTIVE ? 1'b0 : 1'bZ;
-    assign data_bus_out_enabled = requested_self & vme_dtack_out == ACTIVE && vme_write == ACTIVE;
-    assign vme_data = data_bus_out_enabled ? vme_data_out : 8'bZZZZZZZZ;
+    assign vme_dtack = (requested_self && !(vme_data_strobe[0] == INACTIVE && vme_data_strobe[1] == INACTIVE)) ? ACTIVE : 1'bZ;
+    assign vme_data = (requested_self && !(vme_data_strobe[0] == INACTIVE && vme_data_strobe[1] == INACTIVE) && vme_write == INACTIVE) ? 8'h37 : 8'bZZZZZZZZ;
+    assign status_led = 1'b0;
 
+/*
     always @(posedge clock) begin
-        vme_dtack_out <= INACTIVE;
+        case (device_state)
+            DEVICE_IDLE: begin
+                vme_data_bus_out_enabled <= INACTIVE;
+                vme_dtack_out <= INACTIVE;
 
-        if (requested_self) begin
-            if (vme_write == ACTIVE) begin
-                status_led <= vme_data == 8'hAA;
-            end else begin
-                vme_data_out <= 8'h37;
+                if (requested_self) begin
+                    device_state <= DEVICE_RESPOND;
+                end
             end
-            vme_dtack_out <= ACTIVE;
-        end
+
+            DEVICE_RESPOND: begin
+                if (vme_data_strobe != { INACTIVE, INACTIVE }) begin
+                    device_state <= DEVICE_END;
+                    vme_dtack_out <= ACTIVE;
+
+                    if (vme_write == ACTIVE) begin
+                        vme_data_out <= 8'h37;
+                        vme_data_bus_out_enabled <= ACTIVE;
+                    end else begin
+                        status_led <= vme_data == 8'hAA;
+                    end
+                end
+            end
+
+            DEVICE_END: begin
+                vme_dtack_out <= ACTIVE;
+
+                if (vme_data_strobe == { INACTIVE, INACTIVE }) begin
+                    device_state <= DEVICE_IDLE;
+                    vme_dtack_out <= INACTIVE;
+                end
+            end
+
+            default: begin
+                device_state <= DEVICE_IDLE;
+            end
+        endcase
     end
+*/
 
 endmodule
 // Pin assignment for the experimental Yosys Flow

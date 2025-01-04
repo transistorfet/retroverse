@@ -14,7 +14,6 @@ module vme_data_transfer_tb();
     reg clock = 1'b0;
     //wire [1:0] state;
 
-    reg request_vme;
     reg bus_acquired;
 
     reg cpu_as = 1'b1;
@@ -41,12 +40,22 @@ module vme_data_transfer_tb();
     wire md32_cross_oe;
     wire md32_cross_dir;
 
+    wire request_vme;
+    assign request_vme = request_vme_a16 & request_vme_a24 & request_vme_a40;
+
+    reg request_vme_a16;
+    reg request_vme_a24;
+    reg request_vme_a40;
+
     vme_data_transfer DTS(
         .clock(clock),
 
         //.state(state),
 
         .request_vme(request_vme),
+        .request_vme_a16(request_vme_a16),
+        .request_vme_a24(request_vme_a24),
+        .request_vme_a40(request_vme_a40),
         .bus_acquired(bus_acquired),
 
         .cpu_as(cpu_as),
@@ -91,14 +100,17 @@ module vme_data_transfer_tb();
             vme_berr = INACTIVE;
             cpu_as = INACTIVE;
             cpu_ds = INACTIVE;
-            request_vme = INACTIVE;
+            request_vme_a16 = INACTIVE;
+            request_vme_a24 = INACTIVE;
+            request_vme_a40 = INACTIVE;
             bus_acquired = INACTIVE;
 
+/*
         #10
-            // 32-Bit A30/MD32 Cycle
+            // 32-Bit A40/MD32 Cycle
             cpu_siz = 2'b00;
             cpu_as = ACTIVE;
-            request_vme = ACTIVE;
+            request_vme_a40 = ACTIVE;
             bus_acquired = ACTIVE;
 
         //#1
@@ -115,16 +127,16 @@ module vme_data_transfer_tb();
             end
             cpu_as = INACTIVE;
             cpu_ds = INACTIVE;
-            request_vme = INACTIVE;
+            request_vme_a40 = INACTIVE;
             bus_acquired = INACTIVE;
         #1
             vme_dtack = INACTIVE;
-
+*/
         #10
             // 16-Bit Cycle
             cpu_siz = 2'b10;
             cpu_as = ACTIVE;
-            request_vme = ACTIVE;
+            request_vme_a24 = ACTIVE;
             bus_acquired = ACTIVE;
 
         //#1
@@ -137,7 +149,7 @@ module vme_data_transfer_tb();
             end
             cpu_as = INACTIVE;
             cpu_ds = INACTIVE;
-            request_vme = INACTIVE;
+            request_vme_a24 = INACTIVE;
             bus_acquired = INACTIVE;
         #1
             vme_dtack = INACTIVE;
@@ -148,7 +160,7 @@ module vme_data_transfer_tb();
             cpu_address = 2'b00;
             cpu_siz = 2'b01;
             cpu_as = ACTIVE;
-            request_vme = ACTIVE;
+            request_vme_a24 = ACTIVE;
             bus_acquired = ACTIVE;
 
         //#1
@@ -161,7 +173,7 @@ module vme_data_transfer_tb();
             end
             cpu_as = INACTIVE;
             cpu_ds = INACTIVE;
-            request_vme = INACTIVE;
+            request_vme_a24 = INACTIVE;
             bus_acquired = INACTIVE;
         #1
             vme_dtack = INACTIVE;
@@ -172,7 +184,7 @@ module vme_data_transfer_tb();
             cpu_address = 2'b01;
             cpu_siz = 2'b01;
             cpu_as = ACTIVE;
-            request_vme = ACTIVE;
+            request_vme_a24 = ACTIVE;
             bus_acquired = ACTIVE;
 
         //#1
@@ -185,7 +197,7 @@ module vme_data_transfer_tb();
             end
             cpu_as = INACTIVE;
             cpu_ds = INACTIVE;
-            request_vme = INACTIVE;
+            request_vme_a24 = INACTIVE;
             bus_acquired = INACTIVE;
         #1
             vme_dtack = INACTIVE;

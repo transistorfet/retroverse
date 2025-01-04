@@ -26,7 +26,7 @@ module buslogic(
     input [1:0] cpu_address_low,
     input [2:0] cpu_fc,
     inout [1:0] cpu_dsack,
-    input cpu_berr,
+    inout cpu_berr,
     output reg [2:0] cpu_ipl,
 
     inout vme_as,
@@ -63,6 +63,7 @@ module buslogic(
 
     reg [1:0] cpu_dsack_out;
     reg [1:0] vme_dsack_out;
+    reg vme_berr_out;
 
     reg vme_as_out;
     reg [1:0] vme_ds_out;
@@ -150,6 +151,7 @@ module buslogic(
         .cpu_address(cpu_address_low),
         .cpu_fc(cpu_fc),
         .cpu_dsack(vme_dsack_out),
+        .cpu_berr(vme_berr_out),
 
         .vme_as(vme_as_out),
         .vme_ds(vme_ds_out),
@@ -171,6 +173,7 @@ module buslogic(
 
     assign cpu_dsack[0] = cpu_dsack_out[0] == ACTIVE ? 1'b0 : 1'bZ;
     assign cpu_dsack[1] = cpu_dsack_out[1] == ACTIVE ? 1'b0 : 1'bZ;
+    assign cpu_berr = vme_berr_out == ACTIVE ? 1'b0 : 1'bZ;
 
     always @(*) begin
         if (request_ram == ACTIVE) begin

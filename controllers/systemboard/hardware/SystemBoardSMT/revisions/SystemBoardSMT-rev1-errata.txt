@@ -1,0 +1,7 @@
+
+Revision 1 Errata and Notes
+===========================
+
+- the reset button doesn't have a pull-up resistor on it, so it always reads as low
+
+- the silkscreen label for JP3 doesn't say its function (VCC for JTAG)
