@@ -857,3 +857,16 @@
   the bus at the moment, so it wasn't causing problems, and trying to inspect it specifically didn't seem to reproduce the issue, so
   I'm not sure if it's a problem.  I'll have to maybe get BigBoy to control a transfer to inpect it more closely
 
+2025-01-12:
+
+- I've been looking into my RAM issue where it seemed to hang when accessing the upper part of RAM, but after fiddling with it on
+  and off for the last week, I finally figured out nothing is broken and I forgot that the ramtest is using words, so the ram size
+  is words, not bytes.  I changed the ram test to shift the ram size used in the loops so that I don't have to re-remember again
+- in the process of debugging, I thought I could assert BERR to find the actual address where the fault occurred, but that didn't
+  work because the VME A40 request was active for anything that wasn't addressed locally, but since the A40 request is ignored by
+  the VME logic, it didn't start a request and the status LED didn't light, so I thought it was something else blocking
+- since the CPLD doesn't have access to the upper address lines, it can't know if the 00xx_xxxx space is being accessed.  It can
+  only know about the FFxx_xxxx space, which it assigns to the A24 address space.  If any other request is issues, if it's
+  xx0x_0000, then it will always access ROM, and if it's xx1x_xxxx or xx2x_xxxx, then it will always access RAM.  Any spaces in that
+  memory map will access A40.  This is a pretty significant design flaw
+

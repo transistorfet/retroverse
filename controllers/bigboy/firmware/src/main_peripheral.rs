@@ -332,8 +332,8 @@ fn EXTI0() {
                 let data = bus.data_bus.input();
 
                 rprintln!("{:x}: {:?} {:?} {:?} {:?}", addr_mod, readwrite, ds0, ds1, lword);
-                rprintln!(">> {:x}", address);
-                rprintln!(">> {:x}", data);
+                rprintln!(">> {:#010x}", address);
+                rprintln!(">> {:#010x}", data);
 
                 bus.control_bus.signal.set_low();
                 while address_strobe.is_low() {}

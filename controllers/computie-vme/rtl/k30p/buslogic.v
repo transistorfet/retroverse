@@ -63,6 +63,7 @@ module buslogic(
 
     reg [1:0] cpu_dsack_out;
     reg [1:0] vme_dsack_out;
+    reg cpu_berr_out;
     reg vme_berr_out;
 
     reg vme_as_out;
@@ -72,12 +73,12 @@ module buslogic(
     reg [5:0] vme_address_mod_out;
 
     //assign cpu_clock = clock;
-    reg [2:0] clock_counter;
+    reg [3:0] clock_counter;
     reg slow_clock;
     reg [25:0] slow_counter;
     always @(posedge clock) begin
-        clock_counter <= clock_counter + 3'b001;
-        cpu_clock <= clock_counter[1];
+        clock_counter <= clock_counter + 4'b0001;
+        cpu_clock <= clock_counter[3];
         slow_counter <= slow_counter + 26'h0000001;
         if (slow_counter == 26'd25000000) begin
             slow_counter <= 26'h000001;
@@ -173,15 +174,24 @@ module buslogic(
 
     assign cpu_dsack[0] = cpu_dsack_out[0] == ACTIVE ? 1'b0 : 1'bZ;
     assign cpu_dsack[1] = cpu_dsack_out[1] == ACTIVE ? 1'b0 : 1'bZ;
-    assign cpu_berr = vme_berr_out == ACTIVE ? 1'b0 : 1'bZ;
+    assign cpu_berr = ((cpu_berr_out == ACTIVE) || (vme_berr_out == ACTIVE)) ? 1'b0 : 1'bZ;
 
     always @(*) begin
         if (request_ram == ACTIVE) begin
             cpu_dsack_out <= 2'b00;
+            cpu_berr_out <= INACTIVE;
         end else if (request_rom == ACTIVE) begin
             cpu_dsack_out <= 2'b10;
-        end else begin
+            cpu_berr_out <= INACTIVE;
+        end else if (request_vme == ACTIVE) begin
             cpu_dsack_out <= vme_dsack_out;
+            cpu_berr_out <= INACTIVE;
+        end else if (cpu_as == ACTIVE && request_serial == INACTIVE && cpu_fc != 3'b111) begin
+            cpu_dsack_out <= 2'b11;
+            cpu_berr_out <= ACTIVE;
+        end else begin
+            cpu_dsack_out <= 2'b11;
+            cpu_berr_out <= INACTIVE;
         end
     end
 

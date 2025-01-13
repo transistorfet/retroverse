@@ -1,4 +1,24 @@
 
+* the CPU card can't seem to run code directly from the external memory card, need to debug further
+* add support for interrupts on the VME bus, which will require those extra address pins you connected
+* add support for the A40 cycle to CPU card
+* if no support for A40, change the addressing so that it will produce BERR for missing devices
+* solder up the CF card
+* write drivers for the CF card
+* turn bigboy into an ethernet card
+
+* gloworm: you need to improve the makefiles so you can support other platforms and driver combinations
+
+* figure out how you want to fix the upper addressing issue with the CPLD
+
+* make bigboy able to print out the memory card accesses.  I think they're going too fast
+* rearrange the repository
+* change the license
+
+* make an extension board that goes on the other end of the board, unlike the one with the two connectors, which cost more.  Just
+  make one that somehow bolts to the existing 100mm card's frontpanel holes, and then has its own frontpanel bracket holes for the
+  actual bracket and frontpanel
+
 * write a post about something
 
 * design sdram card with ice40 fpga, printed in yellow?  called MemBird - Raven?  Something else if it's not black solder mask?
@@ -27,8 +47,6 @@
   for my extended version, where the signals from the P2 socket are on the right most row, or you could use all 5-rows with the VM64x connectors, where the reserved right most
   row would still be my extended non-standard version, but the right row of ground signals could be added, and the sockets could take either a 3 row or VME64x card instead of
   requiring a different physical socket the way the 4-row connectors need =/
-
-* make sure to use hardcoded logic to prevent transceivers from writing into eachother because that can easily fry bits
 
 
 * there is some question of the I/O space, which will be different anyways, so the drivers will have to use different addresses.  It would be nice if the RAM could more easily be

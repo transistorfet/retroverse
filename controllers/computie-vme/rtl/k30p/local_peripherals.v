@@ -34,9 +34,8 @@ module address_decode(
                         request_vme_a16 <= ACTIVE;
                     end else if (n_address_top == ACTIVE) begin
                         request_vme_a24 <= ACTIVE;
-                    end else begin
-                        request_vme_a40 <= ACTIVE;
-
+                    //end else begin
+                    //    request_vme_a40 <= ACTIVE;
                     end
                 end
             endcase

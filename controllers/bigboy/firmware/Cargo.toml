@@ -1,5 +1,5 @@
 [package]
-name = "ivy-bigboy"
+name = "bigboy"
 version = "0.1.0"
 edition = "2021"
 
@@ -16,6 +16,7 @@ stm32h7xx-hal = { version = "0.15", features = [ "stm32h743", "rt", "ethernet" ]
 smoltcp = { version = "0.10.0", default-features = false, features = ["medium-ethernet", "proto-ipv4", "socket-raw"] }
 usb-device = "0.3"
 usbd-serial = "0.2.0"
+heapless = "0.8"
 
 [profile.dev]
 opt-level = "z"

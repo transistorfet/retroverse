@@ -44,3 +44,9 @@ Revision 1 Errata and Notes
 - if you had a power jumper for all 5V for the board (on every board, not just this one), you could
   figure out which board is drawing what current
 
+- the CPLD can't directly see the upper 8 address lines, besides knowing that they're all high, so
+  it can't determine if all the upper 8 address lines are all low, which means it can't properly
+  select the local peripherals leaving the A40 space free.  Instead, it can only keep the A24 space
+  free but if any request is in the range of the local peripherals (XX00_0000 to XX30_0000 for rom
+  and ram, XX70_0000 for serial), it will issue a local request instead of an A40 VME request
+

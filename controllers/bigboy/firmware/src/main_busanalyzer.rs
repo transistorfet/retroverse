@@ -10,6 +10,7 @@ use hal::pac;
 use hal::pac::{interrupt, NVIC, GPIOE, GPIOF, GPIOJ, GPIOI};
 use stm32h7xx_hal as hal;
 use hal::rcc::ResetEnable;
+use heapless::Vec;
 
 use crate::vme::{Direction, Bus, BusPins, Transceiver, TransceiverPins, AddressModifier, AddressModifierPins, ControlBusPins, ControlBus, DataTransferBus, BusArbitration};
 
@@ -27,6 +28,9 @@ static DATA_TRANSFER_BUS: Mutex<RefCell<Option<DataTransferBusType>>> =
 //    Mutex::new(RefCell::new(None));
 //static DATA_BUS: Mutex<RefCell<Option<DataBusType>>> =
 //    Mutex::new(RefCell::new(None));
+static RECORDING: Mutex<RefCell<Vec<u32, 16>>> =
+    Mutex::new(RefCell::new(Vec::new()));
+
 
 pub fn run() -> ! {
     rprintln!("starting power");
@@ -47,8 +51,8 @@ pub fn run() -> ! {
     let gpioc = dp.GPIOC.split(ccdr.peripheral.GPIOC);
     let gpiod = dp.GPIOD.split(ccdr.peripheral.GPIOD);
 
-    //let gpiog = dp.GPIOG.split(ccdr.peripheral.GPIOG);
-    //let gpioh = dp.GPIOH.split(ccdr.peripheral.GPIOH);
+    let gpiog = dp.GPIOG.split(ccdr.peripheral.GPIOG);
+    let gpioh = dp.GPIOH.split(ccdr.peripheral.GPIOH);
     let gpiok = dp.GPIOK.split(ccdr.peripheral.GPIOK);
 
     let mut led1 = gpioc.pc0.into_push_pull_output();
@@ -80,8 +84,8 @@ pub fn run() -> ! {
     ctrl_dir.set_low(); // low = INPUT (from bus), high = OUTPUT (to bus)
 
 
-    let mut al = TransceiverPins::new(al_oe, al_dir);
-    let mut ah = TransceiverPins::new(ah_oe, ah_dir);
+    let al = TransceiverPins::new(al_oe, al_dir);
+    let ah = TransceiverPins::new(ah_oe, ah_dir);
     let dl = TransceiverPins::new(dl_oe, dl_dir);
     let dh = TransceiverPins::new(dh_oe, dh_dir);
     let ctrl = TransceiverPins::new(ctrl_oe, ctrl_dir);
@@ -90,28 +94,10 @@ pub fn run() -> ! {
     ccdr.peripheral.GPIOF.enable().reset();
     ccdr.peripheral.GPIOI.enable().reset();
     ccdr.peripheral.GPIOJ.enable().reset();
-    ccdr.peripheral.GPIOG.enable().reset();
-    ccdr.peripheral.GPIOH.enable().reset();
-    //let mut address_bus = BusPins::new("address", ah, al, dp.GPIOF, dp.GPIOE);
-    //let mut data_bus = BusPins::new("data", dh, dl, dp.GPIOJ, dp.GPIOI);
+    let mut address_bus = BusPins::new("address", ah, al, dp.GPIOF, dp.GPIOE);
+    let mut data_bus = BusPins::new("data", dh, dl, dp.GPIOJ, dp.GPIOI);
 
-    macro_rules! configure_port {
-        ($port:expr) => {
-            $port.moder.write(|w| unsafe { w.bits(0x0000_0000) });
-            $port.otyper.write(|w| unsafe { w.bits(0x0000_0000) });
-            $port.ospeedr.write(|w| unsafe { w.bits(0xFFFF_FFFF) });
-            $port.odr.write(|w| unsafe { w.bits(0x0000) });
-        };
-    }
 
-    configure_port!(dp.GPIOE);
-    configure_port!(dp.GPIOF);
-    configure_port!(dp.GPIOG);
-    configure_port!(dp.GPIOH);
-    configure_port!(dp.GPIOI);
-    configure_port!(dp.GPIOJ);
-
-    /*
     let mut address_strobe = gpiog.pg0.into_floating_input();
     let data_strobe0 = gpiog.pg2.into_dynamic();
     let data_strobe1 = gpiog.pg1.into_dynamic();
@@ -158,7 +144,7 @@ pub fn run() -> ! {
     //);
 
     let mut vmebus = DataTransferBus::new(control_bus, address_bus, data_bus);
-    */
+
 
 
 
@@ -166,7 +152,6 @@ pub fn run() -> ! {
     let acfail = gpiod.pd13.into_open_drain_output_in_state(PinState::High);
     let sysfail = gpiod.pd14.into_open_drain_output_in_state(PinState::High);
 
-    /*
     let bbsy = gpioh.ph2.into_open_drain_output_in_state(PinState::High).erase();
     let bclr = gpioh.ph3.into_open_drain_output_in_state(PinState::High).erase();
 
@@ -191,8 +176,8 @@ pub fn run() -> ! {
     //    bgin: [bg0in, bg1in, bg2in, bg3in],
     //    bgout: [bg0out, bg1out, bg2out, bg3out],
     //};
-    */
 
+    /*
     let sysclk_pin = gpiod.pd15.into_alternate_af2();
 
     let (control, mut sysclk) = dp.TIM4
@@ -206,10 +191,11 @@ pub fn run() -> ! {
         .finalize();
     sysclk.set_duty(sysclk.get_max_duty() / 2);
     sysclk.enable();
+    */
 
     let mut delay = cp.SYST.delay(ccdr.clocks);
     //let mut output = gpioa.pa3.into_alternate();
-    let mut timer = dp.TIM2.tick_timer(1.MHz(), ccdr.peripheral.TIM2, &ccdr.clocks);
+    //let mut timer = dp.TIM2.tick_timer(1.MHz(), ccdr.peripheral.TIM2, &ccdr.clocks);
 
     let tx = gpiod.pd8.into_alternate();
     let rx = gpiod.pd9.into_alternate();
@@ -243,12 +229,6 @@ pub fn run() -> ! {
     ];
     */
 
-    al.set_direction(Direction::Input);
-    al.enable();
-    ah.set_direction(Direction::Input);
-    ah.enable();
-
-    /*
     vmebus.address_bus.set_direction(Direction::Input);
     vmebus.address_bus.enable();
     vmebus.data_bus.set_direction(Direction::Input);
@@ -279,37 +259,50 @@ pub fn run() -> ! {
         NVIC::unmask::<interrupt>(interrupt::EXTI0);
         //NVIC::unmask::<interrupt>(interrupt::EXTI9_5);
     }
-    */
 
-    #[derive(Default)]
-    struct Values {
-        GPIOE: u32,
-        GPIOF: u32,
-        GPIOG: u32,
-        GPIOH: u32,
-        GPIOI: u32,
-        GPIOJ: u32,
-    }
-
-    macro_rules! output_port {
-        ($name:literal, $port:ident, $previous:ident, $mask:literal) => {
-            let value = dp.$port.idr.read().bits();
-            if $previous.$port & $mask != value & $mask {
-                $previous.$port = value & $mask;
-                rprintln!("{:?}: {:04x}", $name, value);
-            }
-        };
-    }
-
-    let mut values = Values::default();
+    let mut value = 0_u32;
     rprintln!("main loop");
     loop {
-        output_port!("E", GPIOE, values, 0xffff);
-        output_port!("F", GPIOF, values, 0xffff);
-        //output_port!("G", GPIOG, values, 0xffff);
-        //output_port!("H", GPIOH, values, 0xfffe);
-        //output_port!("I", GPIOI, values, 0xffff);
-        //output_port!("J", GPIOJ, values, 0xffff);
+
+        free(|cs| {
+            let data = core::mem::replace(&mut *RECORDING.borrow(cs).borrow_mut(), Vec::new());
+            for address in data {
+                rprintln!(">> {:#010x}", address);
+            }
+        });
+
+        //led1.toggle();
+        //led2.toggle();
+        //led3.toggle();
+        //led4.toggle();
+        //delay.delay_ms(1_u16);
+
+        //value += 1;
+        //vmebus.data_bus.output(value);
+        //vmebus.data_bus.output(value);
+
+        //if (value ^ last) & 0x80 != 0 {
+        //    let state = if value & 0x80 == 0 { PinState::Low } else { PinState::High };
+        //    virq1.set_state(state);
+        //    dtack.set_state(state);
+        //    last = value;
+        //}
+
+        /*
+        // Detect a cycle
+        if address_strobe.is_low() {
+            while address_strobe.is_low() {
+                if data_strobe0.is_low() {
+                    let address = address_bus.input();
+                    let data = data_bus.input();
+                    rprintln!(">> {:x} {:x}", address, data);
+
+                    while address_strobe.is_low() {}
+                    break;
+                }
+            }
+        }
+        */
     }
 
 /*
@@ -342,22 +335,23 @@ pub fn run() -> ! {
 
 #[interrupt]
 fn EXTI0() {
-    rprintln!("here");
     free(|cs| {
         if let Some(address_strobe) = ADDRESS_STROBE.borrow(cs).borrow_mut().as_mut() {
             if let Some(mut bus) = DATA_TRANSFER_BUS.borrow(cs).borrow_mut().as_mut() {
-                bus.control_bus.signal.set_high();
+                //bus.control_bus.signal.set_high();
 
-                let (addr_mod, readwrite, ds0, ds1, lword) = bus.control_bus.input();
+                //let (addr_mod, readwrite, ds0, ds1, lword) = bus.control_bus.input();
                 let address = bus.address_bus.input();
-                let data = bus.data_bus.input();
+                //let data = bus.data_bus.input();
 
-                rprintln!("{:x}: {:?} {:?} {:?} {:?}", addr_mod, readwrite, ds0, ds1, lword);
-                rprintln!(">> {:x}", address);
-                rprintln!(">> {:x}", data);
+                let _ = RECORDING.borrow(cs).borrow_mut().push(address);
 
-                bus.control_bus.signal.set_low();
-                while address_strobe.is_low() {}
+                //rprintln!("{:x}: {:?} {:?} {:?} {:?}", addr_mod, readwrite, ds0, ds1, lword);
+                //rprintln!(">> {:#010x}", address);
+                //rprintln!(">> {:#010x}", data);
+
+                //bus.control_bus.signal.set_low();
+                //while address_strobe.is_low() {}
             }
             address_strobe.clear_interrupt_pending_bit();
         }

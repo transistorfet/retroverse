@@ -14,6 +14,7 @@ use stm32h7xx_hal as hal;
 use hal::rcc::ResetEnable;
 
 //mod main_peripheral;
+//mod main_busanalyzer;
 mod main_analyzer;
 mod vme;
 
@@ -22,7 +23,7 @@ fn main() -> ! {
     rtt_init_print!();
     rprintln!("booting");
 
-    //main_peripheral::run_as_peripheral();
+    //main_busanalyzer::run();
     main_analyzer::run();
 }
 
