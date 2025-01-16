@@ -870,3 +870,43 @@
   xx0x_0000, then it will always access ROM, and if it's xx1x_xxxx or xx2x_xxxx, then it will always access RAM.  Any spaces in that
   memory map will access A40.  This is a pretty significant design flaw
 
+2025-01-13:
+
+- just a note from previously, I tried increasing the clock speed to 25MHz and it seemed to run and printed out the welcome message
+  but whenever I pressed a key, it read in two NULL characters instead of the correct key, so something is not quite right with it.
+  It's still dividing the 50MHz clock down to 25MHz, and since it's going through the CPLD, I was hoping that would clean it up a
+  bit, but maybe not.  I'll have to look into it more.  The 50MHz clock is not very clean, but 12.5MHz clock from the CPLD looks
+  decent.  I feel like I had the same issue with computie k30 when I swapped the crystal, but I don't know what the fix for it was
+  at the time.  Hopefully I wrote notes about it (looks like I didn't)
+- if you put a right angle toggle switch for power on the front of the board (I guess bottom frontpanel would be easiest), then you
+  could power off the board when it's in the slot, and pull it out without powering off the whole backplane.  It's probably only
+  useful for CPU cards and might be more hassle in routing than it's worth, but would be a nice feature
+
+- it turned out removing the request_vme_a40 signal in the logic made it not correctly assert DS[1:0] on the bus.  It was stopping
+  shorting after the DTACK signal was asserted rather than waiting until CPU_AS *stopped* asserting.  I'll have to look further into
+  the cause
+- also, with this cpu card, a jumper between b5 and a9 (bg0out pulled to ground) is enough to make bus arbitration work without the
+  system card in place, which is convenient because I can program the CPLD with little extra current draw if the system board is not
+  connected, but it draws *1.7A* if I have it in.  It must be something with the logic on the system card because having the memcard
+  in doesn't draw that much more
+
+2025-01-14:
+
+- after investigating the "code won't run from membird card" issue, I looked at the fatal error code and found that it was pushing
+  all the registers on the stack, which pointed me to the real exception number, and it turned out to be a Line A exception, so it
+  executed an 0xAxxx instruction, but there isn't code like that in the monitor I tried to run from ram
+- the logic analyzer traces looked fine
+- I went back to the vmebus test in the monitor which just copies a counter number into ram where the number stored corresponds to
+  the address, and then had a check function that tested the ram after.  It worked fine with 16-bit transfers, so I tried writing as
+  8-bit transfers and read it back as 16-bit transfers, and after a bunch of minor mistakes I made in the code, I was able to
+  confirm that the bytes were swapped
+- I looked closely at the logic analyzer traces.  I looked at the schematics for the memory card, hoping it wasn't an error there
+  because it's harder to fix than if it's in the CPLD.  The LDS and UDS signals look correct on the schematic, and looking at the
+  traces shows DS0 was going low, and the byte being written to was the odd byte, and that's correct according to the spec and to
+  what the 68000 does, so it seemed all good there
+- I tried making the test program only write the even bytes, and looking at the traces, and the printed words read back, it was
+  writing the odd bytes, so looking at the vme_interface.v logic, I saw that when address bit 0 is "true", it will assert DS1 and
+  not DS0, but that's backwards, so I made it `vme_address_0 == 1'b0`, and everything's working now
+- I can run code directly from the VME card.  It acutally seems to run at a decent speed, albeit with the CPU clocked down quite a
+  bit.  It also takes about 1A instead of 500mA when it's running off the memory card, which is quite a bit of power in signaling,
+  but it seemed pretty stable...  I need to try it at a faster speed now

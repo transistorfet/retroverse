@@ -1,8 +1,15 @@
 
-* the CPU card can't seem to run code directly from the external memory card, need to debug further
+* rearrange the repository: either make "projects" be the top level or maybe invert the repository, but then you'd have to make an
+  exception for the website
+
+* try up-clocking the CPU and make sure it can still run off the memory card
+* there is an issue with commenting out request_vme_a40 which makes it read all high (DS is not held until the end)
+* if no support for A40, change the addressing so that it will produce BERR for missing devices (berr logic is probably related to above)
+* can you somehow fix the glitch on membird woodcock with berr being asserted
+
+
 * add support for interrupts on the VME bus, which will require those extra address pins you connected
 * add support for the A40 cycle to CPU card
-* if no support for A40, change the addressing so that it will produce BERR for missing devices
 * solder up the CF card
 * write drivers for the CF card
 * turn bigboy into an ethernet card
@@ -12,7 +19,6 @@
 * figure out how you want to fix the upper addressing issue with the CPLD
 
 * make bigboy able to print out the memory card accesses.  I think they're going too fast
-* rearrange the repository
 * change the license
 
 * make an extension board that goes on the other end of the board, unlike the one with the two connectors, which cost more.  Just
@@ -24,6 +30,9 @@
 * design sdram card with ice40 fpga, printed in yellow?  called MemBird - Raven?  Something else if it's not black solder mask?
 * design a board that uses a raspi compute module?  so basically the VME interface?
 
+* if you put a right angle toggle switch for power on the front of the board (I guess bottom frontpanel would be easiest), then you
+  could power off the board when it's in the slot, and pull it out without powering off the whole backplane.  It's probably only
+  useful for CPU cards and might be more hassle in routing than it's worth, but would be a nice feature
 
 
 * add ADC voltage monitor to big boy or a bus arbiter board to give a failure signal if the voltage is not within range

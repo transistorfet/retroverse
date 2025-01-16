@@ -60,6 +60,7 @@ module buslogic(
     reg request_vme_a16;
     reg request_vme_a24;
     reg request_vme_a40;
+    reg request_unmapped;
 
     reg [1:0] cpu_dsack_out;
     reg [1:0] vme_dsack_out;
@@ -99,7 +100,8 @@ module buslogic(
         .request_serial(request_serial),
         .request_vme_a16(request_vme_a16),
         .request_vme_a24(request_vme_a24),
-        .request_vme_a40(request_vme_a40)
+        .request_vme_a40(request_vme_a40),
+        .request_unmapped(request_unmapped)
     );
 
     // NOTE: since these are active-low, the logic is inverted, so AND will make request_vme low if any of the requests are present
@@ -186,7 +188,7 @@ module buslogic(
         end else if (request_vme == ACTIVE) begin
             cpu_dsack_out <= vme_dsack_out;
             cpu_berr_out <= INACTIVE;
-        end else if (cpu_as == ACTIVE && request_serial == INACTIVE && cpu_fc != 3'b111) begin
+        end else if (request_unmapped == ACTIVE && cpu_fc != 3'b111) begin
             cpu_dsack_out <= 2'b11;
             cpu_berr_out <= ACTIVE;
         end else begin

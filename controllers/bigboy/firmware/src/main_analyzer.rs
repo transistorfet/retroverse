@@ -82,8 +82,8 @@ pub fn run() -> ! {
 
     let mut al = TransceiverPins::new(al_oe, al_dir);
     let mut ah = TransceiverPins::new(ah_oe, ah_dir);
-    let dl = TransceiverPins::new(dl_oe, dl_dir);
-    let dh = TransceiverPins::new(dh_oe, dh_dir);
+    let mut dl = TransceiverPins::new(dl_oe, dl_dir);
+    let mut dh = TransceiverPins::new(dh_oe, dh_dir);
     let ctrl = TransceiverPins::new(ctrl_oe, ctrl_dir);
 
     ccdr.peripheral.GPIOE.enable().reset();
@@ -243,10 +243,14 @@ pub fn run() -> ! {
     ];
     */
 
-    al.set_direction(Direction::Input);
-    al.enable();
-    ah.set_direction(Direction::Input);
-    ah.enable();
+    //al.set_direction(Direction::Input);
+    //al.enable();
+    //ah.set_direction(Direction::Input);
+    //ah.enable();
+    dl.set_direction(Direction::Input);
+    dl.enable();
+    //dh.set_direction(Direction::Input);
+    //dh.enable();
 
     /*
     vmebus.address_bus.set_direction(Direction::Input);
@@ -304,11 +308,11 @@ pub fn run() -> ! {
     let mut values = Values::default();
     rprintln!("main loop");
     loop {
-        output_port!("E", GPIOE, values, 0xffff);
-        output_port!("F", GPIOF, values, 0xffff);
+        //output_port!("E", GPIOE, values, 0xffff);
+        //output_port!("F", GPIOF, values, 0xffff);
         //output_port!("G", GPIOG, values, 0xffff);
         //output_port!("H", GPIOH, values, 0xfffe);
-        //output_port!("I", GPIOI, values, 0xffff);
+        output_port!("I", GPIOI, values, 0xffff);
         //output_port!("J", GPIOJ, values, 0xffff);
     }
 

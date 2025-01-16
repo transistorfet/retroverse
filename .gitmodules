@@ -1,6 +1,6 @@
 [submodule "common/kicad-libraries/computie-kicad-library"]
 	path = common/kicad-libraries/computie-kicad-library
 	url = git@github.com:transistorfet/computie-kicad-library
-[submodule "controllers/computie-vme/tools/atf15xx_yosys"]
+[submodule "tools/atf15xx_yosys"]
 	path = tools/atf15xx_yosys
 	url = git@github.com:hoglet67/atf15xx_yosys.git

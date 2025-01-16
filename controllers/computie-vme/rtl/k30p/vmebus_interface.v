@@ -163,14 +163,14 @@ module vme_data_transfer(
                         end else if (cpu_siz == 2'b01) begin
                             // 8-bit Operation
                             vme_lword <= INACTIVE;
-                            vme_ds <= cpu_address[0] ? { ACTIVE, INACTIVE } : { INACTIVE, ACTIVE };
+                            vme_ds <= cpu_address[0] == 1'b0 ? { ACTIVE, INACTIVE } : { INACTIVE, ACTIVE };
                         end else begin
                             // 16-bit Operation
                             vme_lword <= INACTIVE;
                             vme_ds <= { ACTIVE, ACTIVE };
                         end
                         */
-                    end else if ((request_vme_a16 == ACTIVE || request_vme_a24 == ACTIVE) && bus_acquired == ACTIVE) begin
+                    end else if ((request_vme_a16 == ACTIVE || request_vme_a24 == ACTIVE) && bus_acquired == ACTIVE && vme_dtack == INACTIVE && vme_berr == INACTIVE) begin
                         state <= ADDRESS_A24;
                         vme_write <= cpu_write;
                         vme_lword <= INACTIVE;
@@ -219,7 +219,7 @@ module vme_data_transfer(
                     status_led <= 1'b1;
                     if (cpu_siz == 2'b01) begin
                         // 8-bit Operation
-                        vme_ds <= cpu_address[0] ? { ACTIVE, INACTIVE } : { INACTIVE, ACTIVE };
+                        vme_ds <= cpu_address[0] == 1'b0 ? { ACTIVE, INACTIVE } : { INACTIVE, ACTIVE };
                     end else begin
                         // 16-bit Operation
                         vme_ds <= { ACTIVE, ACTIVE };

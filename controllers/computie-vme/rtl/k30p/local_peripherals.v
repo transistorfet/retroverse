@@ -9,7 +9,8 @@ module address_decode(
     output reg request_serial,
     output reg request_vme_a16,
     output reg request_vme_a24,
-    output reg request_vme_a40
+    output reg request_vme_a40,
+    output reg request_unmapped
 );
 
     localparam ACTIVE = 1'b0;
@@ -22,6 +23,7 @@ module address_decode(
         request_vme_a16 <= INACTIVE;
         request_vme_a24 <= INACTIVE;
         request_vme_a40 <= INACTIVE;
+        request_unmapped <= INACTIVE;
 
         if (cpu_as == ACTIVE) begin
             case (address_high)
@@ -34,8 +36,9 @@ module address_decode(
                         request_vme_a16 <= ACTIVE;
                     end else if (n_address_top == ACTIVE) begin
                         request_vme_a24 <= ACTIVE;
-                    //end else begin
-                    //    request_vme_a40 <= ACTIVE;
+                    end else begin
+                        request_vme_a40 <= ACTIVE;
+                        //request_unmapped <= ACTIVE;
                     end
                 end
             endcase
