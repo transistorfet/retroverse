@@ -50,3 +50,7 @@ Revision 1 Errata and Notes
   free but if any request is in the range of the local peripherals (XX00_0000 to XX30_0000 for rom
   and ram, XX70_0000 for serial), it will issue a local request instead of an A40 VME request
 
+- the serial interrupt requires a pull-up resistor or else it will always register as low.  The
+  ATF1508 does have internal pull-ups from the looks of it, so I'll have to install an external one.
+  It was previously directly connected to the CPU's IPL1 signal
+

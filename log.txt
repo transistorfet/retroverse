@@ -910,3 +910,71 @@
 - I can run code directly from the VME card.  It acutally seems to run at a decent speed, albeit with the CPU clocked down quite a
   bit.  It also takes about 1A instead of 500mA when it's running off the memory card, which is quite a bit of power in signaling,
   but it seemed pretty stable...  I need to try it at a faster speed now
+
+2025-01-15:
+
+- I realized this morning that the k30p isn't running the OS because all *local* interrupts are broken without the CPLD logic to
+  make them work.  The monitor intentionally uses polling, and the OS uses interrupts, so it's probably not printing anything
+  because the serial tx interrupt isn't working.  Maybe I'm wrong though, I haven't tried it yet
+- actually after looking at the logic, I have a basic interrupt handler in place, so either it's not working correctly, or the boot
+  issue is caused by something else
+- the logic was totally wrong, but once I fixed it, it then hung on boot, so the actual cause is that the serial irq is an open
+  collector output, and it doesn't have a pullup, so it's always LOW and activates the interrupt, even when one isn't present
+
+- I maybe also haven't written about the BERR issues on membird, other than the errata.  I think it's because of the propogation
+  delay of the gates.  One path into the OR gate before the BERR buffer only goes through one gate, but the other path goes through
+  5 before getting to the input of the OR gate.  It's only asserted for 10ns or so.  The AS signal is being asserted at exactly the
+  same time as the Address Modifier pins and the transceiver controls to allow the data onto the bus.  Technically those values
+  should be stable for 35ns before AS is asserted.  I wonder if the other VME cards I have that are pure hardware peripherals would
+  act the same if the 35ns delay was not respected.  Have I even seen this before in my testing of BigBoy?
+
+2025-01-16:
+
+- I soldering on a pull-up resistor to SIRQ of k30p along with some pull-ups for the remaining transceivers and the user defined
+  buttons and lights.  I also put a pull-up on the reset button of SystemBoard, even though I don't have it in the backplane.  The
+  k30p can now boot the OS without an issue.  I was having some instability where it would lock up even though the LED was flashing
+  to indicate the serial timer interrupt is firing and the OS is switching tasks.  It turns out pressing one of the buttons as I was
+  doing to test it would cause that behaviour, but as long as I didn't press it, it was running for 45min without an issue.
+- I'd like to build the CF card now, but I can also try programming bigboy as a peripheral to test with
+
+2025-01-18:
+
+- I built Tom Storey's CompactFlash card on stream.  I had a bit of difficulty at the start with the resistor networks, I was a bit
+  rusty even though it had only been a few weeks since the last one, but after I got my grove, it went smoothly.  The SSOP packages
+  he used have 1.27mm pitch which was a dream to solder by comparison to the 0.8 and 0.5 pitch parts I usually work with.  The
+  PLCC-44 for the CPLD was surprisingly easy despite being a tough squeeze
+- Tom joined for the stream and mentioned he use a hotplate and stencil when he built it.  I'll have to try that technique
+  eventually, but all things considered, it was a pretty easy board to build
+- I was able to get the k30p turning the in-use LED on with a memory access, but uncovered some bugs in the k30p's CPLD logic
+
+2025-01-19:
+
+- When testing yesterday, it wasn't working correctly when I used address 0 as the card address, and quickly uncovered a bug in the
+  address decode logic, which didn't check the n_address_top output, so even in the A24 address space, the rom and ram and serial
+  would have been mapped into it.  I had change the address to ffc0_xxxx because I knew that worked for MemBird
+- changing the logic caused the previous issue of DS or even AS not being asserted for the whole cycle, and it confusing the other
+  devices, which turned out to just be a "DTACK == INACTIVE && BERR == INACTIVE" condition in the address phase because the
+  peripherals asserted DTACK right away.  Removing the conditional since it was already checked at the start of the cycle fixed
+  that, so it seemed make accesses and I could set the CF card in-use LED, and read back the control/status register from the CF
+  card, which read as 0x05 where bit 0 is card detected and bit 1 and 2 are VS1 and VS2 which according to CF docs are returning the
+  expected values
+
+- when I tried to clear the in-use led though, it doesn't seem to work.  The CF card reset which is bit 3 is also 0 which means the
+  card is in reset, and when I tried to change things (with MemBird in the same backplane), it would hang instead of returning data.
+  MemBird seems to be interfering for some reason, even though I have the CF card at ff80_xxxx and membird at ffc0_xxxx, so I have
+  to debug that further
+- if I read ff80_0020 (CF control register), it returns 0x05.  If I set it to to 0x80, the light comes on.  If I then read it again,
+  it returns 0xFD which doesn't make so much sense.  The LED can't seem to be unset.  And now it doesn't seem to be hanging either.
+  I suspect the hanging is either caused by membird or caused by a glitch in the CPLD logic, or both.  I can't seem to trigger it
+  again though
+- I was able to trigger it specifically by setting the control register to 0x88 (0x08 and 0x80 which should disable reset and turn
+  on the LED respectively don't seem to cause the issue), but 0x88 and then trying to read ff80_0020 right after using the `v` test
+  causes it to hang
+- from the logic analyzer trace, I can see that when setting the value, AS is not actually held low for the whole time.  It goes
+  high (inactive) a clock cycle or so before DS, WRITE, and AM.  DTACK from the card is held until the end of DS.  And then when the
+  `v` test is run which should just request a byte and print it, it looks like 2 cycles instead of just one (AS goes low twice,
+  DTACK only goes low once, AM is only set for the first cycle and the second one doesn't have AM set and something is asserting
+  BERR but that isn't implemented in the CF card's CPLD so it must be coming from MemBird.  The status LED which should only be high
+  when a VME bus cycle is active is high for the first cycle, goes low, and then goes high again for the second cycle, so it might
+  acutally be two cycles with a broken termination instead of one cycle that drops AS/DS/etc too early)
+

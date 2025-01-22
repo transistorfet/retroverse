@@ -1,12 +1,21 @@
 
 * rearrange the repository: either make "projects" be the top level or maybe invert the repository, but then you'd have to make an
-  exception for the website
+  exception for the website: projects, boards, components
+* change the license
+
+* make a simple peripheral with bigboy, possibly even a dummy ATA device to help with driver writing
+
+* solder the riser board
+* reflow the systemboard CPLD
+* try soldering another FTDI to the board, but with the power pin lifted
+
+* test one of the real VME cards to see if it has the BERR blip too when AS is asserted too fast (I think it does)
+* can you somehow fix the glitch on membird woodcock with berr being asserted.  Is the actual fix to delay the assertion of AS on
+  the CPU card, since it's supposed to be 35ns delay, which would be more than enough to avoid this race condition
 
 * try up-clocking the CPU and make sure it can still run off the memory card
 * there is an issue with commenting out request_vme_a40 which makes it read all high (DS is not held until the end)
 * if no support for A40, change the addressing so that it will produce BERR for missing devices (berr logic is probably related to above)
-* can you somehow fix the glitch on membird woodcock with berr being asserted
-
 
 * add support for interrupts on the VME bus, which will require those extra address pins you connected
 * add support for the A40 cycle to CPU card
@@ -14,12 +23,12 @@
 * write drivers for the CF card
 * turn bigboy into an ethernet card
 
+
 * gloworm: you need to improve the makefiles so you can support other platforms and driver combinations
 
 * figure out how you want to fix the upper addressing issue with the CPLD
 
 * make bigboy able to print out the memory card accesses.  I think they're going too fast
-* change the license
 
 * make an extension board that goes on the other end of the board, unlike the one with the two connectors, which cost more.  Just
   make one that somehow bolts to the existing 100mm card's frontpanel holes, and then has its own frontpanel bracket holes for the
