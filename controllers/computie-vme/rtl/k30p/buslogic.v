@@ -8,10 +8,10 @@ module buslogic(
     output reg cpu_clock,
     output reg status_led,
 
-    output reg request_ram,
-    output reg request_rom,
-    output reg [3:0] ram_ds,
-    output reg request_serial,
+    output request_ram,
+    output request_rom,
+    output [3:0] ram_ds,
+    output request_serial,
 
     output reg vme_bus_request,
     input vme_bus_grant_in,
@@ -23,6 +23,7 @@ module buslogic(
     input [1:0] cpu_siz,
     input cpu_address_top,
     input [3:0] cpu_address_high,
+    input cpu_address_mid_0,
     input [1:0] cpu_address_low,
     input [2:0] cpu_fc,
     inout [1:0] cpu_dsack,
@@ -75,16 +76,9 @@ module buslogic(
 
     //assign cpu_clock = clock;
     reg [3:0] clock_counter;
-    reg slow_clock;
-    reg [25:0] slow_counter;
     always @(posedge clock) begin
         clock_counter <= clock_counter + 4'b0001;
-        cpu_clock <= clock_counter[3];
-        slow_counter <= slow_counter + 26'h0000001;
-        if (slow_counter == 26'd25000000) begin
-            slow_counter <= 26'h000001;
-            slow_clock <= !slow_clock;
-        end
+        cpu_clock <= clock_counter[1];
     end
 
     localparam ACTIVE = 1'b0;
@@ -104,9 +98,8 @@ module buslogic(
         .request_unmapped(request_unmapped)
     );
 
-    // NOTE: since these are active-low, the logic is inverted, so AND will make request_vme low if any of the requests are present
     wire request_vme;
-    assign request_vme = request_vme_a16 & request_vme_a24 & request_vme_a40;
+    assign request_vme = (request_vme_a16 == ACTIVE) || (request_vme_a24 == ACTIVE) || (request_vme_a40 == ACTIVE) ? ACTIVE : INACTIVE;
 
     ram_select ram_select(
         .request_ram(request_ram),
@@ -121,7 +114,7 @@ module buslogic(
         .clock(clock),
 
         .request_vme(request_vme),
-
+        .vme_as_out(vme_as_out),
         .bus_acquired(bus_acquired),
 
         .vme_bus_request(vme_bus_request),
@@ -139,7 +132,6 @@ module buslogic(
         .clock(clock),
         .reset(reset),
         .status_led(status_led),
-        .slow_clock(slow_clock),
 
         .request_vme(request_vme),
         .request_vme_a16(request_vme_a16),
@@ -253,6 +245,7 @@ module buslogic(
         .cpu_as(cpu_as),
         .cpu_fc(cpu_fc),
         .cpu_ipl(cpu_ipl),
+        .address_16(cpu_address_mid_0),
         .vme_ipl(vme_ipl),
         .vme_iack(vme_iack),
         .serial_irq(serial_irq),
@@ -292,6 +285,7 @@ endmodule
 //PIN: cpu_address_high_2   : 48
 //PIN: cpu_address_high_1   : 47
 //PIN: cpu_address_high_0   : 46
+//PIN: cpu_address_mid_0    : 41
 //PIN: cpu_address_low_1    : 36
 //PIN: cpu_address_low_0    : 35
 

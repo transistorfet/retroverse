@@ -978,3 +978,129 @@
   when a VME bus cycle is active is high for the first cycle, goes low, and then goes high again for the second cycle, so it might
   acutally be two cycles with a broken termination instead of one cycle that drops AS/DS/etc too early)
 
+2025-01-23:
+
+- I've been plugging away at various things.  I got the k30p logic sorted enough that it's not double accessing.  Nothing seemed to
+  work, even synchronizing all the signals going into it, which just extended the timing enough to make it coincidentally work, but
+  not actually work at faster speeds, until I removed the logic that changed all the values during the END phase
+- it's as if the "if" block in the END phase was taking effect before the state transition occurred.  The actual state transition
+  happened an the expected time, but the signals changed way earlier.  Removing it so that it just transitioned state, seemed to
+  work.  The actual changing of the values happens during the IDLE state already.  I feel like this is just a quirk of verilog and
+  how the synthesizer is generating logic, but I'm pretty sure although vauge about it that I had this problem with the FPGA logic
+  for fidget
+
+- I have it working enough to read the status register fine, but if I accessed the card, it seemed to hang indefinitely, and I think
+  that might be another logic error, or I'm using the CF card incorrectly.  If I set the control/status register to 0xB8, which
+  takes it out of reset (I think) and put it in async mode, then it will respond to those addresses
+- the PIO modes don't seem to work, even though the logic seems like it should generate DTACK, but DTACK never arrives.  The logic
+  on the analyzer seems correct though, as if it's just the CF card that doesn't detect the cycle.  So either I'm doing it wrong, or
+  I still have a problem in the k30p logic, or maybe it's the logic in the CF card.  It has been tested, but I guess only with one
+  CPU card.  I'll have to dig more
+- what if the clock isn't working?  Well that doesn't seem right because it does work in async mode... and I think it still uses the
+  state machine transitions in async mode, but maybe it doesn't?  something to confirm
+
+2025-01-24:
+
+- Ok, I finally figured out the problem.  The CF card needs to be reset using the bus reset signal or else it will be in a weird
+  state.  I'm doing that with a jumper at the moment, and as long as I do that after every time it's powered on (but not after every
+  CPU reset), it works fine
+- I could put some logic in the systemboard to reset the system on power up.  It's not the most ideal in some ways, but maybe not a
+  bad compromise
+- I wouldn't be surprised if there's a similar thing with the CPLD on k30p where it's not be reset on startup which is causing the
+  weird characters to print the first time it starts.
+
+- the reset wasn't the only thing.  I had to also remove the wait macro in the ATA driver between each byte or else it would trip
+  up.  The logic traces show that it has a weird moment of the CPU AS deasserting, and the AM1 pin changes state on and off again,
+  which is enough for a BERR to get asserted somewhere (only on the local CPU card and not the VME bus).  No idea why the CPU CPLD
+  is changing the output state like that, but not surprising that I have another logic bug
+- I kind of suspect that it's an issue with the lack of synchronization in my CPU card's logic
+
+- It's almost working, but it still can't read from the disk.  It says "initializing root disk" when it boots, which means the super
+  number isn't correct/expected.  For the new flash card I made, I forgot to specific the minix version, so it's probably an
+  incompatible minix 3 filesystem, but I tried with the old disk and it did the same thing...  I'll have to debug that more, but I
+  can also try resoldering the FTDIs first
+
+
+2025-01-25:
+
+- So, I spent the morning resoldering a new FTDI chip on the k30p, and lifted the Vcc pin before putting it on, so that I could
+  solder the wire to USB bus power instead of the board power.  After painstakingly soldering it and the wire, and an extra
+  capacitor to the bus-side of the ferrite bead, and checking all the pins for shorts, I plugged it in and... it didn't work
+- I tried a couple things and checked power, and it still wouldn't work, so I tried a short USB-C cable that I had, connector to a
+  USB extension cable, and it enumerated!
+- So I assumed it was a problem with the USB port on my monitor stand.  I tried using a different extension because the first one
+  didn't reach to where the power supply was, and tried it again, and it didn't work!?
+- I got some leads that would reach from the power supply to where the working USB cable was (I think), and powered it on, and it
+  worked
+- I had the card on the backplane and had a cable to it, and somehow got something that was working again, and tested a few things,
+  and it behaved the same as the external FTDI, which is good (ie. it didn't disconnect on the host side when power cycling the
+  board)
+- after a while, I finally figured out that the polarity of the USB-C connector makes a difference!? what the fuck!?  I thought it
+  was supposed to be reversible.  I guess all the USB-C cables don't have both sides of the main differential pair connected
+  together, nor does the connector, and it's up to the board itself to jump those wires.  I didn't want to try reworking those
+  jumps in, so I'll just have to remember that that board needs the connectors plugged in a certain way
+
+- BUT! it's working.  I am able to get rid of the external FTDI so I can put the faceplate on
+- the power rework seems to be working fine, so I think I can do that for the next revisions.  I shoud also put caps on both sides
+  of the ferrite bead, or else leave the bead out of the design
+- I put the second FTDI on at the same time, and for that one, I fished the old chip out of my scraps tin and bent the power lead
+  out of the way, soldered it to the board, populated the other parts, and tested it, and it also worked!  So it wasn't fried after
+  all, like I had thought.  I saved using yet another FTDI, which is good
+- I didn't have a ferrite bead for that one, so I didn't put the cap on either and just jumped the power straight to the backside of
+  the USB-C connector and it seems fine, so it's maybe not strictly required, but maybe it would be worth it to put a surge
+  protector on it none-the-less
+
+- Now I can turn back to the ATA code, and maybe test the network stuff too.  I should still try to push it as much as I can before
+  starting in on the next revision so I know I've caught all the issues.  I think this has had the most issues of any board I've
+  made, but it's also been one of the most complicated, and I would have had even more issues if it wasn't for the CPLD that I can
+  reprogram
+
+
+- I want to reorganize the repository, but I'm second guessing it a bit.  There's two broad ways: either every top level thing is
+  its own project, and the docs/images/junk/etc is moved into their respective project directories, or there's docs/etc and a
+  directory called <something> with each thing is that directory being its own project.  Dependencies (like atf15xx_yosys and
+  the kicad libraries) would be either mixed in (which I don't like as much) or in a directory called "common" or "external".  I
+  don't want to use "tools" because kicad libraries aren't really tools, and then I end up with a whole bunch of top level
+  directories for different functions
+- I'm leaning towards the second one, partly because it's easiest to use my website generator with, even though I should modify it
+  to allow subprojects to have their images and readmes generated as well
+- the main thing is what should the top level directories be, and I'm leaning towards "components" as the nicest sounding and
+  looking, but if I also have "common" for the dependencies then I'll need 4 letters before it will autocomplete, which could be
+  annoying.  But I don't like "external" as much.  And if I go with "components" that kind of means the dependencies don't fit in
+  there.  I don't think I want them in there anyways
+
+
+- I spent a bunch more time debugging why it wouldn't read the disk, and in the process, got distracted by the bus errors I was
+  getting.  [I just started writing the next sentence an found that actually I hadn't changed the logic at all, so now I've
+  *actually* done what I was going to do so we'll see if it works].  I thought maybe the bus_request signal wasn't being held log
+  enough, so I made it conditional on either the request active, or vme_as_out being active so that it's held for the entire
+  duration of while vme_as is being driven high.  Ok I have *now* actually tested it and it doesn't seem to work.  The bus signals
+  still go inactive before CPU_AS goes inactive, which results in a BERR, even though it doesn't seem like one should be possible
+  from the logic.  I still have to fix this issue
+- after a bunch of debugging of the ATA not actually reading blocks issue, I realized that it's mounting the /dev/mem0 device as
+  root instead of the ata device... I did actually have the boot args be "mem0" so it was doing the right thing but not what I
+  wanted.  That said, the boot args at boot are *actually* "", and it then seems to boot the mem0 device anyways, so I had to hard
+  code it to use ata0
+- it now mounts the drive and sees the right superblock magic number, but it fails with a bus error, every time it boots, usually at
+  a different address, so I'm pretty sure it's this logic issue above that's blocking it
+
+
+2025-01-26:
+
+- I finally got it working and fairly stable!  Adding synchronization to the CPLD logic seemed to fix the remaining issues, once I
+  had gotten the earlier bugs and issues sorted.  Since the ATF1508 supports different processes using pos and negedge clocks (which
+  I don't think the ice40 FPGAs do), the synchronizers can operate faster despite not having a very fast clock relative to the CPU.
+  I saw Tom doing that in the logic for the CF card.  I had assumed I would have to use my normal FPGA fifo logic, all in one
+  process.  I'm synchronizing the state transition events in particular, and not all signals, but at least one in each conditional
+  that will cause a state transistion
+- I removed the bus jumper and put the systemboard in place, and it was misbehaving again, which I at first though because the logic
+  for it doesn't sync, but then remembered the bus_acquired signal is used by the k30p to transistion, and after adding a fifo to
+  that signal, it seems to be working fine now without ever hanging/getting a bus error.  So synchronization really was the problem.
+- I always hear it said that everything has to be synchronized, but I like to try to do without it if I can to save on gates/flip
+  flops, which is more an issue in the AFT1508 than in the iCE40.  Still, it's nice to have some confirmation, however imperfect
+  that it's necessary
+
+- Now I say the above, but after thinking about it for a sec, I previously had issues with weird state transitions where adding
+  synchronization seemed to fix it, but changing the clocks a bit ended up breaking it again, so I'm not entirely confident that
+  this is the fix.  But that bus_acquired signal is more convincing than the initial fifo change.  I guess we'll see if it occurs
+  again, especially when I try speeding up the CPU

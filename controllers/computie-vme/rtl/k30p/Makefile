@@ -6,8 +6,8 @@ RUN_FITTER = $(TOOLS)/atf15xx_yosys/run_fitter.sh
 buslogic: buslogic.jed
 buslogic_test: buslogic_test.jed
 
-buslogic.edif: vmebus_interface.v interrupts.v
-buslogic_test.edif: vmebus_interface.v interrupts.v
+buslogic.edif: vmebus_interface.v interrupts.v local_peripherals.v
+buslogic_test.edif: vmebus_interface.v interrupts.v local_peripherals.v
 
 ##############
 # Synthesis  #

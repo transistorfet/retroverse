@@ -4,18 +4,29 @@ module address_decode(
     input [3:0] address_high,
     input n_address_top,
 
-    output reg request_ram,
-    output reg request_rom,
-    output reg request_serial,
-    output reg request_vme_a16,
-    output reg request_vme_a24,
-    output reg request_vme_a40,
-    output reg request_unmapped
+    output request_ram,
+    output request_rom,
+    output request_serial,
+    output request_vme_a16,
+    output request_vme_a24,
+    output request_vme_a40,
+    output request_unmapped
 );
 
     localparam ACTIVE = 1'b0;
     localparam INACTIVE = 1'b1;
 
+    // TODO testing whether the flip flops of the previous decode logic was causing problems with the VME cycle
+    // it seems to reduce the frequency of issues, but the logic traces still show a double cycle when there shouldn't be one (CPU_AS only goes low once, but VME_AS goes low twice)
+    assign request_rom = (cpu_as == ACTIVE) && (n_address_top == INACTIVE) && (address_high == 4'h0) ? ACTIVE : INACTIVE;
+    assign request_ram = (cpu_as == ACTIVE) && (n_address_top == INACTIVE) && (address_high == 4'h1 || address_high == 4'h2) ? ACTIVE : INACTIVE;
+    assign request_serial = (cpu_as == ACTIVE) && (n_address_top == INACTIVE) && (address_high == 4'h7) ? ACTIVE : INACTIVE;
+    assign request_vme_a16 = (cpu_as == ACTIVE) && (n_address_top == ACTIVE) && (address_high == 4'hF) ? ACTIVE : INACTIVE;
+    assign request_vme_a24 = (cpu_as == ACTIVE) && (n_address_top == ACTIVE) && (address_high != 4'hF) ? ACTIVE : INACTIVE;
+    assign request_vme_a40 = INACTIVE;
+    assign request_unmapped = INACTIVE;
+
+/*
     always @(*) begin
         request_ram <= INACTIVE;
         request_rom <= INACTIVE;
@@ -26,24 +37,27 @@ module address_decode(
         request_unmapped <= INACTIVE;
 
         if (cpu_as == ACTIVE) begin
-            case (address_high)
-                4'h0: request_rom <= ACTIVE;
-                4'h1: request_ram <= ACTIVE;
-                4'h2: request_ram <= ACTIVE;
-                4'h7: request_serial <= ACTIVE;
-                default: begin
-                    if (address_high == 4'hF && n_address_top == ACTIVE) begin
-                        request_vme_a16 <= ACTIVE;
-                    end else if (n_address_top == ACTIVE) begin
-                        request_vme_a24 <= ACTIVE;
-                    end else begin
+            if (n_address_top == INACTIVE) begin
+                case (address_high)
+                    4'h0: request_rom <= ACTIVE;
+                    4'h1: request_ram <= ACTIVE;
+                    4'h2: request_ram <= ACTIVE;
+                    4'h7: request_serial <= ACTIVE;
+                    default: begin
                         request_vme_a40 <= ACTIVE;
                         //request_unmapped <= ACTIVE;
                     end
+                endcase
+            end else begin
+                if (address_high == 4'hF) begin
+                    request_vme_a16 <= ACTIVE;
+                end else begin
+                    request_vme_a24 <= ACTIVE;
                 end
-            endcase
+            end
         end
     end
+*/
 endmodule
 
 

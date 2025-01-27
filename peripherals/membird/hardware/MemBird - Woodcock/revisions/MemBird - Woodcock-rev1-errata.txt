@@ -1,0 +1,11 @@
+
+Revision 1 Errata and Notes
+===========================
+
+- the logic that drives BERR has a ringing that dips below the ON threshold causing a small blip in
+  BERR, which could very well be interpreted as a failure.  It doesn't seem to be caught in time by
+  the k30p, but it's definitely incorrect.  It's likely caused by the delay between the two inputs,
+  which have to both be on at the same time in order for the request to be "valid" (ie. not BERR).
+  This may not actually be the fault of this card though, as the CPU card is not delaying the
+  assertion of AS until 35ns after the address and address mod signals become active
+

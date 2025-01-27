@@ -1,5 +1,11 @@
 
-* rearrange the repository: either make "projects" be the top level or maybe invert the repository, but then you'd have to make an
+* fix the logic issue that's causing the bus cycle to end too early, before the CPU's AS is deasserted, which then causes a berr
+
+* figure out why it doesn't boot correctly when first powered on.  Maybe the CPLD needs a special reset line, or it needs to be
+  programmed to reset more than it does, or it needs to hold the reset low or something.  If it can't be solved in logic, I'll need
+  to find a hardware solution
+
+* rearrange the repository: either make "components" be the top level or maybe invert the repository, but then you'd have to make an
   exception for the website: projects, boards, components
 * change the license
 

@@ -1,0 +1,11 @@
+
+Revision 1 Errata and Notes
+===========================
+
+- the holes that connect to the board are slightly too far apart, so the panel has a tendency to bow
+  outwards unless the holes are adjusted
+
+- since I printed it in 1.6mm thick aluminum instead of 2mm thick like the VME spec uses, the
+  alignment posts for the fixed handle that's part of the Schroff 20818018 3U 4HP frontpanel kit
+  have to be filed down or else it will interfere with the metal bracket pieces and not lay flat
+
