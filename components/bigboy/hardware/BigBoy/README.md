@@ -2,7 +2,7 @@
 BigBoy
 ======
 
-Status: Built & Tested but with problems
+Status: Built & Tested but with design issues (see errata)
 
 Latest: Rev. 1
 
