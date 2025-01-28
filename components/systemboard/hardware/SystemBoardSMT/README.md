@@ -15,7 +15,7 @@ programmed in the logic to reset all devices on the bus.
 
 [Revision 1 Notes & Errata](revisions/SystemBoardSMT-rev1-errata.txt)
 
-[Revision 2 Schematic](revisions/SystemBoardSMT-rev1.pdf)
+[Revision 1 Schematic](revisions/SystemBoardSMT-rev1.pdf)
 
 [Revision 1 Gerbers](revisions/SystemBoardSMT-rev1.zip)
 

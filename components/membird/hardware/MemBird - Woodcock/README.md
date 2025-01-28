@@ -17,12 +17,12 @@ They are very cute birds, with an adorable walk, and a funny call
 https://www.youtube.com/watch?v=fpCO6CUH8Zc
 https://www.youtube.com/watch?v=97nnyyvXzmA
 
-[Revision 1 Notes & Errata](revisions/MemBird - Woodcock-rev1-errata.txt)
+[Revision 1 Notes & Errata]("revisions/MemBird - Woodcock-rev1-errata.txt")
 
-[Revision 1 Schematic](revisions/MemBird - Woodcock-rev1.pdf)
+[Revision 1 Schematic]("revisions/MemBird - Woodcock-rev1.pdf")
 
-[Revision 1 Gerbers](revisions/MemBird - Woodcock-rev1.zip)
+[Revision 1 Gerbers]("revisions/MemBird - Woodcock-rev1.zip")
 
-![alt text](images/MembirdWoodcock-rev.1-assembled.jpg "The fully assembled and unplugged MemBird Woodcock Memory Card, with red solder mask, white silkscreen text, and a big greyish-white DIN41612 connector on the right side.  A silkscreen picture of an American Woodcock bird is near the top.")
-![alt text](images/MembirdWoodcock-rev.1-assembled-in-backplane.jpg "The fully assembled MemBird Woodcock Memory Card in the backplane, with red solder mask and white silkscreen text")
+![alt text](../../../../images/MembirdWoodcock-rev.1-assembled.jpg "The fully assembled and unplugged MemBird Woodcock Memory Card, with red solder mask, white silkscreen text, and a big greyish-white DIN41612 connector on the right side.  A silkscreen picture of an American Woodcock bird is near the top.")
+![alt text](../../../../images/MembirdWoodcock-rev.1-assembled-in-backplane.jpg "The fully assembled MemBird Woodcock Memory Card in the backplane, with red solder mask and white silkscreen text")
 

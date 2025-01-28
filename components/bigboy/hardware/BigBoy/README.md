@@ -13,7 +13,7 @@ I had intended to use it as a bus analyzer, but it's a bit too slow for the k30p
 
 [Revision 1 Notes & Errata](revisions/BigBoy-rev1-errata.txt)
 
-[Revision 2 Schematic](revisions/BigBoy-rev1.pdf)
+[Revision 1 Schematic](revisions/BigBoy-rev1.pdf)
 
 [Revision 1 Gerbers](revisions/BigBoy-rev1.zip)
 
