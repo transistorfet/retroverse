@@ -61,6 +61,10 @@ Why Not VMEBus?
 
 * it's slower than newer buses like CompactPCI
 
+* if using passive termination instead of active termination, it can draw a lot of current
+
+* each signal can draw a fair amount of current, possible out of range of your drivers
+
 
 About VMEbus
 ------------
@@ -88,6 +92,18 @@ Other VME Projects
 * [https://hackaday.io/project/192539-comet68k](https://hackaday.io/project/192539-comet68k)
 * [https://github.com/tomstorey/COMET](https://github.com/tomstorey/COMET)
 * computer card is missing bus arbitration, but the backplane supports it
+
+
+Single-CPU System
+-----------------
+
+This is generally where I'm at.  I have a simple single-CPU system with SystemBoard, k30p-VME, Tom
+Storey's CF Card, and MemBird Woodcock (although it's not used by the software atm).  It can boot
+Gloworm, using the CF card as the ATA device, and the FTDIs on k30p as the TTY and network SLIP
+connection.  I can ping it from my computer over SLIP, and run applications off the CF card.
+
+![alt text](images/basic-single-cpu-system-angle.jpg "A green PCB backplane that says Schroff with white DIN41612 connectors, and 4 cards plugged into the first 4 of 11 slots.  The first and last are short 100mm long cards with the last being red and shown clearly while the first is black and is mostly obscured by the others.  The second card is purple with a white aluminum frontpanel that says 'ComputieVME', a Motorola logo, and 'k30p-VME' near the top in black text, with a trapezoid grey handle at the bottom, and two USB-C cables coming out of the frontpanel, the top one being a mauve and the the bottom being a light teal green.  The third card is green and has a compact flash card sticking out the top with no frontpanel.  The view is looking mostly down and to the left with the backplane flat on a black metal shelving unit about waist high, with the cards sticking upwards.  An oscilloscope can be be seen on the same shelf behind the backplane, and a small white fan is just out of view.")
+![alt text](images/basic-single-cpu-system-side-angle.jpg "A green PCB backplane with white DIN41612 connectors, and 4 cards plugged into the first 4 of 11 slots.  The first and last are short 100mm long cards with the last being red and can mostly been seen while the first is black and is mostly obscured by the others.  The second card is purple with a white aluminum frontpanel with a trapezoid grey handle at the bottom, and two USB-C cables coming out of the frontpanel, the top one being a mauve and the the bottom being a light teal green.  The third card is green and has a compact flash card sticking out the top with no frontpanel.  The view is looking mostly sideways and a bit to the left, with backplane flat on a black metal shelving unit about waist high, with the cards sticking upwards.  An oscilloscope can be be seen on the same shelf behind the backplane, partially obscured by the cards.  A small white fan is just out of view, and a small teal desk lamp is in the foreground shining on the cards.")
 
 
 Desktop Case
@@ -136,6 +152,7 @@ port controller that's using a different power source.  The full errata is here:
 
 ![alt text](images/k30p-VME-rev.1-assembled.jpg "The fully assembled and unplugged k30p-VME CPU Card, with purple solder mask, white silkscreen text, and a big greyish-white DIN41612 connector on the right side.  A big black plastic PGA chip in the centre reads MC68030RP33B.  There is some rework to the transceivers on the right, with some chip resistors and red 30AWG wire soldered in place, and a red daughter PCB with an FTDI USB-to-Serial convertor is connected on the left")
 ![alt text](images/k30p-VME-rev.1-assembled-in-backplane.jpg "The fully assembled k30p-VME CPU Card in the backplane, with purple solder mask and white silkscreen text")
+![alt text](images/k30p-rev.1-frontpanel.jpg "The frontpanel, which is an aluminum PCB with white solder mask and black text labels, with the name 'ComputieVME' at the top, a Motorola logo beside the screw for the card bracket behind, and 'k30p-VME' below that.  Next are two green LEDs side by side labelled 'STATUS / RUN', then a red reset button, then 4 yellow LEDs in a 2 x 2 pattern with labels 'OP 4 / OP5' and 'OP6 / OP7', and then two black buttons next to each other labelled 'IP 2 / IP3'. Then there are two USB-C connectors angled up and down with a mauve cable in the USB1 and a teal green cable in USB2.  Finally there is a grey trapezoid handle from Schroff with a bare aluminum front piece that is mostly obscuring the rest of the handle.  The top and bottom have screws to hold the card into a case (which isn't present) with grey plastic collars to hold the screws in place.")
 
 
 MemBird Woodcock
@@ -174,4 +191,21 @@ bus grant from this card.
 
 ![alt text](images/SystemboadSMT-rev.1-assembled.jpg "The fully assembled and unplugged SystemboardSMT System Card, with matte black solder mask, white silkscreen text, and a big greyish-white DIN41612 connector on the right side.")
 ![alt text](images/SystemboadSMT-rev.1-assembled-in-backplane.jpg "The fully assembled SystemboardSMT System Card in the backplane, with matte black solder mask, white silkscreen text")
+
+
+BigBoy
+------
+
+This was the first card I made and I intended to use it as a bus analyzer among other things, but
+it's a bit too slow to catch most cycles, so I think I'll need an FPGA card instead for that
+function, but it can work as a slow peripheral.  It has an STM32H743 microcontroller in a 208 pin
+QFP package in the centre with the 5V tolerant I/O connected directly to the VME bus for the control
+signals, and through transceivers for the data and address signals.  On the board is also a 100BaseT
+ethernet interface, a full speed USB port (so 12Mbps I assume is the fastest), a microSD card slot
+(where I accidentally put the footprint on backwards), and a few headers for external FTDIs, I2C,
+and SPI device.
+
+![alt text](images/BigBoy-rev.1.jpg "A PCB with blue solder mask and white silkscreen with a large black chip in the centre at a 45 degree angle with the text on it upside down (unintentionally design that way). It has a large grep DIN41612 connector on the right side, and a metal-shielded RJ-45 jack and some buttons and LEDs on the left.")
+![alt text](images/BigBoy-rev.1-assembled.jpg "A PCB with blue solder mask and white silkscreen with a large black chip in the centre at a 45 degree angle with the text on it upside down, plugged into a green backplane with the card sticking upwards.  A rainbow of others cards can just be seen behind the blue card: red, green, purle, and black from nearest to furthest.")
+![alt text](images/BigBoy-rev.1-frontpanel.jpg "The frontpanel, which is an aluminum PCB with white solder mask and black text labels, with the name 'BigBoy' at the top, above a chrome-plated screw.  Next downard are 4 blue LEDs in a 2 x 2 pattern, two black pushbuttons side-by-side, a microSD card slot, a micro USB connector with a large oval cutout in the frontpanel, and then an RJ-45 jack with a very large square cutout in the frontpanel which leaves less than a millimeter of aluminum on the top side of the connector/right side of the panel when oriented vertically.")
 
