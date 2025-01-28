@@ -2,7 +2,7 @@
 k30p-VME
 ========
 
-Status: Built & Tested but with problems
+Status: Built & Tested
 
 Latest: Rev. 1
 
@@ -16,11 +16,11 @@ I've built and tested Rev. 1 but had to do some rework to get it running, and th
 uncorrectable issues with the design that will require a new revision.  The full list of issues is
 available in the errata linked below.  I intend to make a Rev. 2 in the next few months
 
-[Revision 2 Notes & Errata](revisions/k30p-VME-rev1-errata.txt)
+[Revision 1 Notes & Errata](revisions/MemBird - Woodcock-rev1-errata.txt)
 
-[Revision 2 Schematic](revisions/k30p-VME-rev1.pdf)
+[Revision 1 Schematic](revisions/MemBird - Woodcock-rev1.pdf)
 
-[Revision 2 Gerbers](revisions/k30p-VME-rev1.zip)
+[Revision 1 Gerbers](revisions/MemBird - Woodcock-rev1.zip)
 
 ![alt text](../../../../images/k30p-VME-rev.1-assembled.jpg "The fully assembled and unplugged k30p-VME CPU Card, with purple solder mask, white silkscreen text, and a big greyish-white DIN41612 connector on the right side.  A big black plastic PGA chip in the centre reads MC68030RP33B.  There is some rework to the transceivers on the right, with some chip resistors and red 30AWG wire soldered in place, and a red daughter PCB with an FTDI USB-to-Serial convertor is connected on the left")
 

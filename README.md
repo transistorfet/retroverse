@@ -19,15 +19,25 @@ affordable for PCB printing, and it's possible to make 100x100mm cards, which ca
 low as $2.  The bus is perhaps slow by modern standards, but for CPUs that are below 100MHz, it's
 the perfect bus to build 16-bit and 32-bit retro computers around.
 
-My intention is to build a backplane, dedicated bus arbitration and interrupt controller card, and a
-generic 68030-based CPU card to start.  I have ordered an off-the-shelf desktop card case from
-[Schroff](https://schroff.nvent.com/en-de/products/enc24576-106) via Digikey, on backorder, and I
-plan to adapt an affordable [MeanWell power supply](https://www.meanwell.com/productPdf.aspx?i=488).
-I'm hoping to be able to install multiple CPU cards into the same system to make a simple
-multiprocessor machine.  I've already made a generic card using a microcontroller wired to the bus,
-that I intended to use as a bus analyzer called
-[BigBoy](https://github.com/transistorfet/retroverse/tree/main/controllers/bigboy), but I haven't
-written software for it yet.
+I have ordered an off-the-shelf desktop card case from
+[Schroff](https://schroff.nvent.com/en-de/products/enc24576-106) via Digikey, on backorder, a used
+Schroff 3U 11-slot backplane from eBay, and I plan to adapt an affordable [MeanWell power
+supply](https://www.meanwell.com/productPdf.aspx?i=488) to power it.  I'm hoping to be able to
+install multiple CPU cards into the same system to make a simple multiprocessor machine.  I've
+already made a generic card using a microcontroller wired to the bus, that I intended to use as a
+bus analyzer called
+[BigBoy](https://github.com/transistorfet/retroverse/tree/main/components/bigboy), but it's a bit
+too slow for that so I'll try instead to use it as a generic peripheral.  I've also made a CPU card
+with a MC68030, onboard RAM, Flash, and serial ports, and a small 16-bit memory card with up to 4MB
+of static RAM, a board for handling the bus arbitration and interrupt signals on the bus (separate
+instead of as part of the CPU card because it will be a multiprocessor system), and I've built Tom's
+CompactFlash card from COMET to use as the main storage drive for the system.
+
+I had originally intended to design and build my own backplane using 4-row connectors with some of
+the P2 connector's signals on an extended P1, but I abandoned that idea in the interest of
+interoperability and ended up buying a used 11-slot Schroff backplane from eBay.  Tom Storey has
+designed a 3-slot and 8-slot backplane as part of [COMET](https://github.com/tomstorey/COMET) which
+is a good choice for that wish to build their own.
 
 I also intend to eventually make a 68010 version using only DIP chips and hopefully all hardwired
 logic, so that a specialized PLD programmer won't be needed to build one.  I might also make cards
@@ -148,7 +158,7 @@ the computer every time the board was power cycled, which was quite a problem wh
 to rework it to power from the USB bus, but that didn't work, so I removed it and am using an
 external FTDI, which is powered by the bus and doesn't seem to have a problem talking to the serial
 port controller that's using a different power source.  The full errata is here:
-[k30p-VME-rev1-errata](https://github.com/transistorfet/retroverse/blob/main/controllers/computie-vme/hardware/k30p-VME/revisions/k30p-VME-rev1-errata.txt)
+[k30p-VME-rev1-errata](https://github.com/transistorfet/retroverse/blob/main/components/computie-vme/hardware/k30p-VME/revisions/k30p-VME-rev1-errata.txt)
 
 ![alt text](images/k30p-VME-rev.1-assembled.jpg "The fully assembled and unplugged k30p-VME CPU Card, with purple solder mask, white silkscreen text, and a big greyish-white DIN41612 connector on the right side.  A big black plastic PGA chip in the centre reads MC68030RP33B.  There is some rework to the transceivers on the right, with some chip resistors and red 30AWG wire soldered in place, and a red daughter PCB with an FTDI USB-to-Serial convertor is connected on the left")
 ![alt text](images/k30p-VME-rev.1-assembled-in-backplane.jpg "The fully assembled k30p-VME CPU Card in the backplane, with purple solder mask and white silkscreen text")
@@ -204,6 +214,15 @@ signals, and through transceivers for the data and address signals.  On the boar
 ethernet interface, a full speed USB port (so 12Mbps I assume is the fastest), a microSD card slot
 (where I accidentally put the footprint on backwards), and a few headers for external FTDIs, I2C,
 and SPI device.
+
+It's called BigBoy because it has the big boy microcontroller in the largest TQPF package available,
+with a big 4-row DIN41612 connector which was an idea to add an extra row to P1 for the upper data
+and address signals of a 32-bit system, which is optional (the 4-row connector can be plugged into a
+3-row or 4-row backplane).  I've mostly abandoned this idea in favour of sticking to the standard,
+and using the A40/MD32 cycle on a 3U system, or perhaps eventually making a 6U system and cards if I
+want full-sized, higher speed, 32- or 64-bit systems in the future, all while maintaining
+interoperability with existing used backplanes.  The logo is of Bronson the Cat who is *such a big
+boy*
 
 ![alt text](images/BigBoy-rev.1.jpg "A PCB with blue solder mask and white silkscreen with a large black chip in the centre at a 45 degree angle with the text on it upside down (unintentionally design that way). It has a large grep DIN41612 connector on the right side, and a metal-shielded RJ-45 jack and some buttons and LEDs on the left.")
 ![alt text](images/BigBoy-rev.1-assembled.jpg "A PCB with blue solder mask and white silkscreen with a large black chip in the centre at a 45 degree angle with the text on it upside down, plugged into a green backplane with the card sticking upwards.  A rainbow of others cards can just be seen behind the blue card: red, green, purle, and black from nearest to furthest.")
