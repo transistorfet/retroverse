@@ -110,6 +110,9 @@ Other VME Projects
 * [https://github.com/tomstorey/COMET](https://github.com/tomstorey/COMET)
 * computer card is missing bus arbitration, but the backplane supports it
 
+[If you know of any other hobbyist VME components or projects that others can build, please get in
+contact with me.  I'd love to add them to this list]
+
 
 Single-CPU System
 -----------------
