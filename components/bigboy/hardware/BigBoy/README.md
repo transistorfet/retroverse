@@ -11,6 +11,8 @@ Latest: Rev. 1
 A generic card with an STM32H7 microcontroller on it that interfaces to the VME bus using GPIO.
 I had intended to use it as a bus analyzer, but it's a bit too slow for the k30p CPU at 12.5MHz.
 
+The logo is of [Bronson the Cat](https://www.instagram.com/iambronsoncat/?hl=en)
+
 [Revision 1 Notes & Errata](revisions/BigBoy-rev1-errata.txt)
 
 [Revision 1 Schematic](revisions/BigBoy-rev1.pdf)

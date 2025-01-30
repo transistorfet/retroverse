@@ -13,23 +13,24 @@ Revision 1 Errata and Notes
   connect it backwards
 
 - inrush current is about 1.4A even though in only takes 100mA without the socketed chips.  Maybe
-  you should add a 100 ohm resistor to limit the inrush, at least for select components
+  I should add a 100 ohm resistor to limit the inrush, at least for select components
 
-- the oscillator with a 50MHz crystal seems to be going at 16.666 MHz instead, and I think it's the
-  15k resistor across the crystal.  I'm seeing 1M ohm or even higher used in a lot of places.  If I
-  put a big resistor in parallel (which should actually reduce the resistance below 15k), it starts
-  going at 50MHz, so it's definitely related to the resistor, but I'll have to play with sizes.  It
-  turns out a 1K worked instead
+- the oscillator with a 50MHz crystal seems to be running at 16.666 MHz instead, and I think it's
+  related to the 15k resistor across the crystal.  I'm seeing 1M ohm or even higher used in a lot of
+  places, but if I put a big resistor in parallel (which should actually reduce the resistance below
+  15k), it starts running at 50MHz, so it's definitely related to the resistor, but I'll have to play
+  with sizes.  It turns out a 1K worked instead
 
 - I've hooked up the USB-C connector incorrectly.  I only wired up one differential pair, but I
   should have jumped them to the matching pair, which are broken out as separate pins, and I also
   needed to add 5.1k pull down resistors to the CC1 and CC2 signals.  Apparently these are required.
   That said, I'm using a cable that only has the 4 pin USB-A connector on the other end, so I'm not
   sure this alone can explain why it's not enumerating at all.  As it turned out, it's working now,
-  and I haven't tested it since I reflowed the FTDI so maybe that fixed it. [Ed: I've since
-  determined that it depends on what orientation the USB-C connector is connected in, since the
-  adjacent pairs are not jumped on the board, and they seem to not be jumped in the cable or in the
-  connector, which just seems so weird]
+  and I haven't tested it since I reflowed the FTDI so maybe that fixed it. [Ed: I've since determined
+  that it depends on what orientation the USB-C connector is connected in, since the adjacent pairs
+  are not jumped on the board, and they seem to not be jumped in the cable or in the connector, which
+  I would have expected given that it's supposed to be for USB 2.0, but I guess it's up to the board
+  to choose to connect them]
 
 - the FTDI disconnects whenever power is cycled to the board, unlike the other boards I've had.
   This is because I wired it up as a self-powered device and not a bus-powered device like the
@@ -44,7 +45,7 @@ Revision 1 Errata and Notes
   recognizing that touching the board was somehow causing it, but unreliably, and looking at what
   was connected around those areas
 
-- if you had a power jumper for all 5V for the board (on every board, not just this one), you could
+- if I had a power jumper for all 5V for the board (on every board, not just this one), I could
   figure out which board is drawing what current
 
 - the CPLD can't directly see the upper 8 address lines, besides knowing that they're all high, so

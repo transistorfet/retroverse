@@ -1,19 +1,18 @@
 
-* fix the logic issue that's causing the bus cycle to end too early, before the CPU's AS is deasserted, which then causes a berr
+* take pictures of k30p with latest rework, and update pictures in repo
+* fix systemboard reset button, which still doesn't reset the whole bus
+* change the license
 
 * figure out why it doesn't boot correctly when first powered on.  Maybe the CPLD needs a special reset line, or it needs to be
   programmed to reset more than it does, or it needs to hold the reset low or something.  If it can't be solved in logic, I'll need
   to find a hardware solution
 
-* rearrange the repository: either make "components" be the top level or maybe invert the repository, but then you'd have to make an
-  exception for the website: projects, boards, components
-* change the license
+* make an extension board for membird that extend it to 160mm without needing the connectors that the riser board has
 
 * make a simple peripheral with bigboy, possibly even a dummy ATA device to help with driver writing
 
 * solder the riser board
 * reflow the systemboard CPLD
-* try soldering another FTDI to the board, but with the power pin lifted
 
 * test one of the real VME cards to see if it has the BERR blip too when AS is asserted too fast (I think it does)
 * can you somehow fix the glitch on membird woodcock with berr being asserted.  Is the actual fix to delay the assertion of AS on
