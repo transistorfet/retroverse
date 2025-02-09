@@ -5,3 +5,9 @@ Revision 1 Errata and Notes
 - the reset button doesn't have a pull-up resistor on it, so it always reads as low
 
 - the silkscreen label for JP3 doesn't say its function (VCC for JTAG)
+
+- the capacitor on the reset button is way too low.  I need to test with some intermediate values,
+  but 0.1 or even 0.47uF is too low for a power-on reset to be detected by the CPLD.  10uF
+  definitely works and will reset the whole system when powered, but maybe a 1uF ceramic would be
+  enough.  I'll have test more
+

@@ -137,7 +137,7 @@ backorder but the listing was uncategorized, so you had to search specifically f
 to find it.
 
 * [https://schroff.nvent.com/en-ca/products/enc24576-006](https://schroff.nvent.com/en-ca/products/enc24576-006)
-* [https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A](https://www.digikey.ca/en/products/detail/schroff/24576006/24659562?s=N4IgTCBcDaIARgCwFYDsA2AtABm%2BkAugL5A)
+* [https://www.digikey.ca/en/products/detail/schroff/24576006/24659562](https://www.digikey.ca/en/products/detail/schroff/24576006/24659562)
 
 
 Backplane

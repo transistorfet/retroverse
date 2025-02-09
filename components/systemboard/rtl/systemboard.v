@@ -4,20 +4,20 @@ module systemboard(
     output reg status_led,
 
     output vme_sysclk,
-    //inout vme_sysreset,
+    inout vme_sysreset,
 
     input vme_address_strobe,
     input [1:0] vme_data_strobe,
     input vme_lword,
     input vme_write,
-    inout vme_dtack,
+    //inout vme_dtack,
     //inout vme_berr,
     input [5:0] vme_address_mod,
     input [23:0] vme_address,
-    inout [7:0] vme_data,
+    //inout [7:0] vme_data,
 
     //inout vme_bbsy,
-    inout vme_bclr,
+    //inout vme_bclr,
     output reg [3:0] vme_bgout,
     input [3:0] vme_br
 
@@ -50,6 +50,7 @@ module systemboard(
     reg [1:0] current;
     reg [3:0] request_mask;
     //reg [23:0] vme_address_out;
+    reg vme_sysreset_out;
 
     //assign vme_address = vme_dtb_output_enable == 1'b1 ? vme_address_out : 24'hZZZZZZ;
 
@@ -57,20 +58,39 @@ module systemboard(
     //assign status_led = 1'b0;
 
     //assign vme_address_strobe = (vme_address_1 == 1'b1) ? 1'b0 : 1'bZ;
+    assign vme_sysreset = (vme_sysreset_out == ACTIVE) ? 1'b0 : 1'bZ;
+
+    reg [9:0] counter;
+    always @(posedge clock) begin
+        if (reset == ACTIVE) begin
+            vme_sysreset_out <= ACTIVE;
+            counter <= 10'b0;
+        end else begin
+            if (vme_sysreset_out == ACTIVE) begin
+                counter <= counter + 10'b1;
+                if (counter == 10'h3ff) begin
+                    vme_sysreset_out <= INACTIVE;
+                end
+            end
+        end
+    end
 
     ///
     /// Bus Arbitrator Logic
     ///
     always @(posedge clock) begin
-        //if (reset == ACTIVE) begin
-        //    state <= IDLE;
-        //    vme_bclr <= INACTIVE;
-        //    vme_bgout <= 4'b1111;
-        //end else begin
+        if (reset == ACTIVE) begin
+            state <= IDLE;
+            //vme_bclr <= INACTIVE;
+            vme_bgout <= 4'b1111;
+            status_led <= 1'b1;
+        end else begin
+            status_led <= 1'b0;
+
             case (state)
                 IDLE: begin
                     //vme_dtb_output_enable <= 1'b0;
-                    vme_bclr <= INACTIVE;
+                    //vme_bclr <= INACTIVE;
                     vme_bgout <= 4'b1111;
 
                     if (vme_br != 4'b1111) begin
@@ -117,13 +137,14 @@ module systemboard(
                 default:
                     state <= IDLE;
             endcase
-        //end
+        end
     end
 
     ////////////////////////////
     /// Dummy Peripheral Logic
     ////////////////////////////
 
+    /*
     localparam DEVICE_IDLE = 2'h0;
     localparam DEVICE_RESPOND = 2'h1;
     localparam DEVICE_END = 2'h2;
@@ -140,7 +161,6 @@ module systemboard(
     assign vme_data = (requested_self && !(vme_data_strobe[0] == INACTIVE && vme_data_strobe[1] == INACTIVE) && vme_write == INACTIVE) ? 8'h37 : 8'bZZZZZZZZ;
     assign status_led = 1'b0;
 
-/*
     always @(posedge clock) begin
         case (device_state)
             DEVICE_IDLE: begin
@@ -180,7 +200,7 @@ module systemboard(
             end
         endcase
     end
-*/
+    */
 
 endmodule
 // Pin assignment for the experimental Yosys Flow
@@ -188,7 +208,8 @@ endmodule
 //PIN: CHIP "systemboard" ASSIGNED TO AN TQFP100
 //PIN: clock                    : 87
 //PIN: reset                    : 89
-//PIN: status_led                : 2
+//PIN: status_led               : 2
+//PIN: vme_sysreset             : 1
 //PIN: vme_sysclk               : 85
 //PIN: vme_bbsy                 : 84
 //PIN: vme_bclr                 : 83
@@ -204,7 +225,6 @@ endmodule
 //PIN: vme_data_strobe_1        : 5
 //PIN: vme_data_strobe_0        : 6
 //PIN: vme_write                : 7
-//PIN: vme_dtack                : 8
 //PIN: vme_address_strobe       : 9
 //PIN: vme_address_mod_0        : 10
 //PIN: vme_address_mod_1        : 12
@@ -246,26 +266,12 @@ endmodule
 //PIN: vme_data_6               : 93
 //PIN: vme_data_7               : 92
 
-//P IN: vme_sysreset             : 1
 //P IN: vme_serclk               : 21
 //P IN: vme_serdat               : 22
-//P IN: clock                    : 87
-//P IN: vme_sysclk               : 85
-//P IN: vme_bbsy                 : 84
-//P IN: vme_bclr                 : 83
-//P IN: vme_acfail               : 81
 //P IN: vme_bgin_0               : 80
-//P IN: vme_bgout_0              : 79
 //P IN: vme_bgin_1               : 78
-//P IN: vme_bgout_1              : 77
 //P IN: vme_bgin_2               : 76
-//P IN: vme_bgout_2              : 75
 //P IN: vme_bgin_3               : 72
-//P IN: vme_bgout_3              : 71
-//P IN: vme_br_0                 : 70
-//P IN: vme_br_1                 : 69
-//P IN: vme_br_2                 : 68
-//P IN: vme_br_3                 : 67
 //P IN: vme_sysfail              : 65
 //P IN: vme_iackin               : 64
 //P IN: vme_iackout              : 63

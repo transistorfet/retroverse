@@ -1,124 +1,66 @@
 
-* take pictures of k30p with latest rework, and update pictures in repo
-* fix systemboard reset button, which still doesn't reset the whole bus
 * change the license
 
+* fix systemboard reset button, which still doesn't reset the whole bus
 * figure out why it doesn't boot correctly when first powered on.  Maybe the CPLD needs a special reset line, or it needs to be
   programmed to reset more than it does, or it needs to hold the reset low or something.  If it can't be solved in logic, I'll need
   to find a hardware solution
+* add support for interrupts on the VME bus, which will require those extra address pins you connected
+* add the unmapped address thing which should cause a bus error on unmapped
+* try up-clocking the CPU and make sure it can still run off the memory card
 
-* make an extension board for membird that extend it to 160mm without needing the connectors that the riser board has
-
+* gloworm: you need to improve the makefiles so you can support other platforms and driver combinations
 * make a simple peripheral with bigboy, possibly even a dummy ATA device to help with driver writing
 
-* solder the riser board
-* reflow the systemboard CPLD
+* commit changes to CF Card and put it on github
+* design a frontpanel for the CF Card, or else you could try cutting one, but I don't expect it to be easy or pretty if I do (do I
+  need to build my own CNC machine?)
+
+
+* make an extension board for membird that extend it to 160mm without needing the connectors that the riser board has
+  It could have a power switch so the board under test can be cycled without cycling the system, and add headers near the front so
+  you can connect a logic analyzer without needing to open the back of the case
+* make an extension board that goes on the other end of the board, unlike the one with the two connectors, which cost more.  Just
+  make one that somehow bolts to the existing 100mm card's frontpanel holes, and then has its own frontpanel bracket holes for the
+  actual bracket and frontpanel
 
 * test one of the real VME cards to see if it has the BERR blip too when AS is asserted too fast (I think it does)
 * can you somehow fix the glitch on membird woodcock with berr being asserted.  Is the actual fix to delay the assertion of AS on
   the CPU card, since it's supposed to be 35ns delay, which would be more than enough to avoid this race condition
 
-* try up-clocking the CPU and make sure it can still run off the memory card
-* there is an issue with commenting out request_vme_a40 which makes it read all high (DS is not held until the end)
-* if no support for A40, change the addressing so that it will produce BERR for missing devices (berr logic is probably related to above)
-
-* add support for interrupts on the VME bus, which will require those extra address pins you connected
 * add support for the A40 cycle to CPU card
-* solder up the CF card
-* write drivers for the CF card
 * turn bigboy into an ethernet card
-
-
-* gloworm: you need to improve the makefiles so you can support other platforms and driver combinations
 
 * figure out how you want to fix the upper addressing issue with the CPLD
 
-* make bigboy able to print out the memory card accesses.  I think they're going too fast
 
-* make an extension board that goes on the other end of the board, unlike the one with the two connectors, which cost more.  Just
-  make one that somehow bolts to the existing 100mm card's frontpanel holes, and then has its own frontpanel bracket holes for the
-  actual bracket and frontpanel
 
 * write a post about something
 
 * design sdram card with ice40 fpga, printed in yellow?  called MemBird - Raven?  Something else if it's not black solder mask?
 * design a board that uses a raspi compute module?  so basically the VME interface?
+* make a breakout board, which you can design now and use with the components on order, to connect a logic analyzer
+
 
 * if you put a right angle toggle switch for power on the front of the board (I guess bottom frontpanel would be easiest), then you
   could power off the board when it's in the slot, and pull it out without powering off the whole backplane.  It's probably only
   useful for CPU cards and might be more hassle in routing than it's worth, but would be a nice feature
+* could add a microcontroller that monitors power and halt and resets the CPU after a period if it's locked up, and possibly other
+  functions.  It might not be easy to make it accessible to the CPU on the controller card, but it could possibly be hooked up to
+  the serial bus and communicate with other peripherals
 
-
-* add ADC voltage monitor to big boy or a bus arbiter board to give a failure signal if the voltage is not within range
-  I've had issues in testing where the voltage sagged due to the wire I was using, which could have been low enough to damage a sensitive board, so best if I had a signal for that
-* add detection for the extra bus pins on the 4th row.  If there's no power or something present, then assume it's not connected and the onboard logic can only do multiplexed operations
-
-* for IVC-68k, use an io from the serial controller to swap ram and flash, so it can be used for ProcessorTests validation
-
-* make a breakout board, which you can design now and use with the components on order, to connect a logic analyzer
-
-* should you use active or passive terminating resistors?  I saw somewhere that a backplane with passives draws 1.5A which is a lot, even though this will have its own power supply
-* make an 8 socket backplane to start, 123mm by 178mm or something, which is not too expensive or big
-* for the daisy chain lines, it would be nice to have a switch to bypass a socket, but there are 5 signals.  You can put a hex non-inverting 3 state buffers across each socket and
-  have a single switch for each socket, preferrably a rocking dip switch that can be set with a screwdriver or pencil by reaching in the back.  That would add $1 a socket for the
-  hex invertor, and >$2 for the a dual rocker-type dip switch (singles are $10 at digikey).  Single slide switches are $0.50 or so
-* the nice thing is that you can put it on the board design, but not populate them, and it'll still work.  You just won't be able to skip slots.
-* need to sort out power connector for the backplane, and power requirements
-* you also need a bus arbitrator and interrupt controller, which I think I could make as a separate card that fits into a normal slot (but always slot 0).  It definitely shouldn't
-  go on the CPU card.  I might need an ATF1508 or something to act as interrupt controller, so maybe I should make it a separate card so I can upgrade it.  It only needs a 3-row connector.
-* make the footprints for the DIN sockets on the backplane have 5 rows, such that the middle 3 rows would be populated for standard 3U operation, the right most 4 rows would be
-  for my extended version, where the signals from the P2 socket are on the right most row, or you could use all 5-rows with the VM64x connectors, where the reserved right most
-  row would still be my extended non-standard version, but the right row of ground signals could be added, and the sockets could take either a 3 row or VME64x card instead of
-  requiring a different physical socket the way the 4-row connectors need =/
-
-
-* there is some question of the I/O space, which will be different anyways, so the drivers will have to use different addresses.  It would be nice if the RAM could more easily be
-  variable in size.  This would be ok if you reserved all of 0x00800000 to 0x00FFFFFF for onboard SRAM, and the lower area for I/O and flash, with everything above 0x01000000
-  being on the bus.  (actually I think the upper part of memory is the A16 and A24 address spaces, as part of the VME standard)
-* where should the memory and I/O be mapped?  What if you had a bus that only used A24 space like VME allows? (ie. Z280 or something)
-
-
-* could add a microcontroller that monitors power and halt and resets the CPU after a period if it's locked up, and possibly other functions.  It might not be easy to make it accessible
-  to the CPU on the controller card, but it could possibly be hooked up to the serial bus and communicate with other peripherals
-
-* you can use a mezzanine card for the compactflash, or for all I/O, on the k30 card, to get more space in the 3U form factor
-
-
-* that might be what was meant about DTACK/RETRY/IACK being three stated *and also* open collector, ie. it only pulls up the signal to logic 1 when the current bus controller is
-  requesting a transaction
-
-* the schroff backplane on ebay is using an L272M op amp, which can output 1A
-* a 12 slot backplane is 242.4 mm
 
 BigBoy:
 
+    * add ADC voltage monitor to big boy or a bus arbiter board to give a failure signal if the voltage is not within range I've had
+      issues in testing where the voltage sagged due to the wire I was using, which could have been low enough to damage a sensitive
+      board, so best if I had a signal for that
     * for future revisions, add a voltage and current monitoring circuit (at least current that bigboy is using)
     * should you replace the microUSB with USB-C?  I probably have a bunch of existing microUSB-B connectors, since I used that on fidget...
+    * add detection for the extra bus pins on the 4th row.  If there's no power or something present, then assume it's not connected and
+      the onboard logic can only do multiplexed operations
 
+68k DIP Board:
 
-
-Signals:
-
-    * IACKIN, IACKOUT, [BG0IN - BG3IN], [BG0OUT - BG3OUT] signals can be driven directly and always have the same direction based on the pin function only
-    * BBSY, BERR, DTACK are open collector and change direction based on whether this card is a controller or device at that moment. BBSY is from controller, DTACK and BERR are from the device
-
-    * IACK, SYSRESET, [IRQ1 - IRQ7], and [BR0 - BR3] are all open collector, and effectively bidirectional, but all except SYSRESET are primarily outputs (for controller, don't cares for devices)
-
-    * BCLR, SYSCLK, SERCLK,
-
-
-    The VMEbus signal types are listed below:
-    Open collector signals which require Open Collector drivers and receivers:
-    ACFail, BBSY, BERR, DTACK, IACK, SERDAT, SYSFAIL, SYSRESET, [IRQ1 - IRQ7], and [BR0 - BR3].
-    Three-State signals which require 3-State drivers and receivers:
-    AS, DS0, DS1, DTACK, RETRY, IACK, LWORD, WRITE, [AM0 - AM5], [A01 - A31], and [D00 - D31].
-    Totem-Pole signals which require Totem-Pole drivers and receivers:
-    BCLR, SYSCLK, SERCLK, IACKIN, IACKOUT, [BG0IN - BG3IN], [BG0OUT - BG3OUT].
-
-
-Boards To Make:
-  - bus arbitrator card (programmable logic card perhaps)
-  - standoff for adapting 100mm board to 160mm, so you can make cheaper simpler boards, or full backplanes that are only 100mm deep
-  - connector piece to link two 6 slot backplanes
-  - a 6-slot and 12-slot backplane, with rocker dip switches to enable/skip a slot, active termination
+    * for a future 68k cpu card, use a gpio from the serial controller to swap ram and flash, so it can be used for ProcessorTests validation
 

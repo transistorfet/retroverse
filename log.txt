@@ -167,6 +167,29 @@
   the CPU, and if it halts, then reset it.  This would be useful for things like the 68k test runner where a successful tests
   results in a reset.
 
+2023-09-04:
+
+From todo.txt
+  * should you use active or passive terminating resistors?  I saw somewhere that a backplane with passives draws 1.5A which is a
+    lot, even though this will have its own power supply
+  * make an 8 socket backplane to start, 123mm by 178mm or something, which is not too expensive or big
+  * for the daisy chain lines, it would be nice to have a switch to bypass a socket, but there are 5 signals.  You can put a hex
+    non-inverting 3 state buffers across each socket and have a single switch for each socket, preferrably a rocking dip switch that
+    can be set with a screwdriver or pencil by reaching in the back.  That would add $1 a socket for the hex invertor, and >$2 for the a
+    dual rocker-type dip switch (singles are $10 at digikey).  Single slide switches are $0.50 or so
+  * the nice thing is that you can put it on the board design, but not populate them, and it'll still work.  You just won't be able
+    to skip slots.
+  * need to sort out power connector for the backplane, and power requirements
+  * you also need a bus arbitrator and interrupt controller, which I think I could make as a separate card that fits into a normal
+    slot (but always slot 0).  It definitely shouldn't go on the CPU card.  I might need an ATF1508 or something to act as interrupt
+    controller, so maybe I should make it a separate card so I can upgrade it.  It only needs a 3-row connector.
+  * make the footprints for the DIN sockets on the backplane have 5 rows, such that the middle 3 rows would be populated for
+    standard 3U operation, the right most 4 rows would be for my extended version, where the signals from the P2 socket are on the
+    right most row, or you could use all 5-rows with the VM64x connectors, where the reserved right most row would still be my extended
+    non-standard version, but the right row of ground signals could be added, and the sockets could take either a 3 row or VME64x card
+    instead of requiring a different physical socket the way the 4-row connectors need =/
+
+
 2023-12-10:
 - It's been a while since I've updated.  Work has been stupid busy, and its been similar to this project, so I slowed down and
   then stopped entirely.  Now it's almost my Christmas break and I decided to start a new avenue towards this project, by making a
@@ -247,6 +270,24 @@
   particularly for the ethernet and USB signals, I'm thinking maybe I shoud only use the full speed simple USB interface instead
   of the high speed phy chip since I know I can make FS work (ie. for the bootloader in Fidget), and the safety of USB working the
   first time is more important.  The Ethernet will be the experiment with a high speed PHY interface and differential signals
+
+
+  Backplane Signals (taken from todo.txt):
+
+    * IACKIN, IACKOUT, [BG0IN - BG3IN], [BG0OUT - BG3OUT] signals can be driven directly and always have the same direction based on the pin function only
+    * BBSY, BERR, DTACK are open collector and change direction based on whether this card is a controller or device at that moment. BBSY is from controller, DTACK and BERR are from the device
+
+    * IACK, SYSRESET, [IRQ1 - IRQ7], and [BR0 - BR3] are all open collector, and effectively bidirectional, but all except SYSRESET are primarily outputs (for controller, don't cares for devices)
+
+    * BCLR, SYSCLK, SERCLK,
+
+    The VMEbus signal types are listed below:
+    Open collector signals which require Open Collector drivers and receivers:
+    ACFail, BBSY, BERR, DTACK, IACK, SERDAT, SYSFAIL, SYSRESET, [IRQ1 - IRQ7], and [BR0 - BR3].
+    Three-State signals which require 3-State drivers and receivers:
+    AS, DS0, DS1, DTACK, RETRY, IACK, LWORD, WRITE, [AM0 - AM5], [A01 - A31], and [D00 - D31].
+    Totem-Pole signals which require Totem-Pole drivers and receivers:
+    BCLR, SYSCLK, SERCLK, IACKIN, IACKOUT, [BG0IN - BG3IN], [BG0OUT - BG3OUT].
 
 2023-12-13:
 - reading through the datasheet for the TXS0108 "8-bit bi-directional level shifter for open drain", it mentions tying the OE pin,
@@ -461,6 +502,11 @@
   regulator, which is proving to be harder to find that I was hoping.  I might have to either get old new stock TCA0372s in 8-DIP or
   L272M is the same footprint to make Tom's work, assuming I can't find a generic 8-DIP that matches the pinout and has the same
   specs.  There is a TCA0372 at digikey, but it's 16-SOIC I think
+- the schroff backplane on ebay is using an L272M op amp, which can output 1A
+- a 12 slot backplane is 242.4 mm
+
+- that might be what was meant about DTACK/RETRY/IACK being three stated *and also* open collector, ie. it only pulls up the signal
+  to logic 1 when the current bus controller is requesting a transaction
 
 2024-08-09:
 - I'm looking at Schroff cases again, and can't decide between the PropacPRO and CompacPRO.  The Propac has aluminum sides I think,
@@ -1104,3 +1150,110 @@
   synchronization seemed to fix it, but changing the clocks a bit ended up breaking it again, so I'm not entirely confident that
   this is the fix.  But that bus_acquired signal is more convincing than the initial fifo change.  I guess we'll see if it occurs
   again, especially when I try speeding up the CPU
+
+- the Schroff case arrived from Digikey today.  It took about 10 weeks instead of the 9 weeks that digikey quoted, which isn't bad
+  all things considered, but it's still a long time
+- I also got some knurled thumb screws for screwing the cards into the case, and the blue decorative trim strips
+
+2025-02-01:
+
+- I took another look at the higher clock speed of 25MHz.  When I put the clock that fast, it doesn't read the serial port correctly
+  and instead gives two NULL characters instead of the actual "\n>" characters.  It's getting two characters which should be
+  correct, but the value of those characters is wrong
+- on a hunch, I tried hooking up a 2.2k resistor to the DSACK0 line of the CPU (I tried putting a probe on, but the CPU won't run at
+  all when it's attached).  Sure enough, the stronger pull up made it work, at least when pressing enter.  It's hard to do much
+  while holding the resistor in place
+- I think that's pretty conclusive that the 10k pullups on DSACK0 are not strong enough for the serial port controller at least.  It
+  seems to run perfectly fine from memory and prints out the welcome message and everything, so they're not too weak for the CPLD's
+  DSACK controls (or at least at 25MHz they aren't).  It's just the serial port controller which is an older chip.  I think the ones
+  I have are NMOS, not sure if there's a CMOS variant I could use instead or if that would help at all
+- I tried it quickly at 50MHz and it didn't work at all.  The CPU is not running.  So either it's the DSACK1 pullup that's not
+  strong enough, and that's causing ram accesses to not work, but I would sooner suspect it's something completely different
+- if I'm not mistaken, I bought 1K and 2.2K CAT16 resistor networks, and the other signals on that 4 resistor network are BERR and
+  STERM (unused), so it should be fine to increase the values for all 4.  The question is do I replace the 10K with a 2.2K or a 1K,
+  or even, do I try to piggyback the existing one to get 1.8K (between 1 and 2.2)o
+
+- I took a quick look at the interrupt acknowledge too, and it's backwards.  It needs to be positive logic because there's an
+  invertor gate between the CPLD and bus
+- that said, it still doesn't work because the vme logic thinks the acknowledge cycle is a bus transaction
+
+2025-02-02:
+
+- I changed the 10K x 4 resistor network with a 2.2K one, so DSACK0, DSACK1, STERM, and BERR are all on 2.2K now.  The 25MHz speed
+  works for serial communications now, but when I tested the CF Card, it read inconsistent data, or the wrong sector or such.  When
+  booting the OS, it had a bunch of disk errors, and reinitialized the disk because it failed to read it, but the shell came up
+- changing to 12.5MHz fixed the ATA problems with the CF card, so I'm pretty sure it's related to the faster speed, but I'm not sure
+  what is actually going wrong.  The bus cycles look fine, but there are a lot of them and it could be only one or two are
+  problematic.  It could be related to the clock frequency used by the bus code, or it could be that they cycles are ending too
+  quick.  I haven't yet tried changing the PIO mode on the card, so maybe that will change things
+- I took another trace of the with the logic analyzer, but with DSACK1 included, as well as WRITE, because it's the write cycle that
+  seems more likely to be erroneous causing the wrong sector to be read in.  I would have thought that the data would be sampled
+  when the CF card asserts the dtack signal, but maybe it doesn't drop the chip select for the card, so if the data changes before
+  VME's AS signal goes inactive, it might read in a 0 instead of the data, and from the trace, CPU_DSACKx and CPU_AS goes inactive
+  and another cycle begins at the exact moment VME_AS goes high, and VME_DTACK remains high into the next cycle.  This could be the
+  problem.  It *might* not be, but I could try fixing it.  Then again this is also the 12.5MHz clock which is working fine, so maybe
+  at the faster clock speed, it will be more/worse, and cause the actual problem
+
+2025-02-08:
+
+- I finally got the gloworm changes written, so I could turn my attention back to the problem with the CF card at higher CPU clock
+  speeds, and maybe I had seen it before, but taking another trace showed clearly what the problem was.  The cpu's cycle is
+  terminating early, CPU_AS goes high and then low again before VME_AS goes high, which would totally cause the mis-reads
+- and thinking about it after looking at the code.  I found that only one thing is controlling the VME's CPU_DSACK_OUT signal,
+  which is always 2'b01, but the trace is showing DSACK1 goes low, and then both DSACK1 and DSACK0 are low, and the CPU_AS up/down
+  occurs at that moment.  Every input (or at least every state change dependent on inputs) goes through a FIFO, so I was scratching
+  my head over why it would be doing this, but then I looked at the DSACK control code that uses the VME interface's output, but has
+  a bit if statement, and while it's not clocked, I realized that because of the FIFOs on the inputs, and the inputs on the DSACK
+  logic is assigns/unclocked based on the request signals, they're probably going high when CPU_AS goes high first, but at least for
+  the VME bus, it should be latched in until VME_AS goes high/the cycle ends...
+- so it changes state because of request_vme signals goes high before VME_AS goes high... I suppose I could just make it either or?
+
+- well that didn't work.  I also tried moving the conditional to be first, so it would trigger first if a previous case might have
+  been getting priority, but it still is allowing an extra CPU cycle during the VME cycle
+- I think it's actually ending the cycle early in the state machine, because the WRITE pin goes high before the second CPU cycle
+  starts.  The address might also be changing when VME_AS is still low because sometimes (not so much now) it would erroneously set
+  the IN USE bit, which is only controlled by the control register
+
+- I thought maybe the cycle was ending early, and it was getting back to the idle state before it should, so I added another state
+  which deasserts the VME_AS and VME_DS signals and waits for DTACK to go inactive, but now it just faults every time I try to read
+  the CF card.  It's actually doing most of the read process for one sector, but I guess faults near the end
+- the point of the fault doesn't seem particularly aggregious, but the CPU is definitely double cycling, both near the start on the
+  first cycle at least, and the last cycle.  It's like the CPU doesn't care that DSACK is asserted and doesn't deassert, it still
+  starts another cycle anyways.  And I'm measuring from the bus itself, and the CPU itself in the case of CPU signals, so it's not
+  like it's the CPLDs internal logic that is seeing something different
+- maybe I need to put the scope on the DSACK signals to see if there's some ringing or analog weirdness going on
+
+- according to the CPU refmanual, there's a state machine is 7.3.1 I think that shows the CPU does, infact, not care at all about
+  DTACK after it ends its cycle, and starts the next one immediately!
+- So i think the only way to go about it is to stop the cycle and shut off the transceivers, and we can just blank the CPU to the
+  bus until the CPLD has seen DTACK go up, before it starts the next cycle.  The trick is to get the DSACK logic right
+- and it's not right somehow, it hangs after 8 or so cycles
+
+2025-02-09:
+
+- still really struggling to get what I think is the final bug in the VME logic sorted, but in the meantime I looked at the
+  systemboard reset, which wasn't doing anything
+- I added logic to assert sysreset when the local button on systemboard is pressed, and I added a big time to it so it holds
+  sysreset for about 200ms after the local reset button is released.  It maybe doesn't have to be that long, but I was trying to see
+  if it would do a power-on reset, but that didn't work
+- looking at the schematic, the reset only has a 0.1uF cap on it, which really is no where near enough.  I have a 0.47uF on the
+  other computie boards, but that isn't even enough for the k30p-VME.  I need to add a bigger one to both boards
+- holding a 10uF capacitor across the reset button, mostly but not always manages to trigger the power on reset and get k30p booting
+  on power-up.  I'm not sure if the problem with it being unreliable (sometimes spitting out garbage instead of the welcome message)
+  is related to not having enough capacitance on the reset, or not having a long enough delay after the reset deasserts.  I'm sure
+  both could be adjusted to fix it.  Even with it working though, it seemed to print about 4 NULL characters before starting the
+  welcome message, but that's a minor problem by comparison
+- with the 10uF cap and the 10 bit timer, the delay seems to be more like 35ms.  With a 16MHz clock it should be 64ms I think, but
+  given I'm not really resetting the counter when it first powers on, that makes some sense.  I need a 1uF cap to test with to see
+  if that will work fine too, but 10uF will definitely give a long enough power on reset to at least somewhat reliably start up from
+  a fully off power state.  I tried 0.47uF and it definitely was *not* enough, so 1uF could be marginal as well
+
+- I'm still really scratching my head on this VME cycle issue.  It seems like it's working totally fine now from the traces, but it
+  seems to hang every time it reads a sector.  The single read and write to the control register works fine, but after many
+  successive cycles, it hits one where no acknowledge comes through, and I'm not sure if it's a problem with the k30p's dsack logic,
+  or maybe a weird interaction with the CF card's logic.  It's definitely making a VME request, but it never gets the DTACK from the
+  CF card, but I know it does this when the CF card isn't reset, so there's a way to get it to not give DTACK when addresesd.  I'm
+  sure I'm resetting it so it's not the same problem, but whatever causes it to not issue DTACK might be the same?
+- a clue might be that it seems to have the ACT led set on the CF card when it hangs, so maybe it starts a cycle but never completes
+- the ACT led is driven directly by the CF card on the /DASP signal, so maybe it's the CF card itself that's causing this
+

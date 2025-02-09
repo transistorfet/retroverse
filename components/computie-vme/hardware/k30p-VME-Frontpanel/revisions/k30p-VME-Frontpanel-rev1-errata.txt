@@ -3,9 +3,15 @@ Revision 1 Errata and Notes
 ===========================
 
 - the holes that connect to the board are slightly too far apart, so the panel has a tendency to bow
-  outwards unless the holes are adjusted
+  outwards unless the holes are manually adjusted with a file
 
 - since I printed it in 1.6mm thick aluminum instead of 2mm thick like the VME spec uses, the
   alignment posts for the fixed handle that's part of the Schroff 20818018 3U 4HP frontpanel kit
   have to be filed down or else it will interfere with the metal bracket pieces and not lay flat
+
+- the holes for the LEDs and two-button piece are slightly too far to the left.  The LEDs fit, but
+  are right against the right-hand edge of the hole, and there's about a millimeter of space on the
+  left-hand side, so sliding them over just a smidge to the right would help (or sliding the
+  board mounting holes to the left a bit, but I'll have to check how it lines up with the case
+  before I'll know which is the better solution)
 

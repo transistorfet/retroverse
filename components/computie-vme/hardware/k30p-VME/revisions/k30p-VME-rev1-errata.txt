@@ -61,3 +61,10 @@ Revision 1 Errata and Notes
 - the footprint for the FTDI 20-SSOP doesn't really have enough visible pad space for soldering
   properly, which might be why it needed to be reflowed.  A footprint with longer pads would really
   help with hand soldering
+
+- now that I have the FTDIs powered by the USB cable, when I power cycle the CPU or especially when
+  I first power it on, it either doesn't run or spits out garbage characters.  I think it's a
+  problem with the reset not being long enough.  I'll need to investigate more
+
+- it would be really handy if I could have a 100MHz clock somehow.  I don't think a crystal can go
+  high enough, so I might need a dedicated clock PLL chip, which I'm hesitant to use
