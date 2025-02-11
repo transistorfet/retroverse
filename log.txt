@@ -1257,3 +1257,74 @@ From todo.txt
 - a clue might be that it seems to have the ACT led set on the CF card when it hangs, so maybe it starts a cycle but never completes
 - the ACT led is driven directly by the CF card on the /DASP signal, so maybe it's the CF card itself that's causing this
 
+- I'm looking through the case and what came with it while I have some light on Sunday.  It's been in my closet for a week or two
+  now and I haven't set it up because I wanted to finish debugging the hardware for the k30p, and then I won't need the CPLD
+  programmer or the logic analyzer hooked up
+- It's nice, I really like how it looks.  At first I thought it had steel top and bottom because the inside edges are kind of sharp,
+  but I'm pretty sure they're aluminum
+- the back panel is aluminum with vent slits.  The vent silts are 25mm vertically (I fucking love working with German equipment,
+  with its even metric numbers).  I think it will be easiest to cut out some of those slits, and put the switch/IEC power module in
+  there.  The ones I'm looking at need a 28mm cutout, but I think it should be possible to file down that much material after
+  removing some slits, so it should be doable.  The cable-only ones oriented sideways are ~21mm cutout, and that might be harder to
+  work in than the ones that are too big
+- It's actually a bit less "finished" that I expected, there are a lot of rough edges to the aluminum inside of it.  I want to file
+  or sand down all the sharp edges so I don't risk cutting myself when working inside of it, like I expect to do a lot
+- I'm going to have to take it all apart anyways in order to get the back panel mounting brackets in place, and the decorative
+  strips
+- The decorative strips are less bold a colour than I was hoping for, but it's industrial equipment after all.  I think the
+  instructions say to drill 3 holes in the plastic front panel to install each one.  A bit surprising but not much since they're not
+  really a thing you'd swap out.  It does look a little funny without them because there's an empty channel on the top and bottom
+  part of the plastic front piece, so I'm glad I got them, even though the price really wasn't worth it ($120 CAD for 5 when I only
+  need 2, couldn't buy them in less than 5 at a time).
+- the rails they gave me look like the same ones that are in the front of the case, with numbers on them, and they don't have any
+  other rails, and they don't seem to have instructions on them =/  I expected more rails or ones that were further apart to mount
+  the backplace on.  I'm not all that sure how it's supposed to mount.  Do you screw it in from behind?  Are the holes even in the
+  right places?
+- well maybe they are, since the front holes are actually 128mm apart and not 100mm.  I keep thinking it's the same height as the
+  cards.  The backplane is 130mm tall so the mounting holes should fit to the backside of the second set of rails
+- that was informative.  I'll need to disassemble the whole case, file down the edges, drill holes for the deco strips, install the
+  mounting for the back panel, install the rails, maybe even the grounding straps, and cut out a hole for the eventual rear plug
+  In the meantime I can also buy the rear plug, and some more parts (screws, plastic collars, maybe some frontpanel kits)
+- it looks like digikey has plenty of 4HP trapezoid grey plastic handles.  They have black and all-aluminum as well, plus all the
+  ejector handles, but I'm not sure if they'll work so well, so I've avoidded them.  I think the frontpanel needs to be made with a
+  hole for the ejector mechanism
+- I also need to figure out how to mount the power supply
+- it would be really cool if you had a special front panel device with a current monitor because I find it really handy to look at
+  the one on my PS, but I'm going to use the Meanwell triple voltage one for the case because it's going to be quieter, and I can
+  then use my lab PS for other things.  What else could I make such a frontpanel do?  Is there even one already for eurorack cases?
+
+- back to the vme cycle hanging problem when reading the ata... I fiddled with it a whole bunch more, but just can't get it working,
+  but at one point I got it so the CPU would start a cycle but the VME request wouldn't start, and I realized now that that's
+  because of the SystemBoard's logic.  I removed the systemboard and put a jumper in for bus request, and it's now at least reading,
+  but it's reading the wrong values again, and that looks to be a double cycle issue during the initial write cycles
+- the double cycle issue was partly caused by the fact that I had added synchronizers to the CPU_AS signal before it was used to
+  gate the DSACK signals, which is required since the CPU will start another cycle without waiting for DSACK to go low (it seems,
+  although maaaybe not).  Now that I removed the fifos, and used a jumper for BGOUT, it's hanging on the cycle in progress stage...
+  I seem to be trading one problem for another.  I feel like there might be a solution in here somewhere though.  I'll definitely
+  have to add synchronization to the systemboard at a later date, but I think I also need some changes to the bus logic
+
+2025-02-10:
+
+- I looked at the diffs and vim history and didn't see much that was different about the bus logic from previous attempts that would
+  explains why it was still clearly not working, with totally broken dsack responses like before, except that I had replaced the
+  always @(*) block with a bunch of assigns for that logic.  So I commented out the assigns and restored the always @(*) block and
+  it read the sector in the ata test in the monitor first time, and booted the kernel first time!
+- So that conclusively means that I had two problems.  Initially it was the double CPU_AS cycle before the end of the VME_AS cycle,
+  which the DSACK modifications of preventing the other logic from asserting DSACK until the VME_AS signal is deasserted, to prevent
+  the double cycle, and once that was done, it went from hanging and drawing 1.6A of current because the VME cycle was open, to
+  drawing the normal amount of current (0.7A) and just hanging without any VME signals asserted.
+- and then the second problem was that SystemBoard is hanging on the bus arbitration response with the faster CPU card, and I still
+  haven't fixed that particular problem.  Removing systemboard and putting the jumper in, with the dsack change above, fixed
+  everything.
+
+- I tried removing the extra END state in the vme bus logic, which had been my initial attempt at solving the problem by closing the
+  bus and waiting for the VME_DTACK signal to deassert, when actually it was a tweak to the CPU_DSACK logic one level up.  Removing
+  it still ended up reading a sector of the same value with the ata test (all 0x0B or all 0x26 or some other number, but it's always
+  the same number for each byte, and at least for a while, ever sector reads the same value).  So I at least need to deassert AS to
+  make it work.
+- I tried moving all the asserts in the END state to the WAIT_FOR_CPU state, and then the CPU wouldn't run at all.  It looked
+  completed locked up and reset did nothing.  I don't know what was wrong with it, but I didn't want to leave it like that
+- I tried just VME_AS/VME_DS in the transition to IDLE ifblock, but that still had the "read all the same byte" problem
+- I added the transceivers because that's really the cause of the problem, turn off AS/DS and all transceivers, but nothing else,
+  and that seems to work just fine, and eliminates the END cycle so it should be a bit faster.  It's consistently 0.625uS for the
+  CPU_AS cycle length, and 0.5uS for the VME_AS cycle length

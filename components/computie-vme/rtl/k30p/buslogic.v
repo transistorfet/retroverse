@@ -78,7 +78,7 @@ module buslogic(
     reg [3:0] clock_counter;
     always @(posedge clock) begin
         clock_counter <= clock_counter + 4'b0001;
-        cpu_clock <= clock_counter[1];
+        cpu_clock <= clock_counter[0];
     end
 
     localparam ACTIVE = 1'b0;
@@ -170,19 +170,41 @@ module buslogic(
     assign cpu_dsack[1] = cpu_dsack_out[1] == ACTIVE ? 1'b0 : 1'bZ;
     assign cpu_berr = ((cpu_berr_out == ACTIVE) || (vme_berr_out == ACTIVE)) ? 1'b0 : 1'bZ;
 
+    /*
+    assign cpu_dsack_out[0] = ( (cpu_as == ACTIVE) && (cpu_fc != 3'b111) && (
+        (request_vme == ACTIVE && vme_dsack_out[0] == ACTIVE) ||
+        (request_ram == ACTIVE) ||
+        (request_rom == ACTIVE)
+    )) ? ACTIVE : INACTIVE;
+
+    assign cpu_dsack_out[1] = ( (cpu_as == ACTIVE) && (cpu_fc != 3'b111) && (
+        (request_vme == ACTIVE && vme_dsack_out[1] == ACTIVE) ||
+        (request_ram == ACTIVE)
+    )) ? ACTIVE : INACTIVE;
+
+    assign cpu_berr_out = ( (cpu_as == ACTIVE) && (cpu_fc != 3'b111) && (
+        (request_vme != ACTIVE && vme_as_out != ACTIVE && request_ram != ACTIVE && request_rom != ACTIVE && request_serial != ACTIVE)
+    )) ? ACTIVE : INACTIVE;
+    */
+
     always @(*) begin
-        if (request_ram == ACTIVE) begin
-            cpu_dsack_out <= 2'b00;
-            cpu_berr_out <= INACTIVE;
-        end else if (request_rom == ACTIVE) begin
-            cpu_dsack_out <= 2'b10;
-            cpu_berr_out <= INACTIVE;
-        end else if (request_vme == ACTIVE) begin
+        if (request_vme == ACTIVE) begin
             cpu_dsack_out <= vme_dsack_out;
             cpu_berr_out <= INACTIVE;
-        end else if (request_unmapped == ACTIVE && cpu_fc != 3'b111) begin
-            cpu_dsack_out <= 2'b11;
-            cpu_berr_out <= ACTIVE;
+        end else if (vme_as_out == INACTIVE) begin
+            if (request_ram == ACTIVE) begin
+                cpu_dsack_out <= 2'b00;
+                cpu_berr_out <= INACTIVE;
+            end else if (request_rom == ACTIVE) begin
+                cpu_dsack_out <= 2'b10;
+                cpu_berr_out <= INACTIVE;
+            end else if (request_unmapped == ACTIVE && cpu_fc != 3'b111) begin
+                cpu_dsack_out <= 2'b11;
+                cpu_berr_out <= ACTIVE;
+            end else begin
+                cpu_dsack_out <= 2'b11;
+                cpu_berr_out <= INACTIVE;
+            end
         end else begin
             cpu_dsack_out <= 2'b11;
             cpu_berr_out <= INACTIVE;

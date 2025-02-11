@@ -297,8 +297,23 @@ module vme_data_transfer(
 
                     if (cpu_ds_fifo[0] == INACTIVE && request_vme_fifo[0] == INACTIVE) begin
                         state <= IDLE;
+
+                        // All transceivers off
+                        addr_low_oe <= INACTIVE;
+                        a40_cross_oe <= INACTIVE;
+                        data_low_oe <= INACTIVE;
+                        d16_cross_oe <= INACTIVE;
+                        md32_cross_oe <= INACTIVE;
+                        data_low_dir <= DIR_OUT;
+                        d16_cross_dir <= DIR_OUT;
+                        md32_cross_dir <= DIR_OUT;
+
+                        // Main control lines inactive
+                        vme_as <= INACTIVE;
+                        vme_ds <= { INACTIVE, INACTIVE };
                     end
                 end
+
                 default: begin
                     state <= IDLE;
                 end
