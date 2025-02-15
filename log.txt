@@ -1328,3 +1328,75 @@ From todo.txt
 - I added the transceivers because that's really the cause of the problem, turn off AS/DS and all transceivers, but nothing else,
   and that seems to work just fine, and eliminates the END cycle so it should be a bit faster.  It's consistently 0.625uS for the
   CPU_AS cycle length, and 0.5uS for the VME_AS cycle length
+
+- Well shit, I was about to commit those changes, and tried the kernel, and that didn't boot.  It had a BERR!  So I tried adding the
+  END cycle back and now it's hanging while booting instead of having a bus error...  I'll try a sysreset.  It got further in the
+  boot process but still hangs during boot... so clearly this isn't fixed still
+- the bus error was caused because there was another CPU_AS cycle after the first CPU/VME cycle, but there shouldn't have been...
+  this was with no END cycle, and AS/DS/transceivers off during the transition to IDLE from WAIT_FOR_CPU
+- from the trace is looks like the first VME cycle goes well, CPU_AS goes high and VME_AS/DS go high right away too, DTACK and DSACK
+  follow a clock or so later, and then CPU_AS goes low again with VME_AS going low right away which is very unusual.  Usually it
+  takes longer to go through the FIFOs.  And then as soon as VME_DS go low, which is much delayed, BERR goes low right then and
+  CPU_DSACK goes low a clock or so later even though VME_DTACK does not go low
+- looking at the logic, there is one place where VME logic sets BERR, but that signal doesn't get surfaced by the DSACK logic which
+  actually controls CPU_BERR, so it can't be that (which is good because there was no logical way of explaining that except
+  glitching)
+- it has to be something related to the DSACK logic, and looking at the verilog, I think it could be an interrupt happening, or it's
+  an unmapped address, or perhaps it's something related to synchronization... logically the first two don't seem so likely, but it
+  could be a subtle thing
+- if i remove the only thing that sets berr in the dsack logic, it doesn't assert berr, but it doesn't even read one sector.  It
+  only has one VME access in total, which seems super weird
+
+- I changed the DSACK logic to test for FC == 3'b111 (a CPU cycle instead of a memory cycle, so interrupt acknowledge, breakpoint,
+  or something else).  It did indeed boot!  That must mean it's fixed, right!?  No, sweet child, no.  It boots every time now but as
+  soon as you type `ls` it has a bus error.  Haha, and as soon as I say that, it now bus errors on every boot.  Fucking brilliant
+  So that may at least be more correct, to have the FC condition at the top, but it's not what's causing the problem alone
+- it is still very clearly having a very short erroneous VME bus cycle right after a previous one, and way too quick to be caused by
+  CPU_AS going low, since VME_AS goes low at exactly the same time
+
+2025-02-12:
+
+- yesterday, I tried a bunch of things, but made a few interesting discoveries
+- adding extra conditions and making it have some deadspace around when the VME DSACK triggers vs when the other peripherals can
+  assert DSACK didn't really fix the problem.  The CPU_AS does seem to wait until after the VME DTACK is de-asserted, but that still
+  doesn't fix the problem it seems
+- reducing the clock speed of the CPU *and* bus logic to be half their normal speed, but still only 2x bus logic relative to CPU
+  instead of 4x like it was when it worked perfectly, this seemed to reproduce the issue at a slower speed, which means I can be a
+  bit more confident of the logic analyzer data
+- I had the edges of the synchros and bus logic kind of weird, but changing the synchro clock edge didn't change much.  The first
+  stage was negedge, the second was posedge, and then the logic was also posedge (so 1.5 clocks instead of 1 clock to get to the
+  logic)
+- changing the buslogic only to negedge (i think) entirely fixed the problem at the slower clock speed.  I wonder if this is because
+  the CPU does certain things on the negedge of the clock (or posedge) and the edges just line up better that way
+- changing to the 25MHz speed for CPU, 50MHz for logic still caused issues, but not the same as before.  Instead of reading all the
+  same data value and taking a long time to do it, it would read half-ish of the sector correctly and then get the wrong identical
+  value for the rest of it
+- this has got to be a clock issue where values are changing not quite where they should, or things are just a little misaligned.
+  I was thinking at this point that I need to make the DSACK logic clocked to get around this, which will potentially make it slower,
+  but at least it will be accurate
+
+- and then this morning, I was reading a forum post about edge triggered gates, and it mentioned noisy clocks can cause problems.  I
+  know that my clock is pretty bad and distorted, so that could definitely relate to my problem.  I think I had noted earlier that I
+  should use 3 inverter gates for it instead of just 2 to smooth it out a bit, or maybe use an oscillator module.  I'd also really
+  like to be able to use a 100MHz clock into the CPLD, which might be doable, but they're not very common at that speed
+- on a hunch, I tried adding an extra inverter in the CPLD to the clock, and like magic, it worked! *almost*.  I'm not entirely sure
+  if this is something else going on, but it now reads sectors at 25MHz without errors it seems, and can boot the OS without a
+  problem.  The problem is that when doing ls, most of the time it works, but `ls bin` stops at `pwd` and hangs without printing the
+  rest of the listing and without returning to the prompt.  I feel like I've come across this before, but I can't remember what was
+  going on there.  I might also have had logic issues
+- It's not drawing more current so it's not in a VME cycle when it hangs, and the cycles look good, with CPU_AS not going high until
+  after DTACK goes high.  Maybe some more fiddling would sort things out, but I think to fix it properly, I'll still need to add
+  more clocked logic for the DSACK.  Even then I might still run into edge errors
+- the MC68030 Electrical Specifications manual has a lot more detail of the clocks and the timing requirements that must be met
+
+2025-02-13:
+
+- I bought a Schurter 4304.6091 Power Entry Module (IEC cord connector with a power switch, a nice big illuminated green one), which
+  I'll mount through the back plate that came with the PropacPro case.  It has vent cutouts on the back which should be easier to
+  cut out, such that I can mount the module horizontally through the back.  I'll put the Meanwell RT-85 power supply inside the
+  case, and then I can disconnect the cord when servicing or debugging it, which I expect will probably happen frequently enough,
+  and the power switch will make it easier to turn off and on.  It was $34 CAD, which is pretty pricey, but I only need one.
+- a nice feature of it as well is that it has a fuse holder, rated for 10A max.  The power supply should only take 3A.  That way, if
+  I accidentally short the AC, which is a real possibility with me working inside the case live, it won't trip the breaker that
+  powers my computer
+

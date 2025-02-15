@@ -47,6 +47,7 @@ module vme_data_transfer(
     input request_vme_a24,
     input request_vme_a40,
     input bus_acquired,
+    output request_vme_out,
 
     input cpu_as,
     input cpu_ds,
@@ -94,6 +95,8 @@ module vme_data_transfer(
     reg [1:0] bus_acquired_fifo;
     reg [1:0] vme_dtack_fifo;
 
+    assign request_vme_out = request_vme_fifo[0];
+
     initial begin
         state <= IDLE;
     end
@@ -115,7 +118,7 @@ module vme_data_transfer(
         vme_dtack_fifo[0] <= vme_dtack_fifo[1];
     end
 
-    always @(posedge clock or negedge reset) begin
+    always @(negedge clock or negedge reset) begin
         if (reset == ACTIVE) begin
             state <= IDLE;
             status_led <= 1'b1;
@@ -294,6 +297,7 @@ module vme_data_transfer(
                 WAIT_FOR_CPU: begin
                     //status_led <= 1'b1;
                     status_led <= 1'b0;
+                    cpu_dsack <= 2'b01;  // word-sized port
 
                     if (cpu_ds_fifo[0] == INACTIVE && request_vme_fifo[0] == INACTIVE) begin
                         state <= IDLE;

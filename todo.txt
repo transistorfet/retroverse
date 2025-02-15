@@ -1,20 +1,17 @@
 
-* test the 25Mhz with the memcard, might have the same issue
+* fix the ATA card issue at 25MHz
+* test the 25Mhz with the memcard, might have the same issue.  It doesn't but I haven't looked at how fast the writes are going
 * solder a power-on cap to the systemboard
 * replace the power-on cap in k30p
-* fix the ATA card issue at 25MHz
 
 * change the license
 
-* fix systemboard reset button, which still doesn't reset the whole bus
 * figure out why it doesn't boot correctly when first powered on.  Maybe the CPLD needs a special reset line, or it needs to be
   programmed to reset more than it does, or it needs to hold the reset low or something.  If it can't be solved in logic, I'll need
   to find a hardware solution
+
 * add support for interrupts on the VME bus, which will require those extra address pins you connected
 * add the unmapped address thing which should cause a bus error on unmapped
-* try up-clocking the CPU and make sure it can still run off the memory card
-
-* gloworm: you need to improve the makefiles so you can support other platforms and driver combinations
 * make a simple peripheral with bigboy, possibly even a dummy ATA device to help with driver writing
 
 * commit changes to CF Card and put it on github
