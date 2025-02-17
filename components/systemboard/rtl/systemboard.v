@@ -52,6 +52,19 @@ module systemboard(
     //reg [23:0] vme_address_out;
     reg vme_sysreset_out;
 
+    reg [3:0] vme_br_fifo[1:0];
+
+    // Synchronizing the input signals from the CPU
+    // It uses both the negative and positive edges to decrease the time needed
+    // Starting on the negative edge because the CPU starts on the positive edge
+    always @(negedge clock) begin
+        vme_br_fifo[1] <= vme_br;
+    end
+
+    always @(posedge clock) begin
+        vme_br_fifo[0] <= vme_br_fifo[1];
+    end
+
     //assign vme_address = vme_dtb_output_enable == 1'b1 ? vme_address_out : 24'hZZZZZZ;
 
     //assign status_led = (vme_address == 24'hffffff && vme_data == 8'h00);
@@ -78,7 +91,7 @@ module systemboard(
     ///
     /// Bus Arbitrator Logic
     ///
-    always @(posedge clock) begin
+    always @(posedge clock or negedge reset) begin
         if (reset == ACTIVE) begin
             state <= IDLE;
             //vme_bclr <= INACTIVE;
@@ -93,23 +106,23 @@ module systemboard(
                     //vme_bclr <= INACTIVE;
                     vme_bgout <= 4'b1111;
 
-                    if (vme_br != 4'b1111) begin
+                    if (vme_br_fifo[0] != 4'b1111) begin
                         state <= BUS_ACQUIRED;
                         //vme_bbsy <= ACTIVE;
 
-                        if (vme_br[0] == ACTIVE) begin
+                        if (vme_br_fifo[0][0] == ACTIVE) begin
                             vme_bgout[0] <= ACTIVE;
                             current <= 2'h0;
                             request_mask <= 4'b0000;
-                        end else if (vme_br[1] == ACTIVE) begin
+                        end else if (vme_br_fifo[0][1] == ACTIVE) begin
                             vme_bgout[1] <= ACTIVE;
                             current <= 2'h1;
                             request_mask <= 4'b0001;
-                        end else if (vme_br[2] == ACTIVE) begin
+                        end else if (vme_br_fifo[0][2] == ACTIVE) begin
                             vme_bgout[2] <= ACTIVE;
                             current <= 2'h2;
                             request_mask <= 4'b0011;
-                        end else if (vme_br[3] == ACTIVE) begin
+                        end else if (vme_br_fifo[0][3] == ACTIVE) begin
                             vme_bgout[3] <= ACTIVE;
                             current <= 2'h3;
                             request_mask <= 4'b0111;
@@ -117,11 +130,11 @@ module systemboard(
                     end
                 end
                 BUS_ACQUIRED: begin
-                    if (vme_br[current] == INACTIVE) begin
+                    if (vme_br_fifo[0][current] == INACTIVE) begin
                         state <= IDLE;
                         //vme_bbsy <= INACTIVE;
                         vme_bgout[current] <= INACTIVE;
-                    end else if ((vme_br & request_mask) != request_mask) begin
+                    end else if ((vme_br_fifo[0] & request_mask) != request_mask) begin
                         //state <= BUS_CLEAR;
                         //vme_bclr <= ACTIVE;
                     end

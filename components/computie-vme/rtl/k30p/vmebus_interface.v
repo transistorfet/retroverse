@@ -42,15 +42,14 @@ module vme_data_transfer(
     input reset,
     output reg status_led,
 
-    input request_vme,
+    input request_vme_sync,
     input request_vme_a16,
     input request_vme_a24,
     input request_vme_a40,
-    input bus_acquired,
-    output request_vme_out,
+    input bus_acquired_sync,
 
-    input cpu_as,
-    input cpu_ds,
+    input cpu_as_sync,
+    input cpu_ds_sync,
     input cpu_write,
     input [1:0] cpu_siz,
     input [1:0] cpu_address,
@@ -63,7 +62,7 @@ module vme_data_transfer(
     output reg vme_lword,
     output reg vme_write,
     output reg [5:0] vme_address_mod,
-    input vme_dtack,
+    input vme_dtack_sync,
     input vme_berr,
 
     output reg addr_low_oe,
@@ -90,32 +89,9 @@ module vme_data_transfer(
     localparam WAIT_FOR_CPU = 3'h5;
 
     reg [2:0] state;
-    reg [1:0] cpu_ds_fifo;
-    reg [1:0] request_vme_fifo;
-    reg [1:0] bus_acquired_fifo;
-    reg [1:0] vme_dtack_fifo;
-
-    assign request_vme_out = request_vme_fifo[0];
 
     initial begin
         state <= IDLE;
-    end
-
-    // Synchronizing the input signals from the CPU
-    // It uses both the negative and positive edges to decrease the time needed
-    // Starting on the negative edge because the CPU starts on the positive edge
-    always @(negedge clock) begin
-        cpu_ds_fifo[1] <= cpu_ds;
-        request_vme_fifo[1] <= request_vme;
-        bus_acquired_fifo[1] <= bus_acquired;
-        vme_dtack_fifo[1] <= vme_dtack;
-    end
-
-    always @(posedge clock) begin
-        cpu_ds_fifo[0] <= cpu_ds_fifo[1];
-        request_vme_fifo[0] <= request_vme_fifo[1];
-        bus_acquired_fifo[0] <= bus_acquired_fifo[1];
-        vme_dtack_fifo[0] <= vme_dtack_fifo[1];
     end
 
     always @(negedge clock or negedge reset) begin
@@ -190,7 +166,7 @@ module vme_data_transfer(
                         end
                         */
                     //end else
-                    if (request_vme_fifo[0] == ACTIVE && (request_vme_a16 == ACTIVE || request_vme_a24 == ACTIVE) && bus_acquired_fifo[0] == ACTIVE && vme_dtack_fifo[0] == INACTIVE && vme_berr == INACTIVE) begin
+                    if (request_vme_sync == ACTIVE && (request_vme_a16 == ACTIVE || request_vme_a24 == ACTIVE) && bus_acquired_sync == ACTIVE && vme_dtack_sync == INACTIVE && vme_berr == INACTIVE) begin
                         state <= ADDRESS_A24;
                         vme_write <= cpu_write;
                         vme_lword <= INACTIVE;
@@ -222,7 +198,7 @@ module vme_data_transfer(
                     status_led <= 1'b1;
                     vme_as <= ACTIVE;
 
-                    if (cpu_ds_fifo[0] == ACTIVE) begin
+                    if (cpu_ds_sync == ACTIVE) begin
                         state <= DATA_D16;
 
                         // 16-bit or 8-bit Operation
@@ -247,10 +223,10 @@ module vme_data_transfer(
                         vme_ds <= { ACTIVE, ACTIVE };
                     end
 
-                    if (vme_dtack_fifo[0] == ACTIVE) begin
+                    if (vme_dtack_sync == ACTIVE) begin
                         state <= WAIT_FOR_CPU;
                         cpu_dsack <= 2'b01;  // word-sized port
-                    end else if (request_vme_fifo[0] == INACTIVE) begin
+                    end else if (request_vme_sync == INACTIVE) begin
                         state <= WAIT_FOR_CPU;
                         cpu_berr <= ACTIVE;
                     end
@@ -299,7 +275,7 @@ module vme_data_transfer(
                     status_led <= 1'b0;
                     cpu_dsack <= 2'b01;  // word-sized port
 
-                    if (cpu_ds_fifo[0] == INACTIVE && request_vme_fifo[0] == INACTIVE) begin
+                    if (cpu_ds_sync == INACTIVE && request_vme_sync == INACTIVE) begin
                         state <= IDLE;
 
                         // All transceivers off

@@ -1400,3 +1400,123 @@ From todo.txt
   I accidentally short the AC, which is a real possibility with me working inside the case live, it won't trip the breaker that
   powers my computer
 
+2025-02-14:
+
+- I just tried a few things, inverting the clock edge that the bus logic's state machine and syncs run on, to see if that would have
+  an effect with the inverted clocks, but no change.  I'm not 100% positive it's not something to do with the CF card, but it did
+  work fine with the exact same kernel build with the slower CPU clock, so I'm fairly certain it's a timing issue on the bus.  It's
+  so subtle though, it must be mis-reading or mis-writing only some data access values, but still completing the cycle without
+  hanging, such that it gets the wrong value.  I must have a infinite loop somewhere as a result of bad data.  I feel like it's
+  gotta be in the shell though, because if it was in the kernel, it would hang, but it's still processing network packets and
+  flashing the timer interrupt LED, so it's not locked up.
+
+2025-02-16:
+
+- Yesterday, I was playing around with the logic, and tried moving the synchronizers to the main file and wasn't having any luck.
+  It was only making it a lot more broken, and then at the end of the night, it stopped working almost entirely.  I tried going back
+  to an earlier logic, and just couldn't get something to work, which was really disheartening.  I thought I might have broken
+  something with a change to use the `assign` dsack code instead of the `always` block dsack code
+- when I started again this morning, I tried stashing the changes and going back to the previous commit which I had debating
+  commiting at all because it still wasn't working, but I'm glad I did because it was a known working point.  The changes didn't
+  seem at all like they could explain why the slightly modified version was not working.  On a hunch, I tried retoring the
+  synchronizer's clock source to `clock` instead of `inv_clock` which I had changed when I moved them to the top file (they had used
+  the vme_interface's clock which was inv_clock).  For some reason that got it working again.  Maybe the fact that it's trying to be
+  too quick and syncing in one clock on the neg/pos edge instead of two clocks on the posedge or negedge?  I could have sworn it was
+  working with inv_clock, or at least not not booting/no welcome message as it was last night/this morning
+- well I was back into a known state at least, and I might have poked a bit at the logic, but that was kind of fruitless because
+  everything I tried yesterday made it worse, so maybe I need to figure out exactly what's causing the one failure situtaion to
+  happen.  It's not hanging, and seemingly not in a syscall since the OS is still running, so it must be like one sector reading
+  incorrectly.  It's only with long directory listings, more than 17 or 18 files
+- It took a while to get the shell change I made to actually show up, because as it turns out, it was running ls from the CF card,
+  and shell and init too, since they all try to run the disk version before attempting to run the compiled-in version.  Not sure if
+  I should change that permanently, since otherwise it shouldn't even be compiled in if it's not going to be used.  It'll just be
+  much longer to load over serial =(
+- Anyways, I put some debug statements in `ls` and it's not caught in an infinite loop.  The loop does indeed hang, but not in a
+  syscall either.  It seems to be inside of a printf.  Hmmm.... I had issues with the printf earlier where it treated signed
+  interger overflow differently than (I had thought) my older code ran, so maybe a change in gcc?  printf of an unsigned long was
+  not printing the right number, which I hacked around by printing addresses as 2 words instead of 1 long.
+- I'm not sure if it's because the newer gcc is handling signed ints more strictly or if it's because it's treating int as 16-bit
+  instead of 32-bit.  It still isn't likely to (at least alone) be the cause of my problem because the slower clock runs this code
+  perfectly with no errors, and the code is the same, so I'm still suspecting it's a data problem when reading sectors.  The problem
+  still occurs when it doesn't read in anything from CF card/over the VME bus, but if it was a corrupted data sector that's cached,
+  it would still hit this problem every time it read the bad data
+- I'm trying to get the logic analyzer to see the problem.  I also turned on the sector dumping code.  The two sectors that get read
+  in when doing `ls bin` are a directory that contains the bin directory that's printed, starting at "." and ".." and containing
+  file names that aren't printed like daemontest and tcpserv, and a sector of 0s, and I'm not sure which is a problem yet
+- you know... interesting observation... I just noticed that with the init/shell/ls that are compiled into the kernel, even though
+  I'm using that other CF card, it's not printing "Error opning file  : -2" error that I've been getting when using that card.  I
+  thought it was because it's using minix 2 or minix 3, but the directories are 14 characters, so maybe it's v1 or v2.  I think v3
+  introduced the 60 byte filenames.  I just noticed this when looking through the sector with the directory contents.
+- I'm looking through the sectors read in when the error occurs, and there's no corruption in the middle of the sector.  It looks
+  fine.  It stops before printing `mount`, after printing `mkdir`, and it does read in the dirent for `mount` and it's during the
+  printf that it fails.  `mount` is the 15th file in the sector out of 32 (so a bit shy of half way through the sector.  It only has
+  the sector number and the filename, which are all sequential and correct, as expected for a newly initialized and imaged disk, as
+  it is
+- sometimes it fails while printing `reading`.  It gets to `read` and stops.  It's not even a particular kind of data value in the
+  output that it consistently halts on?  Or is this mearly an artifact caused by the buffered nature of the writing, and it might
+  hit the error before flushing the data in a syscall?
+- either way, I'm also being to suspecting it might be related to a context switch during the run, although now that I'm thinking of
+  the above point, it could also be something that the buffering is related.  I wish I had the k30-SBC working or I could test this
+  on there, but I couldn't get it to boot the kernel last time
+- hmm... I added some code to print the dirent struct after each file is printed, and it now dies after printing 7 files, and it
+  dies after printing 8 bytes out of 18 for a dirent, so I think it's related to the number of printf calls that are made (more
+  printf calls/more processing time == earlier problem).  I guess putting a probe on the timer interrupt led will tell allow me to
+  correlate if it's related to the timer interrupt/context switching
+
+- I tried getting the k30-SBC board working again, and had the same issues as above, but I didn't read it until now, and realize I
+  found a fix of sorts.  I thought it might have been flux damage, and there is some.  I cleaned it off but I'm sure resoldering
+  some of those connections will help too.
+- but yeah, it works on the other USB port.  I wonder if it's voltage or something.  I honestly didn't check voltages (thou shalt
+  always check voltages), but I didn't...  The clock worked fine and CPU was running and executing code, but was having trouble with
+  serial communications, possible due to dtack problems.  I maybe didn't clean the flux off well enough from my DSACK mod
+- it's not booting off the CF card.  Not sure if this was also a problem earlier or not.  It hangs after reading the ram disk
+- maybe I did, but I had to add back in the ATA_DELAY(10); line in the ATA read sector code?  Maybe something else because that
+  didn't work
+- adjusting the timings to what they were before doesn't seem to fix it and I didn't record whether I got it booting or not.  I 
+- Oh, I'm using the wrong base address for the CF card because I'm using the wrong config.  I even noted that in the other log.  I
+  have now copied over that line as well.
+- 30th's time's the charm, got it boot when I finally had the correct ATA_BASE
+- and interestingly enough, it's doing the same thing as it does on the k30p-VME when it's running at 25MHz... so maybe this is a
+  software issue and not the k30p's logic
+- it maybe doesn't happen on the k30p at a slower clock speed because the timer interrupt will be... wait it'll be sooner at
+  12.5MHz, so it should happen earlier than on the 25MHz one, no?  So maybe that's not related, or maybe it's not related the way I
+  thought (with the context switch/interrupt itself causing the problem)
+- I checked voltages and indeed that is the problem.  It's at 4.08V instead of 5V, and the CPU might even be working correctly like
+  that, but I wouldn't be surprised if the serial is malfunctioning.  It seems to be the USB on my monitor stand that can't supply
+  this much current (or refuses to, if that USB port on the computer is limiting it), but I would sooner suspect the cable to the
+  monitor arm, which is probably cheap.  Could be all sorts of things, but that's a clear source of the failure to boot issue at
+  least
+
+- I'm kind of getting sidetracked now, I tried to compile the kernel without -O3 in order to test if the optimizations are causing a
+  problem, after reading in the computie logs that I had to add a volatile to strlen in order to get the monitor working previously
+  because otherwise it was hanging.  It's very possible a similar thing is happening here with the kernel, so I thought it would be
+  quick to check, but then I ran into a problem with undefined fwrite, which is almost certainly related to the wrong object files
+  being added to the lib because it compiles both versions of libc.  The only place that fwrite exists that would cause the
+  undefineds is in fputs, which is used by fputs in os/ but not in none/
+- I compiled it with just the kernel and it worked without errors because it was monitor that had the problem
+- trying to load it over serial caused the k30 to reset and run the monitor and start printing out the data instead of reading it
+  in.  It was working before I used the unoptimized kernel.  *sigh*  I feel like I had this recently with one of the 3 boards I've
+  been playing with
+- ok I just checked and it's 100% because the kernel overflows the size that the load script handles (16-bit length) so it loads the
+  first ~0x1800 bytes and then boots, but there's more data to send, so I need to keep that in mind now that I have such a big
+  kernel.  I could modify the format to use a 4 byte number instead, but I guess I'd have to upgrade the roms on the other boards?
+  I'd rather not use a backwards compatible mechanism.
+
+- alright! so I have the kernel running on both k30-SBC and k30p-VME at the same time!! (with different ATA addresses)  With
+  k30-SBC, if I do an ls of the root (as well as bin and others), it will hang.  On k30p-VME, it won't hang on the root ls, but it
+  will on another longer like bin and the test dir I made.  In both cases, I can (at least now, I thought it wasn't working earlier)
+  press Ctrl-C to exit and get back to the shell.  I'm pretty sure this problem is at least semi-software related, and not a problem
+  with the logic.  I've been chasing a ghost for the past week or more.  That's kind of depressing to be honest.  I'm definitely
+  making these mistakes more lately, which might be the ADHD medication, or just old age and poor memory.  Neither of those would be
+  great.
+
+- To recap: the ls bin issue is possibly software or speed related but affecting both boards and not CPLD-related, and the other
+  problem I had earlier where it did hang during a VME access was caused by the system board.
+    - fix systemboard logic and/or bus_acquired logic
+    - fix ls bin issue by debugging software side
+
+- and I think I've fixed the systemboard problem by adding synchronizers.  I could probably make it faster without them and by
+  removing the clocked state machine in favour of assigns, but at least it works for now
+- I'm not sure if I should keep the synchros at the top level in buslogic or not, but I'll commit it for now because I think that's
+  what's running on the board atm
+

@@ -56,6 +56,8 @@ module buslogic(
     output reg md32_cross_oe,
     output reg md32_cross_dir
 );
+    localparam ACTIVE = 1'b0;
+    localparam INACTIVE = 1'b1;
 
     reg bus_acquired;
     reg request_vme_a16;
@@ -84,11 +86,30 @@ module buslogic(
         cpu_clock <= clock_counter[0];
     end
 
-    localparam ACTIVE = 1'b0;
-    localparam INACTIVE = 1'b1;
+    reg [1:0] cpu_as_fifo;
+    reg [1:0] cpu_ds_fifo;
+    reg [1:0] bus_acquired_fifo;
+    reg [1:0] vme_dtack_fifo;
+
+    // Synchronizing the input signals from the CPU
+    // It uses both the negative and positive edges to decrease the time needed
+    // Starting on the negative edge because the CPU starts on the positive edge
+    always @(negedge clock) begin
+        cpu_as_fifo[1] <= cpu_as;
+        cpu_ds_fifo[1] <= cpu_ds;
+        bus_acquired_fifo[1] <= bus_acquired;
+        vme_dtack_fifo[1] <= vme_dtack;
+    end
+
+    always @(posedge clock) begin
+        cpu_as_fifo[0] <= cpu_as_fifo[1];
+        cpu_ds_fifo[0] <= cpu_ds_fifo[1];
+        bus_acquired_fifo[0] <= bus_acquired_fifo[1];
+        vme_dtack_fifo[0] <= vme_dtack_fifo[1];
+    end
 
     address_decode address_decode(
-        .cpu_as(cpu_as),
+        .cpu_as(cpu_as_fifo[0]),
         .address_high(cpu_address_high),
         .n_address_top(cpu_address_top),
 
@@ -130,22 +151,20 @@ module buslogic(
     assign vme_lword = bus_acquired == ACTIVE ? vme_lword_out : 1'bZ;
     assign vme_write = bus_acquired == ACTIVE ? vme_write_out : 1'bZ;
     assign vme_address_mod = bus_acquired == ACTIVE ? vme_address_mod_out : 6'bZZZZZZ;
-    wire request_vme_out;
 
     vme_data_transfer vme_data_transfer(
         .clock(inv_clock),
         .reset(reset),
         .status_led(status_led),
 
-        .request_vme(request_vme),
+        .request_vme_sync(request_vme),
         .request_vme_a16(request_vme_a16),
         .request_vme_a24(request_vme_a24),
         .request_vme_a40(request_vme_a40),
-        .bus_acquired(bus_acquired),
-        .request_vme_out(request_vme_out),
+        .bus_acquired_sync(bus_acquired_fifo[0]),
 
-        .cpu_as(cpu_as),
-        .cpu_ds(cpu_ds),
+        .cpu_as_sync(cpu_as_fifo[0]),
+        .cpu_ds_sync(cpu_ds_fifo[0]),
         .cpu_write(cpu_write),
         .cpu_siz(cpu_siz),
         .cpu_address(cpu_address_low),
@@ -158,7 +177,7 @@ module buslogic(
         .vme_lword(vme_lword_out),
         .vme_write(vme_write_out),
         .vme_address_mod(vme_address_mod_out),
-        .vme_dtack(vme_dtack),
+        .vme_dtack_sync(vme_dtack_fifo[0]),
         .vme_berr(vme_berr),
 
         .addr_low_oe(addr_low_oe),
@@ -178,15 +197,20 @@ module buslogic(
     /*
     assign cpu_dsack_out[0] = ( (cpu_as == ACTIVE) && (cpu_fc != 3'b111) && (
         (request_vme == ACTIVE && vme_dsack_out[0] == ACTIVE) ||
-        (request_ram == ACTIVE) ||
-        (request_rom == ACTIVE)
+        (vme_as_out != ACTIVE &&
+            (request_ram == ACTIVE) ||
+            (request_rom == ACTIVE)
+        )
     )) ? ACTIVE : INACTIVE;
 
     assign cpu_dsack_out[1] = ( (cpu_as == ACTIVE) && (cpu_fc != 3'b111) && (
         (request_vme == ACTIVE && vme_dsack_out[1] == ACTIVE) ||
-        (request_ram == ACTIVE)
+        (vme_as_out != ACTIVE &&
+            (request_ram == ACTIVE)
+        )
     )) ? ACTIVE : INACTIVE;
 
+    //assign cpu_berr_out = INACTIVE;
     assign cpu_berr_out = ( (cpu_as == ACTIVE) && (cpu_fc != 3'b111) && (
         (request_vme != ACTIVE && vme_as_out != ACTIVE && request_ram != ACTIVE && request_rom != ACTIVE && request_serial != ACTIVE)
     )) ? ACTIVE : INACTIVE;
@@ -199,7 +223,7 @@ module buslogic(
         end else if (request_vme == ACTIVE) begin
             cpu_dsack_out <= vme_dsack_out;
             cpu_berr_out <= INACTIVE;
-        end else if (!(request_vme == ACTIVE || request_vme_out == ACTIVE || vme_as_out == ACTIVE || vme_dsack_out == ACTIVE)) begin
+        end else if (!(request_vme == ACTIVE || vme_as_out == ACTIVE || vme_dsack_out == ACTIVE)) begin
             if (request_ram == ACTIVE) begin
                 cpu_dsack_out <= 2'b00;
                 cpu_berr_out <= INACTIVE;
