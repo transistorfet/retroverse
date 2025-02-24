@@ -1,6 +1,4 @@
 
-* fix the ATA card issue at 25MHz
-* test the 25Mhz with the memcard, might have the same issue.  It doesn't but I haven't looked at how fast the writes are going
 * solder a power-on cap to the systemboard
 * replace the power-on cap in k30p
 

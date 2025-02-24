@@ -1520,3 +1520,28 @@ From todo.txt
 - I'm not sure if I should keep the synchros at the top level in buslogic or not, but I'll commit it for now because I think that's
   what's running on the board atm
 
+- for the ls bin problem, there's both context switching and buffering going on.  It switches from pid 2 back to 2, which is the
+  idle process, and when ls runs, it switches to pid 3 (sh) and then to pid 5 (ls), and then back to pid 2 before the listings hang,
+  and it continues to print the listings up until the normal hanging spot, but it only ever switches from 2 to 2 again, and never
+  goes back to pid 5.  So it's definitely a scheduling problem of some kind, but I haven't investigated further yet.  Either the
+  process is blocked when it shouldn't be, or removed from the list when it shouldn't be, or maybe even it exits and but the buffer
+  isn't big enough for all the data its written and it gets cut off before the end
+- ok I looked one last time because I couldn't put it down.  I added printk statements to the exit/suspend/stop calls in proc
+  scheduler, and it's definitely *not* exiting the process, but it *is* suspending the process.  It also actually does about 2 or 3
+  context switches during the listing, where it switches from pid 5 back to 5.  It's the suspend that switches back to pid 2 and
+  never resumes.  I think it might be related to the buffer filling up, and on 12.5MHz it doesn't occur because the serial goes fast
+  enough relative to the CPU to not need to suspend?  Maybe it would happen if the process ran for much longer
+
+2025-02-17:
+
+- looking at the code last night, I found a comment int the pipe.c file that says something to the effect of "this should work for
+  now but it won't wake up the process if it blocks on writing" and that whatever that was will affect the tty as well, if the write
+  buffer fills up.  That's exactly what's going on here I think.  It fills up the write buffer, blocks, and then never wakes up.  So
+  not only is it a software problem, but it's a problem I knew about years ago and it's only come up when I got the boards running
+  fast enough to fill the buffer.  I wasted the last week or so chasing this, but at least now I know I can set up the case
+- debugging is in the gloworm logs
+
+- also, I think with the synchros in the top level logic file, while it does sometimes do a CPU cycle in 93.75ns, it seems to more
+  often take 125ns I think, so if I restore that change, it might run faster without causing problems.  I should come up with a
+  benchmark that I can run to test the performance of ram, rom, vme bus, and everything combined so that I can tune the logic.
+

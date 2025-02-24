@@ -49,6 +49,9 @@ CPUs.  It should be possible for the system to support different CPUs in the sam
 time, running their own code.  My larger hope is for the VME bus to be used more broadly in the
 hobbyist retro computer community as a common means of constructing systems.
 
+Some of the design and build process was live-streamed and recordings are available at
+[youtube.com/@transistorfet](https://www.youtube.com/@transistorfet)
+
 
 Why VMEbus?
 -----------
