@@ -68,3 +68,7 @@ Revision 1 Errata and Notes
 
 - it would be really handy if I could have a 100MHz clock somehow.  I don't think a crystal can go
   high enough, so I might need a dedicated clock PLL chip, which I'm hesitant to use
+
+- it might be good to put some series damping resistors in the clock traces, which might improve
+  the clock signal a bit
+

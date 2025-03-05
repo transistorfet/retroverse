@@ -1545,3 +1545,26 @@ From todo.txt
   often take 125ns I think, so if I restore that change, it might run faster without causing problems.  I should come up with a
   benchmark that I can run to test the performance of ram, rom, vme bus, and everything combined so that I can tune the logic.
 
+2025-03-01:
+
+- I'm trying to piggyback a 1uF cap onto the power on reset capacitor on k30p, which is 0.47uF
+- 1uF wasn't cutting it.  I put a 4.7uF on the systemboard's reset, which also uses a power-on reset counter in the CPLD, but even
+  that wasn't enough to stop it from printing garbage when it first turns on, even though it did seem to be enough to make the CF
+  card initialize properly
+- I put a 10uF in place of the 0.47uF because I had some 0805s in stock, and that seems to work.  It sometimes prints a few extra
+  null characters at the start, but it always seems to print the welcome message instead of garbage
+
+2025-03-02:
+
+- I finally got the case set up.  The card guides are the exact size for having the second set of rails where they are.  Everything
+  just fits with the backplane and cards.  It's great!
+- It's maybe a bit tight in the back, but it might still be possible to mount the power supply directly onto the aluminum backing
+  plate, but it also might just not fit.  The eurorack power bar I got is too big as well.  I either need a smaller one or mount
+  that on the back plate or something, but then it wouldn't be very accessible.  I really don't have a lot of space for eurorack
+  modules, but I could still fit the two I have while still having the full 4-cpu configuration I expect to end up with, but it
+  would likely *just* fit
+- the LED on membird isn't all that great of a colour, maybe a red one would look better than the dull green.  The power LED on
+  systemboard, on the other hand, is too bright and I need a blanking plate to dull it a bit
+- I need a front panel for the CF card, maybe one for systemboard, and an extension piece instead of a custom front panel (or maybe
+  a blank front panel in white and black to go better than the bare aluminum?)
+

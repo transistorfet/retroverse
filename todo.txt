@@ -1,8 +1,11 @@
 
-* solder a power-on cap to the systemboard
-* replace the power-on cap in k30p
+* update the cover picture on jabberwocky.ca
+* update the pictures of k30p with ones after the FTDI rework
+
 
 * change the license
+
+* add damping resistors to the clock lines
 
 * figure out why it doesn't boot correctly when first powered on.  Maybe the CPLD needs a special reset line, or it needs to be
   programmed to reset more than it does, or it needs to hold the reset low or something.  If it can't be solved in logic, I'll need
