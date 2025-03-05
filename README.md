@@ -144,11 +144,11 @@ to find it.
 * [https://schroff.nvent.com/en-ca/products/enc24576-006](https://schroff.nvent.com/en-ca/products/enc24576-006)
 * [https://www.digikey.ca/en/products/detail/schroff/24576006/24659562](https://www.digikey.ca/en/products/detail/schroff/24576006/24659562)
 
-I also bought a [https://www.digikey.ca/en/products/detail/schurter-inc/4304-6091/2645678](Schurter
-Power Entry Module) and cut a hole in the back aluminum panel to install it.  It's wired to the
-Meanwell RT-85B power supply, and power from that is wired to the backplane.  I'd like to eventually
-add a current meter on the front, mounted in an 8HP blanking plate I've bought, but I'm still
-waiting for parts to arrive.
+I also bought a [Schurter Power Entry
+Module](https://www.digikey.ca/en/products/detail/schurter-inc/4304-6091/2645678) and cut a hole in
+the back aluminum panel to install it.  It's wired to the Meanwell RT-85B power supply, and power
+from that is wired to the backplane.  I'd like to eventually add a current meter on the front,
+mounted in an 8HP blanking plate I've bought, but I'm still waiting for parts to arrive.
 
 ![alt text](images/Schroff-case-and-backplane.jpg "A 3U 63HP desktop case with very dark grey front front and dull blue trim pieces made of rounded aluminum above and below the front card mounting rails, which have many small M2.5 screw holes horizontally, top and bottom, and are bright bare aluminum.  The left most 10-slots out of a maximum 15 have bright red card guides.  The case is empty of cards, but a Schroff 11-slot backplane is mounted in the rear of the case, most of the way back, and the rear panel is not in place.  The backplane is a green PCB with large white DIN41612 connectors that take up as much space as there is exposed green PCB.  The rest of the inside of the case is untreated bare aluminum.  A bundle of blue covered wire pair is just visible behind the case to the left, and a desk lamp and lego flowers are way in the background to the left, and a trans flag is barely visible to the right.")
 ![alt text](images/Schroff-case-and-backplane-rear.jpg "The rear of a 3U 63HP desktop case with no back panel looking inward, with a big green PCB with yellow silkscreen and yellow vertical through-hole resistor networks on the left and right sides, a white pin connector on the right most side, orange capacitors and metal screw terminals for power along the bottom edge, and the pins of the back sides of the DIN41612 sockets showing through.  It is covering most of the right side of the inside of the case, mounted on the rear rails inside the case.  The case is a light grey aluminum with vertical plastic rear feet/bumpers on the left and right sides.")
