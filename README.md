@@ -4,46 +4,47 @@ RetroVerse
 
 ###### *Started August 06, 2023*
 
-A series of computer cards using the [VME bus](https://en.wikipedia.org/wiki/VMEbus) as a common
+A collection of computer cards using the [VME bus](https://en.wikipedia.org/wiki/VMEbus) as a common
 backplane, in the style of modular computer equipment, laboratory test equipment, and industrial
-controls systems.
+controls systems.  The project name is a combination of Retro-computers (newly designed and built
+computers that are based on old CPUs and parts), and Versa (the V in VME, which stands for Versa
+Module Eurocard).
 
 I've always liked the VME bus for its adaptability.  It's an asynchronous bus with dynamic sizing,
 so it can support both controllers and peripherals that require different signaling speeds and bus
 widths to communicate, without requiring a specialized bus interface chip.  It supports multiple
 controllers without the need for a special slot on the backplane, because it uses daisy chained
-priority bus arbitration.  It's based on the Eurocard standard form factor (VME stands for Versa
-Module Eurocard), and uses standard and readily available DIN41612 connectors, comes in a 3U
-variant, and it's possible to still buy equipment that conforms to the standard, namely card cases
-and power supplies.  The 3U Eurocard standard, which uses 160x100mm boards, is also fairly
-affordable for PCB printing, and it's possible to make 100x100mm cards, which can be printed for as
-low as $2.  The bus is perhaps slow by modern standards, but for CPUs that are below 100MHz, it's
-the perfect bus to build 16-bit and 32-bit retro computers around.
+priority bus arbitration.  It's based on the Eurocard standard form factor, and uses standard and
+readily available DIN41612 connectors, comes in a 3U variant, and it's possible to still buy
+equipment that conforms to the standard, namely card cases and power supplies.  The 3U Eurocard
+standard, which uses 160x100mm boards, is also fairly affordable for PCB printing, and it's possible
+to make not-quite-standard 100x100mm cards, which can be printed for as low as $2.  The bus is
+perhaps slow by modern standards, but for CPUs that are below 100MHz, it's the perfect bus to build
+16-bit and 32-bit retro computers around.
 
-The project name comes from retro computers (newly designed computers based on old CPUs and parts),
-and the V in VME which stands for Versa.
-
-I ordered an off-the-shelf desktop card case from
-[Schroff](https://schroff.nvent.com/en-de/products/enc24576-106) via Digikey, on backorder, a used
+So far, I have bought an off-the-shelf desktop card case from
+[Schroff](https://schroff.nvent.com/en-de/products/enc24576-106) via Digikey (backordered), a used
 Schroff 3U 11-slot backplane from eBay, and an affordable [MeanWell power
-supply](https://www.meanwell.com/productPdf.aspx?i=488) to power it.  I'm hoping to be able to
-install multiple CPU cards into the same system to make a simple multiprocessor machine.  I've
-already made a generic card using a microcontroller wired to the bus, that I intended to use as a
-bus analyzer called
-[BigBoy](https://github.com/transistorfet/retroverse/tree/main/components/bigboy), but it's a bit
-too slow for that so I'll try instead to use it as a generic peripheral.  I've also made a CPU card
-with a MC68030, onboard RAM, Flash, and serial ports, and a small 16-bit memory card with up to 4MB
-of static RAM, a board for handling the bus arbitration and interrupt signals on the bus (separate
-instead of as part of the CPU card because it will be a multiprocessor system), and I've built Tom's
-CompactFlash card from [COMET](https://github.com/tomstorey/COMET) to use as the main storage drive for the system.
+supply](https://www.meanwell.com/productPdf.aspx?i=488) to power it.  I've designed and built a CPU
+card with a Motorola MC68030, onboard static RAM and Flash memory, and two serial ports, a small
+16-bit memory card with up to 4MB of static RAM, and a board for handling the bus arbitration and
+interrupt signals on the bus (separate from the CPU card since I intend to use multiple CPU cards in
+the same system).  I've also built Tom Storey's CompactFlash card from
+[COMET](https://github.com/tomstorey/COMET) to use as the main secondary storage for the system.
+Before building these, I had also designed and built a generic card using an STM32 microcontroller
+wired to the bus signals called
+[BigBoy](https://github.com/transistorfet/retroverse/tree/main/components/bigboy), which I had hoped
+to use as a bus analyzer, but it's a bit too slow for that, so I'll probably program it as a generic
+peripheral instead.
 
 I had originally intended to design and build my own backplane using 4-row connectors with some of
 the P2 connector's signals on an extended P1, but I abandoned that idea in the interest of
-interoperability and ended up buying a used 11-slot Schroff backplane from eBay.  Tom Storey has
-designed a 3-slot and 8-slot backplane as part of [COMET](https://github.com/tomstorey/COMET) which
-is a good choice for those who wish to build their own.
+interoperability with existing used VME equipment and ended up buying a used 11-slot Schroff
+backplane from eBay.  Tom Storey has designed a 3-slot and 8-slot backplane as part of
+[COMET](https://github.com/tomstorey/COMET) which is a good choice for those who wish to build their
+own.
 
-I also intend to eventually make a 68010 version using only DIP chips and hopefully all hardwired
+I also intend to eventually make an MC68010 version using only DIP chips and hopefully all hardwired
 logic, so that there's no need for specialized PLD programmers.  I might also make cards with other
 CPUs.  It should be possible for the system to support different CPUs in the same system at the same
 time, running their own code.  My larger hope is for the VME bus to be used more broadly in the
@@ -120,11 +121,11 @@ contact with me.  I'd love to add them to this list]
 Single-CPU System
 -----------------
 
-This is generally where I'm at, as of January 2025.  I have a simple single-CPU system with
+This is generally where I'm at, as of March 2025.  I have a simple single-CPU system with
 SystemBoard, k30p-VME, Tom Storey's CF Card, and MemBird Woodcock (although it's not used by the
 software atm).  It can boot [Gloworm](https://github.com/transistorfet/gloworm), using the CF card
-as the ATA device, and the FTDIs on k30p as the TTY and network SLIP connection.  I can ping it from
-my computer over SLIP, and run applications off the CF card.
+as the ATA device, and the FTDIs on k30p as the TTY and a SLIP connection for networking.  I can
+ping it from my computer over SLIP, and run applications off the CF card.
 
 ![alt text](images/complete-single-cpu-system-front.jpg "A schroff 3U 63HP PropacPro case, looking face on and a bit downward at the front, which is trimmed in a very dark grey aluminum piece with two straight dull blue rounded aluminum top and bottom trim above and below where the cards are inserted.  The top of the case, which is barely showing, is light grey.  It has space for 15 slots spaced out horizontally, and allowing a vertical card to be inserted along bright red plastic guide rails, with only 7 of the 10 guides showing, and the front panels of 3 cards blocking the others.  The right 5 slots don't have guide rails.  The left-most slot has a blank aluminum plate with a few holes in it that are showing a bright deep green LED light inside.  Next to it is a while alumimum panel with black test that shows a partially obscured ComputeVME with a Motorola logo and k30p-VME below that.  It has 4 rows of pairs of LEDs and buttons, two USB-C ports with a mauve and a teal green cable plugged into each, and a white trapezoid handle below.  A slot is blank and then Tom Storey's CF card is next to that whith a card in it and no front panel.  Membird is next to it but not visible except for the dull green power LED.  BigBoy with a similar custom white aluminum front panel is next to it, with BigBoy in black text, 2 x 2 blue LEDs, a microSD slot, microB USB and RJ-11 jack labelled Ethernet.  The right half of the 11-slot VME backplane is just visible, mounted in the left part of the case, with a space visible in the back where the remaining 4-slots-worth of space showes the back of the case, and the rear of the black power entry module.  Mounted in the right-most side of the case is a Meanwell powersupply taking up 8HP, 2 slots, and the full 3U of height, wrapped in a thin metal shell with a diagonal pattern of round holes that expose most of the inside.  An 8HP blank plate with 4 knurled thumb-screws in the 4 corners and a trapezoid handle at the bottom and a protective film with 2 vertial blue lines still unremoved is mounted in the right most spot to block the power supply.")
 ![alt text](images/basic-single-cpu-system-angle.jpg "A green PCB backplane that says Schroff with white DIN41612 connectors, and 4 cards plugged into the first 4 of 11 slots.  The first and last are short 100mm long cards with the last being red and shown clearly while the first is black and is mostly obscured by the others.  The second card is purple with a white aluminum frontpanel that says 'ComputieVME', a Motorola logo, and 'k30p-VME' near the top in black text, with a trapezoid grey handle at the bottom, and two USB-C cables coming out of the frontpanel, the top one being a mauve and the the bottom being a light teal green.  The third card is green and has a compact flash card sticking out the top with no frontpanel.  The view is looking mostly down and to the left with the backplane flat on a black metal shelving unit about waist high, with the cards sticking upwards.  An oscilloscope can be be seen on the same shelf behind the backplane, and a small white fan is just out of view.")
@@ -145,7 +146,9 @@ to find it.
 
 I also bought a [https://www.digikey.ca/en/products/detail/schurter-inc/4304-6091/2645678](Schurter
 Power Entry Module) and cut a hole in the back aluminum panel to install it.  It's wired to the
-Meanwell RT-85B power supply, and power from that is wired to the backplane.
+Meanwell RT-85B power supply, and power from that is wired to the backplane.  I'd like to eventually
+add a current meter on the front, mounted in an 8HP blanking plate I've bought, but I'm still
+waiting for parts to arrive.
 
 ![alt text](images/Schroff-case-and-backplane.jpg "A 3U 63HP desktop case with very dark grey front front and dull blue trim pieces made of rounded aluminum above and below the front card mounting rails, which have many small M2.5 screw holes horizontally, top and bottom, and are bright bare aluminum.  The left most 10-slots out of a maximum 15 have bright red card guides.  The case is empty of cards, but a Schroff 11-slot backplane is mounted in the rear of the case, most of the way back, and the rear panel is not in place.  The backplane is a green PCB with large white DIN41612 connectors that take up as much space as there is exposed green PCB.  The rest of the inside of the case is untreated bare aluminum.  A bundle of blue covered wire pair is just visible behind the case to the left, and a desk lamp and lego flowers are way in the background to the left, and a trans flag is barely visible to the right.")
 ![alt text](images/Schroff-case-and-backplane-rear.jpg "The rear of a 3U 63HP desktop case with no back panel looking inward, with a big green PCB with yellow silkscreen and yellow vertical through-hole resistor networks on the left and right sides, a white pin connector on the right most side, orange capacitors and metal screw terminals for power along the bottom edge, and the pins of the back sides of the DIN41612 sockets showing through.  It is covering most of the right side of the inside of the case, mounted on the rear rails inside the case.  The case is a light grey aluminum with vertical plastic rear feet/bumpers on the left and right sides.")
@@ -158,7 +161,7 @@ Backplane
 I bought a Schroff 23000-041 11-Slot backplane, used from eBay.  Luckily it has automatic
 daisy-chaining, so when a slot doesn't have a card in it, the daisy-chained signals are shorted in
 order to bypass that slot.  It also has active termination, which I have enabled with the jumpers,
-so it takes only 10mA or so of 5V power without any cards connected.
+so it takes only 10mA of 5V power without any cards connected.
 
 ![alt text](images/Schroff-backplane-front.jpg "Schroff 23000-041 11-Slot VME Backplane with a green PCB and white DIN41612 connectors")
 
