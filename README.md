@@ -244,9 +244,9 @@ QFP package in the centre with the 5V tolerant I/O connected directly to the VME
 signals, and through transceivers for the data and address signals.  On the board is also a 100BaseT
 ethernet interface, a full speed USB port (so 12Mbps I assume is the fastest), a microSD card slot
 (where I accidentally put the footprint on backwards), and a few headers for external FTDIs, I2C,
-and SPI device.
+and SPI devices.
 
-It's called BigBoy because it has the big boy microcontroller in the largest TQPF package available,
+It's called BigBoy because it has the big boy microcontroller in the largest QFP package available,
 with a big 4-row DIN41612 connector which was an idea to add an extra row to P1 for the upper data
 and address signals of a 32-bit system, which is optional (the 4-row connector can be plugged into a
 3-row or 4-row backplane).  I've mostly abandoned this idea in favour of sticking to the standard,

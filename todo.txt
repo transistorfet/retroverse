@@ -3,8 +3,6 @@
 * update the pictures of k30p with ones after the FTDI rework
 
 
-* change the license
-
 * add damping resistors to the clock lines
 
 * figure out why it doesn't boot correctly when first powered on.  Maybe the CPLD needs a special reset line, or it needs to be
