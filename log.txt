@@ -1551,8 +1551,8 @@ From todo.txt
 - 1uF wasn't cutting it.  I put a 4.7uF on the systemboard's reset, which also uses a power-on reset counter in the CPLD, but even
   that wasn't enough to stop it from printing garbage when it first turns on, even though it did seem to be enough to make the CF
   card initialize properly
-- I put a 10uF in place of the 0.47uF because I had some 0805s in stock, and that seems to work.  It sometimes prints a few extra
-  null characters at the start, but it always seems to print the welcome message instead of garbage
+- I put a 10uF in place of the 0.47uF on the k30p because I had some 0805s in stock, and that seems to work.  It sometimes prints a
+  few extra null characters at the start, but it always seems to print the welcome message instead of garbage
 
 2025-03-02:
 

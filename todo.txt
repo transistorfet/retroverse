@@ -5,10 +5,6 @@
 
 * add damping resistors to the clock lines
 
-* figure out why it doesn't boot correctly when first powered on.  Maybe the CPLD needs a special reset line, or it needs to be
-  programmed to reset more than it does, or it needs to hold the reset low or something.  If it can't be solved in logic, I'll need
-  to find a hardware solution
-
 * add support for interrupts on the VME bus, which will require those extra address pins you connected
 * add the unmapped address thing which should cause a bus error on unmapped
 * make a simple peripheral with bigboy, possibly even a dummy ATA device to help with driver writing
