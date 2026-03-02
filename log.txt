@@ -80,7 +80,7 @@
     - Versie
     - Versus
     - Inverse
-    - Vertibie (vertebrete)
+    - Vertibie (vertabrae)
     - Vervie
     - Labbie (labratory computer)
     - Modulo
@@ -1472,7 +1472,7 @@ From todo.txt
 - it's not booting off the CF card.  Not sure if this was also a problem earlier or not.  It hangs after reading the ram disk
 - maybe I did, but I had to add back in the ATA_DELAY(10); line in the ATA read sector code?  Maybe something else because that
   didn't work
-- adjusting the timings to what they were before doesn't seem to fix it and I didn't record whether I got it booting or not.  I 
+- adjusting the timings to what they were before doesn't seem to fix it and I didn't record whether I got it booting or not.  I
 - Oh, I'm using the wrong base address for the CF card because I'm using the wrong config.  I even noted that in the other log.  I
   have now copied over that line as well.
 - 30th's time's the charm, got it boot when I finally had the correct ATA_BASE
@@ -1567,4 +1567,51 @@ From todo.txt
   systemboard, on the other hand, is too bright and I need a blanking plate to dull it a bit
 - I need a front panel for the CF card, maybe one for systemboard, and an extension piece instead of a custom front panel (or maybe
   a blank front panel in white and black to go better than the bare aluminum?)
+
+
+2025-05-05:
+
+- I should make my boards more arty, like eurorack modules: retro-industrial styling, maybe other cpu cards can have catchier names
+  than the k30p
+
+
+2025-06-21:
+
+- I guess I didn't write this down at the time, but when looking into possible PLLs for a 100MHz logic clock for the CPLD, I came
+  across the ICS501 from Renesas which is a single chip crystal phase locked loop which can run up to 160MHz.  If a faster clock was
+  needed, that's probably the chip to use
+
+
+2026-02-08:
+
+- I've been trying to get MMU support working in gloworm, and I have been chasing a bug with the tty that's lead me into the
+  hardware, and in playing around with a resistor, I seem to have fried the trace connecting the inner island ground underneath the
+  CPU with the rest of the board's ground.  Everything was going through that one trace.  There's no visible damage on the board,
+  but it was not running, the CPU didn't seem to do anything when reset, and the halt and reset signals were only getting pulled
+  down to about 1.2V when the CPU was in.  Taking the CPU out, they could be pulled down to ground, but jumping between the reset
+  pin and a ground on the socket would only pull down to about the same.  It turned out the resistance between ground and the ground
+  pins on the socket was about 11k ohms.  I soldered a bodge wire in and it's working as normal now
+
+
+2026-02-12:
+
+- it seems the yosys version wasn't a problem after all.  I had compiled with 0.55 instead of 0.33 and it wasn't working, but I just
+  had to press the system reset button instead of the CPU card reset.  The serial problem that started this is happening reliably
+  when the CPU clock is 25MHz, and works perfects when it's 12.5MHz
+
+
+2026-02-17:
+
+- I tried swapping the serial port controller, MC68681, after Tom suggested it.  I didn't think it would do anything, but the broken
+  image I was using worked fine and I couldn't restart it to make it break.  I tried other images I had saved, and two of the images
+  still do the double character thing, but two or three of them work, and both the with the field and without seem to work
+  (see gloworm/log.txt for full details on debugging this)
+
+
+2026-02-28:
+
+- I got the gloworm image running both in moa, the emulator, and on k30-SBC, and it's working fine in both cases, so I'm quite
+  confident that the problem is a hardware issue.  It's possibly a problem with buslogic, some kind of race condition, since
+  reducing the clock speed fixes the problem as well, or maybe some kind of flakiness caused by damage from a previous short, or
+  rise times being too long.
 

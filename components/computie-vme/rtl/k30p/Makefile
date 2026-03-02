@@ -37,5 +37,6 @@ buslogic_test.edif: vmebus_interface.v interrupts.v local_peripherals.v
 #################
 
 clean:
-	find . \( -name "*.jed" -or -name "*.tt3" -or -name "*.edif" -or -name "*.fit" -or -name "*.io" \) -delete -print
+	#find . \( -name "*.tt3" -or -name "*.edif" -or -name "*.fit" -or -name "*.io" \) -delete -print
+	rm buslogic.edif buslogic.tt3 buslogic.fit buslogic.io
 

@@ -14,7 +14,7 @@ module vme_bus_arbitration(
     localparam ACTIVE = 1'b0;
     localparam INACTIVE = 1'b1;
 
-    always @(*) begin
+    always @(negedge clock) begin
         /*
         // TODO these will bypassed bus arbitration for testing
         bus_acquired <= ACTIVE;
@@ -63,7 +63,7 @@ module vme_data_transfer(
     output reg vme_write,
     output reg [5:0] vme_address_mod,
     input vme_dtack_sync,
-    input vme_berr,
+    input vme_berr_sync,
 
     output reg addr_low_oe,
     output reg a40_cross_oe,
@@ -135,7 +135,7 @@ module vme_data_transfer(
                     cpu_berr <= INACTIVE;
                     vme_address_mod <= 6'b111111;
 
-                    //if (request_vme_a40 == ACTIVE && bus_acquired == ACTIVE && vme_dtack == INACTIVE && vme_berr == INACTIVE) begin
+                    //if (request_vme_a40 == ACTIVE && bus_acquired == ACTIVE && vme_dtack == INACTIVE && vme_berr_sync == INACTIVE) begin
                         /*
                         state <= ADDRESS_A40;
                         vme_as <= ACTIVE;
@@ -166,7 +166,7 @@ module vme_data_transfer(
                         end
                         */
                     //end else
-                    if (request_vme_sync == ACTIVE && (request_vme_a16 == ACTIVE || request_vme_a24 == ACTIVE) && bus_acquired_sync == ACTIVE && vme_dtack_sync == INACTIVE && vme_berr == INACTIVE) begin
+                    if (request_vme_sync == ACTIVE && (request_vme_a16 == ACTIVE || request_vme_a24 == ACTIVE) && bus_acquired_sync == ACTIVE && vme_dtack_sync == INACTIVE && vme_berr_sync == INACTIVE) begin
                         state <= ADDRESS_A24;
                         vme_write <= cpu_write;
                         vme_lword <= INACTIVE;
@@ -235,7 +235,7 @@ module vme_data_transfer(
                 /*
                 ADDRESS_A40: begin
                     // TODO it's possible the DS signal comes in too soon (the same time as AS) which would mean in A40 mode, there'd be no time to see the address
-                    if (vme_dtack == INACTIVE && vme_berr == INACTIVE && cpu_ds == ACTIVE) begin
+                    if (vme_dtack == INACTIVE && vme_berr_sync == INACTIVE && cpu_ds == ACTIVE) begin
                         state <= DATA_MD32;
 
                         if (cpu_siz == 2'b00) begin

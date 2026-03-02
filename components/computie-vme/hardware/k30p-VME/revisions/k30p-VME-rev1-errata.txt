@@ -12,7 +12,7 @@ Revision 1 Errata and Notes
 - the JTAG connector labels are misleading and there's no pin 1 indicator, so it would be easy to
   connect it backwards
 
-- inrush current is about 1.4A even though in only takes 100mA without the socketed chips.  Maybe
+- inrush current is about 1.4A even though it only takes 100mA without the socketed chips.  Maybe
   I should add a 100 ohm resistor to limit the inrush, at least for select components
 
 - the oscillator with a 50MHz crystal seems to be running at 16.666 MHz instead, and I think it's
@@ -71,4 +71,12 @@ Revision 1 Errata and Notes
 
 - it might be good to put some series damping resistors in the clock traces, which might improve
   the clock signal a bit
+
+- it turns out there was only one trace connecting all the ground pins on the CPU to the rest of
+  the ground plane, and that one trace was fried by accidentally shorting it to Vcc.  I'm not sure
+  if it would be better to have more traces, or if that might just mean a worse short?  Either way,
+  this should probably be addressed on the next revision
+
+- it would be convenient to have more ground loop test points, near the front of the board, so an
+  oscilloscope probe can be connected more easily and still reach to the back of the board
 

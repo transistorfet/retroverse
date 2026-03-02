@@ -90,6 +90,7 @@ module buslogic(
     reg [1:0] cpu_ds_fifo;
     reg [1:0] bus_acquired_fifo;
     reg [1:0] vme_dtack_fifo;
+    reg [1:0] vme_berr_fifo;
 
     // Synchronizing the input signals from the CPU
     // It uses both the negative and positive edges to decrease the time needed
@@ -99,6 +100,7 @@ module buslogic(
         cpu_ds_fifo[1] <= cpu_ds;
         bus_acquired_fifo[1] <= bus_acquired;
         vme_dtack_fifo[1] <= vme_dtack;
+        vme_berr_fifo[1] <= vme_berr;
     end
 
     always @(posedge clock) begin
@@ -106,10 +108,12 @@ module buslogic(
         cpu_ds_fifo[0] <= cpu_ds_fifo[1];
         bus_acquired_fifo[0] <= bus_acquired_fifo[1];
         vme_dtack_fifo[0] <= vme_dtack_fifo[1];
+        vme_berr_fifo[0] <= vme_berr_fifo[1];
     end
 
     address_decode address_decode(
-        .cpu_as(cpu_as_fifo[0]),
+        .cpu_as(cpu_as),
+        .cpu_as_sync(cpu_as_fifo[0]),
         .address_high(cpu_address_high),
         .n_address_top(cpu_address_top),
 
@@ -126,6 +130,9 @@ module buslogic(
     assign request_vme = (request_vme_a16 == ACTIVE) || (request_vme_a24 == ACTIVE) || (request_vme_a40 == ACTIVE) ? ACTIVE : INACTIVE;
 
     ram_select ram_select(
+        .clock(inv_clock),
+        .reset(reset),
+
         .request_ram(request_ram),
         .cpu_ds(cpu_ds),
         .cpu_siz(cpu_siz),
@@ -178,7 +185,7 @@ module buslogic(
         .vme_write(vme_write_out),
         .vme_address_mod(vme_address_mod_out),
         .vme_dtack_sync(vme_dtack_fifo[0]),
-        .vme_berr(vme_berr),
+        .vme_berr_sync(vme_berr_fifo[0]),
 
         .addr_low_oe(addr_low_oe),
         .a40_cross_oe(a40_cross_oe),
@@ -216,7 +223,7 @@ module buslogic(
     )) ? ACTIVE : INACTIVE;
     */
 
-    always @(*) begin
+    always @(negedge inv_clock) begin
         if (cpu_fc == 3'b111) begin
             cpu_dsack_out <= 2'b11;
             cpu_berr_out <= INACTIVE;

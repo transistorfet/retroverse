@@ -94,7 +94,7 @@ About VMEbus
 * [VME FAQ from VITA](https://www.vita.com/VMEbus-FAQ)
 * [VME P1 Connector Pinout](https://allpinouts.org/pinouts/connectors/buses/vme-versamodule-eurocard-p1/)
 * [VME64](https://www.ge.infn.it/~musico/Vme/Vme64.pdf)
-
+* [VMEBus on InterfaceBus.com](https://web.archive.org/web/20231220065144/http://www.interfacebus.com/Design_Connector_VME.html)
 
 Other VME Projects
 ------------------
