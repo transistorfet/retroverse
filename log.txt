@@ -1615,3 +1615,188 @@ From todo.txt
   reducing the clock speed fixes the problem as well, or maybe some kind of flakiness caused by damage from a previous short, or
   rise times being too long.
 
+
+2026-03-01:
+
+- I tried a few things with the dsack logic, including trying to add a wait state counter before asserting dsack, but didn't have
+  much success.  I've put the 12.5MHz logic onto the card for now, and will work on the software before coming back to this problem.
+  I'll need to hook up the logic analyzer to see what's wrong, since it was totally dead, won't boot the monitor, with the dsack
+  delay in place
+
+
+2026-09-12:
+
+- I'm back to taking a look at this logic/yosys stuff.  I've been working here and there on the next revision of the k30p board, and
+  so I thought I should get the logic working again, and get an environment to compile and test with again
+- So to recap, I previously used yosys 0.33 with the hoglet67/atf15xx_yosys workflow to compile the glue logic for the k30p board
+  into a .jed file which can be programmed into the ATF1508AS that's on the board.  That version of yosys works.  The CPLD is
+  clocked at 50MHz from the onboard oscillator, which is then reduced to 25MHz for the CPU
+- at 25MHz CPU, it mostly works but there was one weird bug that I can't easily reproduce with the latest gloworm kernel, where it
+  would not read characters properly from the serial port because the status byte being read from the controller chip (MC68681),
+  would sometimes be incorrect.  This problem is exceedingly rare
+- I previously got it working at 12.5MHz CPU (logic still at 50MHz) and that didn't seem to cause the serial bug, but it might still
+  be there since it's hard to reproduce.  But putting the CPU back to 25MHz has worked fine so far
+- previously, when I compiled the logic (9 months ago) with a newer version of yosys, it wouldn't work.  The monitor would run, and
+  the OS would sort of boot, but it would totally mess up when reading the CF card, and fail to boot.  This is with the CPU running
+  at 25MHz I think
+- I tried this again today with 25MHz CPU, and yosys 0.66, and it wouldn't even compile.  The fitter complained that the EDIF file
+  was unparsable.  I couldn't find anything about what was going on with that
+- since I had the docker stuff from when I last looked at this problem, I tried building a container with the latest version of
+  yosys installed (instead of the one distributed by debian).  The latest is 0.69.  This version was able to compile a .jed.  The
+  fitter was happy with the output, so I guess this problem is just with 0.66, and has either been fixed or magically didn't occur
+- that said, the .jed was still unable to boot gloworm with CF card (or VME bus accesses in general) not working.  I tried putting
+  the CPU clock speed down to 12.5MHz, since that's how I've had to run it anyways after giving up 9 months ago to complete what I
+  was working on with gloworm.  That seemed to boot the OS no problem!  So it's somehow related to the clock, and generally related
+  to the VME bus accesses
+- yosys 0.33 in docker will compile the 25MHz version and it will work mostly flawlessly.  The difference between the two EDIF files
+  is pretty substantial so it's hard to trace it to one specific difference
+
+- On the next board, I'm going to fix some issues with the clock.  I will use a better clock source which will hopefully provide a
+  more stable clock, possibly as high as 100MHz, as well as using series damping resistors to improve the signal that reaches the
+  CPLD and the CPU.  There's a chance that this alone will fix the problems I'm having with the logic
+- barring that, I don't know what might be wrong.  I suspect it's possible the various clocks are just a bit slewed relative to each
+  other, such that things are a bit marginal.  I have synchros on all the inputs I can manage to synchro without too much delay.
+  If I have 100MHz input clock, I should be able to synchro a bit more aggressively without sacrificing cycle times
+
+- yosys 0.46 works, and 0.49 doesn't work, so somewhere between those two, something changed to cause this problem where it won't
+  work at 25MHz
+- well I'll be a hairy dickhole... the diff of the two jed files is nothing but the comment line with the timestamp.  Why the hell
+  is it working differently?  Is the CPLD's memory wearing out already and some writes are bad?
+- I wrote it to the chip a second time and it's still failing the same...
+- Oh ok, now 0.46 is failing, so maybe I made a mistake when testing 0.46 originally, and it's actually between 0.43 and 0.46 that
+  problem starts happening.  I'll test 0.43 again and diff them
+
+- 0.43 was breaking after initially programming it, but a power off and reset made the CF card issue go away.  0.46 doesn't seem to
+  be having the same problem, but I can't be sure it's not just marginal.  The jeds are at least different
+
+
+2026-09-13:
+
+- while waiting for yosys to compile to further debug the issue above, I took another look at the interrupt logic for the k30p.  I
+  think it might be possible to avoid having the IPL signals go through the CPLD, which would free up some I/Os so I can route more
+  address signals through the CPLD
+- this is motivated by the fact that I'm already using a 74HC148 to encode the interrupt signals to save I/Os.  I might have
+  actually been doing something "wrong" with the previous board, in that input 0 to the priority encoder was tied low, but it should
+  actually be tied high since it's not active.  The internal circuit of the encoder is such that I0 doesn't really do anything
+  except change the GS and EO outputs which aren't currently being used, but I'll want to use them if I do this change.  The A0-A2
+  signals will output a 0 regardless of the value of I0
+- the reason it's currently going through the CPLD is because of the serial interrupt.  I would probably still want to derive the
+  CPU IACK signal and just output it from the CPLD, since it needs to compare the function code and such
+- if the serial irq is not active, then the encoder's enable signal can be active, and the VME IPL will output to the CPU IPL,
+  otherwise its output would be disabled, and the serial irq would pull one of the interrupt lines low.  I think that part can be
+  done without additional gates; just with the extra 74HC05 open drain inverters
+- for the ACKs though, I might want an additional set of gates so I can say: if serial IRQ && CPU IACK then serial IACK; if !serial
+  IRQ && encoder GS (interrupt present) then VME IACK
+
+- I think if I moved all interrupt stuff beside CPU IACK derivation out of the CPLD, I could free up 8 I/Os (removing 3xVME_IPL,
+  3xCPU_IPL, VME_IACK, SIRQ, SIACK, and adding CPU_IACK).  This would require an extra logic chip for the VME_IACK and SIACK
+  derivations)
+- if I instead kept the IACK derivations in the CPLD, then I could only free up 5 I/Os (removing 3xVME_IPL, 3xCPU_IPL, and adding
+  the encoder GS signal to gate whether CPU_IACK will be passed through to VME_IACK)
+- given the other two I/Os I can free up (ECS and VSYSCLK), if I only freed up an additional 5, that would still mean I could fit
+  the 8 additional address lines into the CPLD, since it already uses one I/O for the big AND gate currently on the board.  So I
+  could free up one logic chip on the board by deriving the IACKs in the CPLD
+- if I did the first idea of moving IACK entirely out of the CPLD, I'd replace one logic chip with another one, but also have a few
+  more CPLD I/Os to work with
+
+- back to the yosys problem, 0.44 works and 0.45 doesn't work, so something changed in 0.45 which made it not work anymore
+- and yet, that's the release with the fewest changelog notes
+- there are actually quite a few changes there, including bumping the upstream dependency `abc` and merging an experimental branch
+  into main.  Not sure why the changelog is so sparse
+
+
+2026-09-17:
+
+- for the interrupt idea, where I move as much as possible out of the CPLD for interrupts, I should make sure it's still possible to
+  use AVEC somehow, whether with a jumper or with RTL
+- (I *think*) AVEC is supposed to be asserted *instead of* DTACK when an interrupt occurs, so you'd have to know that the CPU is
+  performing an IACK cycle?  Since I'm planning to keep CPU_IACK derivation in the CPLD because it needs AS, FC, and A16 which are
+  in the CPLD anyways, then I think I have all I need to know to do AVEC instead of DTACK?
+- actually maybe not if I want to use regular IACK for the serial, so that the interrupt register will still work as expected, and
+  AVEC for the VME bus.  To do it, I'd need to keep an I/O for serial_irq.  I think that's the least I can do it with.
+
+
+2026-09-20:
+
+- I tried adding -attrprop to write_edif in the yosys flow, since it was commented out in another command, and while that changed
+  the number of macrocells used, and a few other things, more similar to what v0.44 used, that still didn't fix the problem
+- oh, I also tried commenting out the bus arbitration, such that it forced it to always have the bus, and that didn't fix the
+  problem either, so I don't think that's related.  It's perfectly happy when accessing ram and serial, so it's not related to
+  those.  It's only related to the VME bus access, when it tries to read from the CF card.  So it's either (a combination of) the
+  VME logic on the CPU card, or possibly related to the CPLD logic of the CF Card reader, and/or the interaction of those with each
+  other.
+- just a reminder, the issue is related to the clock too, because a 12.5MHz CPU clock will make this all work.  I guess that means
+  it's not strictly related to the VME bus logic in that it could also be related to the DTACK/DSACK logic.  The CF Card In Use
+  light comes on and stays on sometimes, which I'm not sure if that's strictly related to a VME bus cycle not completing properly,
+  or if it could also just be because an ATA command is in progress and all the data hasn't been read yet.  I guess in either case
+  it's reading the wrong data in from the card, so either the DSACK happens too early, or there's some other kind of
+  timing/coordination thing going on there
+
+
+2026-09-26:
+
+- I'm reading through the interrupt handling protocol of the VME bus in vme64.pdf, and it explicitly mentions the 8 bit status/id
+  byte that the interrupting device writes to the bus, so I think that means to conform to the spec, I can't use AVEC and *must* use
+  the normal interrupt method of putting the interrupt vector number onto the data bus.  I'll have to rethink this interrupt stuff
+  then
+- I don't see any other mention of interrupts in this log, so I must not have really considered it before, or at least I didn't
+  write about it if I did
+- for the k30p, most of this process will still be handled by the CPU.  I'm pretty sure the address lines, which have the interrupt
+  priority number, will be set by the 68030, so all the CPLD needs to do is enable the address bus, and enable the data bus in the
+  IN direction (CPU <- VME), and the VME bus would provide the DTACK
+- so if the CPLD has an input that says an interrupt from VME is present, it can treat that like a VME bus cycle and not assert
+  DSACK until the VME bus's DTACK is present, when the CPU interrupt acknowledge cycle is asserted, which the CPLD is still in
+  charge of figuring out
+- I'll have to think about this more, but I think the plan of eliminating a lot of interrupt signals into the CPLD is still
+  feasible.  I might still need to include the serial interrupts to distinguish them though, and I'll definitely need that extra
+  line from the priority encoder
+- Hmm... now I'm looking at the schematics for the MVME110 cpu card, and it looks like it might be using autovec, but it also has a
+  lot more logic on the board, which might be part of how it's to spec.  The status/id byte would, I assume, still need to be sent
+  by the interrupter, but might not actually have to be read by the CPU
+
+
+2026-10-02:
+
+- I've had a weird bug/behaviour, where when I plugged bigboy into the backplane, along with the k30p, the k30p would crash or
+  freeze after a couple minutes of being power on from a long off, or pretty much immediately after a quick power cycle
+- I do have the broken buslogic on k30p at the moment, so VME bus cycles fail often, but there's no reason that should cause the
+  k30p to crash when it's just booting into the monitor.  It's not doing any VME cycles in the monitor without a command
+- I thought it was related to bigboy, understandably, since it only happens when it's plugged in
+- I tried removing everything the firmware of bigboy, not configuring things, double checked every pin was being configured
+  correctly, etc.  None of that changed the behaviour
+- I connected my new DSLogic analyzer up to the rear connector on the backplane, looking at AS, DTACK, IACK, etc
+- oh, the reason I had bigboy out was because I wanted to test VME interrupts to make sure I can do what I need
+- when the k30p was locking it, it was mostly trying to start a VME cycle.  Without bigboy it wouldn't.  With only bigboy it
+  wouldn't.  It was only with both that AS would go low.  The firmware on bigboy is only configuring AS as an input, so it's not
+  starting a request, and k30p won't respond to any bus cycles on the bus.  It has to request it.  It can only be k30p initiating
+- I went through the logic and the only way k30p could request a VME cycle, is if the AND gate for the top 8-bits of the address are
+  all one, and the AND gate outputs a value (it's actually a NAND gate, so would output 0 instead of 1)
+- I put a clip on the pin of the CPLD that the NAND gate input is wired to.  It's routed really weird through the board, between the
+  CPU and serial chip, going next to all the control signals, etc.  Which is a bit weird...
+- initially I had the clip on and it was shorting to the A23 pin next to it, and it was going really crazy, I *think* I might have
+  had bigboy out, but not sure.  I was sure it was shorting though
+- Once I got it clipped on without shorting, it just seems to work!  I haven't seen it lock up again, even with bigboy on the bus.
+  That's not entirely surprising that putting more load on that pin from the analyzer input is cleaning it up, but the fact that I
+  can't seem to get it to start a VME cycle errantly means it was likely crosstalk on that wire that was causing this weird
+  behaviour
+- I'm pretty sure this is similar to the problem I've seen before when I was debugging things in the winter of 2026.  I think this
+  happened when the 60mm bus extended was installed on the k30p
+- for rev2, I've taken out that NAND gate and the weird route, and routed the address pins along the RAM and down, which hopefully
+  will fix the problem, but maybe it will still be there?  Maybe there's more to it than just some crosstalk?
+
+- reading the Mega-Micros discord and Tom Storey mentioned resetting a board of his through USB, which got me thinking I might be
+  able to do a similar thing with the FTDI chips I'm using.  They have two unused CBUS pins, which technically can be programmed
+  through USB (not sure how) to act as GPIO instead of their defaults (TXEN and SLEEP are the defaults), which I could maybe use to
+  pull reset low for the CPU
+
+
+2026-10-03:
+
+- I managed to use FT_Prog from the company that makes the FTDI, inside VirtualBox/Win7, and with that I could program one of the
+  pins as a GPIO, and then control it from linux using a python script and the PyFTDI package, so this will definitely work
+- I chose to use CBUS3 which I think is high on an unreprogrammed chip.  Once it's programmed to a GPIO, it will default to about
+  2.5V, apparently because it will default to being an input with a weak pull-up.  The python script will then program it as a GPIO
+  output and set it low, then high.  So I'll need to use two gates like the VME bus reset, but I have lots of spares at the moment.
+- I've put a solder jumper in place too, which either is the CBUS3 pin on UART1, or 5V, so I can disable it in a way that doesn't
+  leave the inverter input floating
+

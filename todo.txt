@@ -1,43 +1,8 @@
 
-* update the cover picture on jabberwocky.ca
-* update the pictures of k30p with ones after the FTDI rework
-
-
-* add damping resistors to the clock lines
-
-* add support for interrupts on the VME bus, which will require those extra address pins you connected
-* add the unmapped address thing which should cause a bus error on unmapped
-* make a simple peripheral with bigboy, possibly even a dummy ATA device to help with driver writing
-
-* commit changes to CF Card and put it on github
 * design a frontpanel for the CF Card, or else you could try cutting one, but I don't expect it to be easy or pretty if I do (do I
   need to build my own CNC machine?)
-
-
-* make an extension board for membird that extend it to 160mm without needing the connectors that the riser board has
-  It could have a power switch so the board under test can be cycled without cycling the system, and add headers near the front so
-  you can connect a logic analyzer without needing to open the back of the case
-* make an extension board that goes on the other end of the board, unlike the one with the two connectors, which cost more.  Just
-  make one that somehow bolts to the existing 100mm card's frontpanel holes, and then has its own frontpanel bracket holes for the
-  actual bracket and frontpanel
-
-* test one of the real VME cards to see if it has the BERR blip too when AS is asserted too fast (I think it does)
-* can you somehow fix the glitch on membird woodcock with berr being asserted.  Is the actual fix to delay the assertion of AS on
-  the CPU card, since it's supposed to be 35ns delay, which would be more than enough to avoid this race condition
-
-* add support for the A40 cycle to CPU card
+* make a simple peripheral with bigboy, possibly even a dummy ATA device to help with driver writing
 * turn bigboy into an ethernet card
-
-* figure out how you want to fix the upper addressing issue with the CPLD
-
-
-
-* write a post about something
-
-* design sdram card with ice40 fpga, printed in yellow?  called MemBird - Raven?  Something else if it's not black solder mask?
-* design a board that uses a raspi compute module?  so basically the VME interface?
-* make a breakout board, which you can design now and use with the components on order, to connect a logic analyzer
-
 
 * if you put a right angle toggle switch for power on the front of the board (I guess bottom frontpanel would be easiest), then you
   could power off the board when it's in the slot, and pull it out without powering off the whole backplane.  It's probably only
@@ -45,6 +10,39 @@
 * could add a microcontroller that monitors power and halt and resets the CPU after a period if it's locked up, and possibly other
   functions.  It might not be easy to make it accessible to the CPU on the controller card, but it could possibly be hooked up to
   the serial bus and communicate with other peripherals
+
+
+k30p-VME:
+
+    * is it possible to use one of the CBUS pins of the FTDI as a GPIO to control the reset of the CPU??  I don't think the /SLEEP or
+      /TXEN signals that are default for CBUS0 and CBUS3 would work for what I want, but I can reprogram them through USB to write to
+      the MTP registers, and then hook that up to a spare 7405 open drain inverter to pull reset low
+    * fix the resistor network silkscreen to show RN2 as 1k instead of 10k.  Should you rearrange them to RN1 or RN4 is the 1k?
+    * should you move AVEC to the 1k network, and move STERM to 10k, since it's not used?  Is AVEC being 10k going to cause problems or
+      are the problems I have with DSACK only a problem because of the serial port being connected to it, and the loading it causes?
+    * need to fix silkscreen issues from errata
+    * add support for interrupts on the VME bus, which will require those extra address pins you connected
+    * fix the addressing issue with the CPLD
+    * what else is needed to enable the A40 cycle?  Try writing the logic needed
+    * add support for the A40 cycle to CPU card
+
+    * can you modify the clock to not go through the CPLD?  Is the clock coming out of the CLPD always going to be worse/distored?
+      I don't think I can generate the CPU clock without adding a flip flip or counter
+    * should you add the PCF8584 to connect I2C to the VME bus SERCLK/SERDAT?
+
+
+Other Board Ideas:
+
+    * make an extension board for membird that extend it to 160mm without needing the connectors that the riser board has
+      It could have a power switch so the board under test can be cycled without cycling the system, and add headers near the front so
+      you can connect a logic analyzer without needing to open the back of the case
+    * make an extension board that goes on the other end of the board, unlike the one with the two connectors, which cost more.  Just
+      make one that somehow bolts to the existing 100mm card's frontpanel holes, and then has its own frontpanel bracket holes for the
+      actual bracket and frontpanel
+
+    * design sdram card with ice40 fpga, printed in yellow?  called MemBird - Raven?  Something else if it's not black solder mask?
+    * design a board that uses a raspi compute module?  so basically the VME interface?
+    * make a breakout board, which you can design now and use with the components on order, to connect a logic analyzer
 
 
 BigBoy:
@@ -57,7 +55,20 @@ BigBoy:
     * add detection for the extra bus pins on the 4th row.  If there's no power or something present, then assume it's not connected and
       the onboard logic can only do multiplexed operations
 
+
 68k DIP Board:
 
     * for a future 68k cpu card, use a gpio from the serial controller to swap ram and flash, so it can be used for ProcessorTests validation
+
+
+Miscellaneous:
+
+    * update the cover picture on jabberwocky.ca
+    * update the pictures of k30p with ones after the FTDI rework
+    * write a post about something
+
+    * test one of the real VME cards to see if it has the BERR blip too when AS is asserted too fast (I think it does)
+    * can you somehow fix the glitch on membird woodcock with berr being asserted.  Is the actual fix to delay the assertion of AS on
+      the CPU card, since it's supposed to be 35ns delay, which would be more than enough to avoid this race condition
+
 
