@@ -40,26 +40,26 @@ module vme_data_transfer_tb();
     wire md32_cross_oe;
     wire md32_cross_dir;
 
-    wire request_vme;
-    assign request_vme = request_vme_a16 & request_vme_a24 & request_vme_a40;
-
     reg request_vme_a16;
     reg request_vme_a24;
     reg request_vme_a40;
+
+    wire request_vme;
+    assign request_vme = request_vme_a16 & request_vme_a24 & request_vme_a40;
 
     vme_data_transfer DTS(
         .clock(clock),
 
         //.state(state),
 
-        .request_vme(request_vme),
+        .request_vme_sync(request_vme),
         .request_vme_a16(request_vme_a16),
         .request_vme_a24(request_vme_a24),
         .request_vme_a40(request_vme_a40),
-        .bus_acquired(bus_acquired),
+        .bus_acquired_sync(bus_acquired),
 
-        .cpu_as(cpu_as),
-        .cpu_ds(cpu_ds),
+        .cpu_as_sync(cpu_as),
+        .cpu_ds_sync(cpu_ds),
         .cpu_write(cpu_write),
         .cpu_siz(cpu_siz),
         .cpu_address(cpu_address),
@@ -71,8 +71,8 @@ module vme_data_transfer_tb();
         .vme_lword(vme_lword),
         .vme_write(vme_write),
         .vme_address_mod(vme_address_mod),
-        .vme_dtack(vme_dtack),
-        .vme_berr(vme_berr),
+        .vme_dtack_sync(vme_dtack),
+        .vme_berr_sync(vme_berr),
 
         .addr_low_oe(addr_low_oe),
         .a40_cross_oe(a40_cross_oe),
@@ -91,8 +91,11 @@ module vme_data_transfer_tb();
         $dumpvars(0, DTS);
     end
 
+    // 20 ns clock
     always
-        #1 clock = !clock;
+        #10 clock = !clock;
+
+    reg [7:0] loop = 8'd00;
 
     initial begin
         #0
@@ -105,6 +108,7 @@ module vme_data_transfer_tb();
             request_vme_a40 = INACTIVE;
             bus_acquired = INACTIVE;
 
+        while (loop != 8'd16) begin
 /*
         #10
             // 32-Bit A40/MD32 Cycle
@@ -132,7 +136,7 @@ module vme_data_transfer_tb();
         #1
             vme_dtack = INACTIVE;
 */
-        #10
+        #40
             // 16-Bit Cycle
             cpu_siz = 2'b10;
             cpu_as = ACTIVE;
@@ -142,7 +146,7 @@ module vme_data_transfer_tb();
         //#1
             cpu_ds = ACTIVE;
 
-        #4
+        #60
             vme_dtack = ACTIVE;
             while (cpu_dsack == 2'b11) begin
                 #1;
@@ -155,7 +159,7 @@ module vme_data_transfer_tb();
             vme_dtack = INACTIVE;
 
 
-        #10
+        #40
             // 8-Bit Even Cycle
             cpu_address = 2'b00;
             cpu_siz = 2'b01;
@@ -166,7 +170,7 @@ module vme_data_transfer_tb();
         //#1
             cpu_ds = ACTIVE;
 
-        #4
+        #20
             vme_dtack = ACTIVE;
             while (cpu_dsack == 2'b11) begin
                 #1;
@@ -179,7 +183,7 @@ module vme_data_transfer_tb();
             vme_dtack = INACTIVE;
 
 
-        #10
+        #40
             // 8-Bit Odd Cycle
             cpu_address = 2'b01;
             cpu_siz = 2'b01;
@@ -190,7 +194,7 @@ module vme_data_transfer_tb();
         //#1
             cpu_ds = ACTIVE;
 
-        #4
+        #20
             vme_dtack = ACTIVE;
             while (cpu_dsack == 2'b11) begin
                 #1;
@@ -202,7 +206,14 @@ module vme_data_transfer_tb();
         #1
             vme_dtack = INACTIVE;
 
+        #10
+            loop = loop + 8'd01;
+        end
 
         #50 $finish;
     end
+
+    always
+        #10000 $finish;
+
 endmodule

@@ -1679,7 +1679,7 @@ From todo.txt
   actually been doing something "wrong" with the previous board, in that input 0 to the priority encoder was tied low, but it should
   actually be tied high since it's not active.  The internal circuit of the encoder is such that I0 doesn't really do anything
   except change the GS and EO outputs which aren't currently being used, but I'll want to use them if I do this change.  The A0-A2
-  signals will output a 0 regardless of the value of I0
+  signals will output all high regardless of the value of I0
 - the reason it's currently going through the CPLD is because of the serial interrupt.  I would probably still want to derive the
   CPU IACK signal and just output it from the CPLD, since it needs to compare the function code and such
 - if the serial irq is not active, then the encoder's enable signal can be active, and the VME IPL will output to the CPU IPL,
@@ -1800,3 +1800,104 @@ From todo.txt
 - I've put a solder jumper in place too, which either is the CBUS3 pin on UART1, or 5V, so I can disable it in a way that doesn't
   leave the inverter input floating
 
+
+2026-10-04:
+
+- when I had added the vme_iack as a conditional for the dsack logic, it wouldn't run anything on k30p, and I was scratching my head
+  about why that was, but then noticed the comment that the logic is backwards for vme_iack because it's going into an open
+  drain inverter.  Once I flipped that around in the dsack logic, it's now running the monitor code again
+- I had also changed the cpu_as signal to the synchronized one in the interrupt logic, thinking that was related, and now it seems
+  the kernel won't boot with that change, even without the the vme_iack change, so I'll have to change it back.  It's causing a
+  fatal error after boot, after the mem0 log line.  The actual error happens inside the ata read sector function, so it might be
+  VMEbus related, but it might also have been related to the serial interrupt.  Either way, it somehow got to a bad instruction
+  boundary, and tried to execute the operands of an instruction that started with 0xff, causing a vector 11 F-line exception
+- hmm... so changing that so the interrupt logic uses cpu_as, and adding the vme_iack conditional back in, and with bigboy
+  disconnected, it was booting the kernel fine, but now that I have bigboy back in, it won't boot.  It's hanging at the same point,
+  where it's trying to initialize the ata drive (CFCard on the bus).
+- Bigboy isn't requesting an interrupt or anything.  It should just be sitting there.  I also have a clip and analyzer lead
+  connected to the upper address line (the output of the 8 input NAND)
+- on the analyzer, it looks like the card requests BR0, and gets BG0OUT...
+- Oh!  It's probably not propogating the bus grant.  It looks like the BG0IN pin on the card is high, meaning it hasn't passed the
+  low BG0OUT value past bigboy.  Bigboy is in a lower slot instead of a higher slot.  I guess this is a problem in general, and it's
+  solvable with bigboy firmware, or just moving the cards
+- I added the logic into bigboy, and it initially failed when trying to run the kernel without reloading it.  It would get past the
+  ATA and subsystem complete log messages, but then encounter a fatal error.  After reloading the kernel over serial though, it
+  seems to be booting
+
+- ok, so triggering the interrupt seemed to cause bigboy to attempt multiple interrupts, and k30p just stopped responding, and was
+  locked up until I reset bigboy, so something's up with that... I'll try to prevent the cycling on bigboy
+- oh I also forgot to clear the IRQ3 signal on bigboy, so it was constantly trying to interrupt the k30p, which is why it hung.
+  I'll try again
+- hmm... this is a touch weird... it didn't do anything.  The k30p is still running just fine, but it's also constantly requesting
+  the bus and then releasing it, which is mighty weird, and the NAND output has a bunch of lows.  It goes low when the first bus
+  request/grant comes in, and then goes low a bunch of random times after, before not changing for around 10ms before the cycle
+  repeats.  I wonder if this is related to why I'm getting problems with that signal.  Either when running the OS, it does weird
+  things with the address lines because of the MMU code, or this is crosstalk, or... something...
+- the AS line on the vme bus isn't going low, so it's definitely not an intentional VME cycle
+- either way, it seems to do the IACK cycle correctly in the middle of these other glitches, but the OS doesn't respond, so
+  either... the OS is responding and not showing anything, or the CPU is not correctly receiving the vector number, or something?
+- I tried adding an extra log line to the irq handling code to print if an interrupt occurred, and it's not printing anything, and
+  not halting, so it seems like the CPU isn't handling the interrupt, likely due to a mistake in how it's handled
+
+- Oh!  Are the periodic bus grabs when the OS is running caused by the serial controller's irq?  I think in that case, the address
+  bus will be all ones coming from the CPU?  Yup, only for an interrupt ack, and not a breakpoint or the other one.  So it is
+  actually doing a request, and that will generate the dsack?
+- that counterintuitive and sneaky, but I guess that means I don't need to change the dtack logic to make this work?
+
+- wait, what address modifier is used for interrupt acknowledge?
+- it kind of looks like there isn't one, and it's just the presence of iack that should make cards not look at the address modifier?
+- if it wasn't driven, it should be 0x3F, which as the A24 block transfer.  There's no dedicated one for special bus operations
+
+
+2026-10-05:
+
+- this change to the logic shouldn't be active, but for some reason it changes the behaviour.  This is so weird
+- Hmm... it seems to work in 0.33!  it's not working in 0.44, but without that one line, it seems to work.  What's going on
+- the trace that works actually has two bus accesses, as if it's a bug, but somehow that makes it work, where as the trace that
+  doesn't work has a single AS low period
+- hmm... compiling with yosys 0.33, and having that case where FC = 0b111 in the vmebus code will check vme_iack before either doing
+  a cycle or terminating early...  that version will pass the 'v' single vme cycle test, but won't boot the OS
+
+
+2026-10-06:
+
+- still so weird.  It won't boot the OS with that FC=0b111 case, or when vme_iack==1'b0 is required to start a vme cycle, with or
+  without changes to the dsack logic to account for no interrupt termination.  It's failing on the ATA reading though, so before it
+  gets to needing a serial irq response
+- on the analyzer, I'm not seeing FC ever equal 0b111.  It only is either 5 or 6 (supervisor program or data)
+- I had this backwards actually, the working version has some weird timing, reading 48 cycles, and then reading other things at
+  different timings.  The broken version is reading 7 milliseconds of vme cycles with 8 microseconds between them, and then running
+  a bunch of code, and then stopping
+- when it fails, it's getting to a point where it says halting due to failure to initialize, so it makes sense that the trace showes
+  it stop asserting AS on the CPU and just keep it high
+
+- I tried reducing the clock speed of the cpu relative to the logic, thinking that might be related to the problems, but with the
+  extra FC=111 case, that didn't change anything.  It still won't boot with that logic in there
+
+- hmm... so for a trace where it's failing, the VME cycle has CPU_AS down for 480ns, and VME_AS is 260ns, VME_DS1=240ns, and
+  DTACK=220ns.  On a working trace, that's CPU_AS=880ns, VME_AS=600ns, VME_DS1=580ns, and DTACK=260ns, with DTACK coming in much
+  much later, so the problem is that it's terminating early, despite the logic not making sense
+- the failing version has 2 good cycles where DTACK comes on later, and then the rest of the cycles it comes on almost immediately
+
+
+2026-10-07:
+
+- again, more weird behaviour.  I've changed it only to set the status led if it took the default case in the case statement that
+  starts the vme cycle, and the led doesn't light, but it also doesn't boot, despite being nearly identical.  It talks to the CF
+  Card fine, and loads the partitions and such, but then fails creating the init task when it should be reading the drive again to
+  load the /bin/init process, it has a fatal bus error where the fault addr is 0x0F0F_0004 one time, and 0x4C4C_0004 another time,
+  when it should be 0xFF80_0004.  I don't know how it could be garbling that?  Well it must be loading it wrong eh?  The only way it
+  should be like that if it loaded the instruction to execute incorrectly, right?
+- it seems like a lot of the times I've tested it before, it will not read the ATA device correctly, but this current problem is
+  different, and possibly it's occurred a couple times before where I didn't differentiate it from the other problem.  In this
+  problem, looking at the analyzer trace, it is actually doing an interrupt I think because FC=7
+- it's definitely doing the wrong thing, as it will start a VME cycle 8 times and abort it quickly each time before it actually gets
+  DSACK from the serial port controller I think.  It does also have a VME cycle just after that which doesn't have a DTACK
+  termination.  Not sure why that one failed
+
+- I only have two 75HC05 gates left for the interrupt change I was planning to make, but I might be able to make it work.  If the
+  enable signal going into the priority encoder is only active if there is *not* a serial interrupt, then the encoder will output
+  all high.  If IPL1 pulled low is a serial interrupt, I can connect the serial interrupt wire to it, with the priority encoder
+  input for IPL1 going through a 74HC05 gate so that it won't conflict with the serial controller's output.  When a serial interrupt
+  is active, it will force the other two lines high.
+- I don't love it.  It's hacky, and means it's harder to change the interrupt number, but it gives me more I/Os on the CPLD

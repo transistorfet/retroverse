@@ -6,16 +6,16 @@ module buslogic(
     input clock,
     input reset,
     output reg cpu_clock,
-    output reg status_led,
+    output status_led,
 
     output request_ram,
     output request_rom,
     output [3:0] ram_ds,
     output request_serial,
 
-    output reg vme_bus_request,
+    output vme_bus_request,
     input vme_bus_grant_in,
-    output reg vme_bus_grant_out,
+    output vme_bus_grant_out,
 
     input cpu_as,
     input cpu_ds,
@@ -28,7 +28,8 @@ module buslogic(
     input [2:0] cpu_fc,
     inout [1:0] cpu_dsack,
     inout cpu_berr,
-    output reg [2:0] cpu_ipl,
+    //inout cpu_avec,
+    output [2:0] cpu_ipl,
 
     inout vme_as,
     inout [1:0] vme_ds,
@@ -38,7 +39,7 @@ module buslogic(
     input vme_dtack,
     input vme_berr,
     input [2:0] vme_ipl,
-    inout vme_iack,
+    output vme_iack,
 
     input serial_irq,
     output serial_iack,
@@ -47,34 +48,35 @@ module buslogic(
     //input serial_ip4,
     //input serial_ip5,
 
-    output reg addr_low_oe,
-    output reg a40_cross_oe,
-    output reg data_low_oe,
-    output reg data_low_dir,
-    output reg d16_cross_oe,
-    output reg d16_cross_dir,
-    output reg md32_cross_oe,
-    output reg md32_cross_dir
+    output addr_low_oe,
+    output a40_cross_oe,
+    output data_low_oe,
+    output data_low_dir,
+    output d16_cross_oe,
+    output d16_cross_dir,
+    output md32_cross_oe,
+    output md32_cross_dir
 );
     localparam ACTIVE = 1'b0;
     localparam INACTIVE = 1'b1;
 
-    reg bus_acquired;
-    reg request_vme_a16;
-    reg request_vme_a24;
-    reg request_vme_a40;
-    reg request_unmapped;
+    wire bus_acquired;
+    wire request_vme_a16;
+    wire request_vme_a24;
+    wire request_vme_a40;
+    wire request_unmapped;
 
     reg [1:0] cpu_dsack_out;
-    reg [1:0] vme_dsack_out;
+    wire [1:0] vme_dsack_out;
     reg cpu_berr_out;
-    reg vme_berr_out;
+    wire vme_berr_out;
+    //reg cpu_avec_out;
 
-    reg vme_as_out;
-    reg [1:0] vme_ds_out;
-    reg vme_lword_out;
-    reg vme_write_out;
-    reg [5:0] vme_address_mod_out;
+    wire vme_as_out;
+    wire [1:0] vme_ds_out;
+    wire vme_lword_out;
+    wire vme_write_out;
+    wire [5:0] vme_address_mod_out;
 
     wire inv_clock;
     assign inv_clock = !clock;
@@ -128,6 +130,8 @@ module buslogic(
 
     wire request_vme;
     assign request_vme = (request_vme_a16 == ACTIVE) || (request_vme_a24 == ACTIVE) || (request_vme_a40 == ACTIVE) ? ACTIVE : INACTIVE;
+    wire request_other;
+    assign request_other = (request_ram == ACTIVE) || (request_rom == ACTIVE) || (request_serial == ACTIVE) || (request_unmapped == ACTIVE) ? ACTIVE : INACTIVE;
 
     ram_select ram_select(
         .clock(inv_clock),
@@ -150,7 +154,7 @@ module buslogic(
 
         .vme_bus_request(vme_bus_request),
         .vme_bus_grant_in(vme_bus_grant_in),
-        .vme_bus_grant_out(vme_bus_grant_out),
+        .vme_bus_grant_out(vme_bus_grant_out)
     );
 
     assign vme_as = bus_acquired == ACTIVE ? vme_as_out : 1'bZ;
@@ -186,6 +190,7 @@ module buslogic(
         .vme_address_mod(vme_address_mod_out),
         .vme_dtack_sync(vme_dtack_fifo[0]),
         .vme_berr_sync(vme_berr_fifo[0]),
+        .vme_iack(vme_iack),
 
         .addr_low_oe(addr_low_oe),
         .a40_cross_oe(a40_cross_oe),
@@ -200,6 +205,7 @@ module buslogic(
     assign cpu_dsack[0] = cpu_dsack_out[0] == ACTIVE ? 1'b0 : 1'bZ;
     assign cpu_dsack[1] = cpu_dsack_out[1] == ACTIVE ? 1'b0 : 1'bZ;
     assign cpu_berr = ((cpu_berr_out == ACTIVE) || (vme_berr_out == ACTIVE)) ? 1'b0 : 1'bZ;
+    //assign cpu_avec = (cpu_avec_out == ACTIVE) ? 1'b0 : 1'bZ;
 
     /*
     assign cpu_dsack_out[0] = ( (cpu_as == ACTIVE) && (cpu_fc != 3'b111) && (
@@ -223,14 +229,35 @@ module buslogic(
     )) ? ACTIVE : INACTIVE;
     */
 
+    /*
+    reg[1:0] dsack_delay;
+    reg dsack_start;
+    always @(negedge inv_clock) begin
+        if (request_other == ACTIVE) begin
+            dsack_delay <= dsack_delay + 2'b1;
+        end else begin
+            dsack_delay <= 2'd0;
+        end
+
+        if (dsack_delay >= 2'd2) begin
+            dsack_start <= ACTIVE;
+        end else begin
+            dsack_start <= INACTIVE;
+        end
+    end
+    */
+
     always @(negedge inv_clock) begin
         if (cpu_fc == 3'b111) begin
+        //if (serial_iack == ACTIVE) begin
+            // serial controller iack, so the mc68681 will handle dsack
             cpu_dsack_out <= 2'b11;
             cpu_berr_out <= INACTIVE;
         end else if (request_vme == ACTIVE) begin
             cpu_dsack_out <= vme_dsack_out;
             cpu_berr_out <= INACTIVE;
         end else if (!(request_vme == ACTIVE || vme_as_out == ACTIVE || vme_dsack_out == ACTIVE)) begin
+        //end else if (dsack_start == ACTIVE && (request_vme != ACTIVE && vme_as_out != ACTIVE && vme_dsack_out != ACTIVE)) begin
             if (request_ram == ACTIVE) begin
                 cpu_dsack_out <= 2'b00;
                 cpu_berr_out <= INACTIVE;

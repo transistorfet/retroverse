@@ -64,6 +64,7 @@ module vme_data_transfer(
     output reg [5:0] vme_address_mod,
     input vme_dtack_sync,
     input vme_berr_sync,
+    input vme_iack,
 
     output reg addr_low_oe,
     output reg a40_cross_oe,

@@ -9,7 +9,7 @@ module interrupts(
     output vme_iack,
 
     input serial_irq,
-    output serial_iack,
+    output serial_iack
 );
 
     localparam ACTIVE = 1'b0;
